@@ -103,7 +103,7 @@ onLoad="initVolets();"
 		@if($ecriture->last)
 		<tr class="soldes">
 			<td colspan="4" style="text-align:right">
-				Situation à fin {{strtolower(DatesFr::MoisAnneeInsec($ecriture->date_valeur))}}
+				Situation à fin {{mb_strtolower(DatesFr::MoisAnneeInsec($ecriture->date_valeur))}}
 			</td>
 			@foreach($banques as $banque)
 			<?php $id = 'solde_'.$banque->id; ?>
