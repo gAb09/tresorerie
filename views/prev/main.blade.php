@@ -63,6 +63,9 @@ onLoad="initVolets();"
 	</caption>
 
 	<thead class="replie" id="tetiere{{$ecriture->mois_classement}}">
+		<th style="width:10px">
+			Statut
+		</th>
 		<th>
 			Date de valeur
 		</th>
