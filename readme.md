@@ -23,7 +23,7 @@ Simple application permettant de gérer une compta personnelle ou de petite asso
 
 • pointées (par rapport aux relevés bancaires).
 
-Ces stauts ne sont accessibles qu'à l'administrateur
+Ces statuts ne sont accessibles qu'à l'administrateur
 
 VUES :
 
