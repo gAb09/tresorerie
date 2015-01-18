@@ -171,20 +171,6 @@ class PrevRepository {
 			}
 		});
 
-		/* modifier les classe CSS pour passer de 4 styles d’affichage à 2 pour + de lisibilité */
-		$ecritures->each(function($ecriture){
-
-			/* "Pointées www", "pointée relevé" et "émise" prennent la même valeur "pointée relevé" */
-			if ($ecriture->statut->classe == 'st_www' or $ecriture->statut->classe == 'st_emise') {
-				$ecriture->statut->classe = 'st_releve';
-			}
-
-			/* Le style "previsionnel" est modifié (en fait on utilise un 2e style) */
-			if ($ecriture->statut->classe == 'st_prev') {
-				$ecriture->statut->classe = 'st_prev2';
-			}
-
-		});
 
 	return $ecritures;
 

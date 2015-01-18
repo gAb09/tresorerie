@@ -4,7 +4,9 @@ class="surlignage {{$ecriture->statut->classe}}"
 ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [$ecriture->id]) }}">
 
 	<!-- Statut -->
-	<td>
+	<td 
+	id="statut_td_{{ $ecriture->id }}"
+	class="{{$ecriture->statut->classe}}">
 	
 		@if (strpos($statuts_accessibles, (string)$ecriture->statut->rang) !== false)
 		{{ Form::open(array('name' => 'pointage', 'action' => ['PointageController@incrementeStatut', $ecriture->id, $statuts_accessibles], 'method' => 'post', 'class' => 'pointage')) }}
