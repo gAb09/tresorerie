@@ -1,8 +1,8 @@
 <?php
-use lib\tresorerie\traits\ModelTrait;
+use Lib\traits\ModelTrait;
 
 class Statut extends Eloquent {
-	use ModelTrait;
+  use ModelTrait;
 
 	protected static $unguarded = true; // AFA
 

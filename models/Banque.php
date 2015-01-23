@@ -1,9 +1,9 @@
 <?php
-use lib\tresorerie\traits\ModelTrait;
+use Lib\traits\ModelTrait;
 
 class Banque extends Eloquent {
+  use ModelTrait;
 	/* Accès au listes pour input select */
-	use ModelTrait;
 
 	protected $guarded = array('id'); // AFA
 	protected $softDelete = true; // AFA

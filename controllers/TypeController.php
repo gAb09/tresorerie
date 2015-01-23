@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Lib\Validations\TypeValidation;
+use tresorerie\Validations\TypeValidation;
 
 class TypeController extends BaseController {
 

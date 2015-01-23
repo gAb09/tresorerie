@@ -1,8 +1,8 @@
 <?php
-use lib\tresorerie\traits\ModelTrait;
+use Lib\traits\ModelTrait;
 
 class Ecriture extends Eloquent {
-	use ModelTrait;
+  use ModelTrait;
 
 	protected $guarded = array('id');
 	protected $softDelete = true;

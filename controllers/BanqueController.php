@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Lib\Validations\BanqueValidation;
+use tresorerie\Validations\BanqueValidation;
 
 
 class BanqueController extends BaseController {

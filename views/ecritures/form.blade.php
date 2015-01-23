@@ -170,7 +170,7 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 </fieldset>
 
 @section('script')
-<script src="/assets/js/ecritures.js">
+<script src="/assets/tresorerie/js/ecritures.js">
 </script>
 
 <script type="text/javascript">

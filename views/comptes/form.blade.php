@@ -76,6 +76,6 @@ onLoad="togle_actif();getFreres();"
 	</div>
 
 	@section('script')
-		<script src="/assets/js/comptes.js">
+		<script src="/assets/tresorerie/js/comptes.js">
 	</script>
 	@stop

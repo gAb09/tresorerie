@@ -1,6 +1,8 @@
-<?php namespace Lib\Validations;
+<?php namespace tresorerie\Validations;
 use Illuminate\Validation\Validator;
 use Illuminate\Validation\Factory;
+use Lib\Validations\ValidationBase;
+
 
 class CompteValidation extends ValidationBase
 {

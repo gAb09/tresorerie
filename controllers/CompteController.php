@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Lib\Validations\CompteValidation;
+use tresorerie\Validations\CompteValidation;
 use Baum\Node;
 
 class CompteController extends BaseController {

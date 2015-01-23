@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Lib\Validations\EcritureValidation;
-use Lib\Validations\EcritureDoubleValidation;
+use tresorerie\Validations\EcritureValidation;
+use tresorerie\Validations\EcritureDoubleValidation;
 
 class EcritureController extends BaseController {
 

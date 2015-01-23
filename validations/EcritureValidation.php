@@ -1,4 +1,6 @@
-<?php namespace Lib\Validations;
+<?php namespace tresorerie\Validations;
+
+use Lib\Validations\ValidationBase;
 
 class EcritureValidation extends ValidationBase
 {

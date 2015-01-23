@@ -1,6 +1,6 @@
 <?php
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Lib\Validations\StatutValidation;
+use tresorerie\Validations\StatutValidation;
 
 class StatutController extends BaseController {
 

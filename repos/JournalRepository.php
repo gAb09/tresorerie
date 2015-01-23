@@ -1,5 +1,5 @@
 <?php
-use lib\tresorerie\traits\RepositoryTrait;
+use Lib\traits\RepositoryTrait;
 
 class JournalRepository {
 	use RepositoryTrait;

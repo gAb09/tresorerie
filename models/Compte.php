@@ -1,10 +1,10 @@
 <?php
 use Baum\Node;
-use lib\tresorerie\traits\ModelTrait;
+use Lib\traits\ModelTrait;
 
 class Compte extends Node {
+  use ModelTrait;
 	/* Accès au listes pour input select */
-	use ModelTrait;
 
 	protected $guarded = array('id');
 

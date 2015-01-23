@@ -1,8 +1,8 @@
 <?php
-use lib\tresorerie\traits\ModelTrait;
+use Lib\traits\ModelTrait;
 
 class Type extends Eloquent {
-	use ModelTrait;
+  use ModelTrait;
 
 	protected $guarded = array('id'); // AFA
 	protected $softDelete = true; // AFA
