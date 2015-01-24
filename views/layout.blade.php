@@ -98,7 +98,7 @@
 			</div>
 
 			<p class="zapette_infos">
-				 • • • <span>Version 1 - Layout de tresorerie</span> • • •
+				 • • • <span>Version 1 - Layout du module tresorerie</span> • • •
 			</p>
 
 			@if(App::environment() != 'o2switch')
