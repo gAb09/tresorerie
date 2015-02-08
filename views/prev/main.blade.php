@@ -105,7 +105,7 @@ onLoad="initVolets();"
 
 		@if($ecriture->last)
 		<tr class="soldes">
-			<td colspan="4" style="text-align:right">
+			<td colspan="5" style="text-align:right">
 				Situation à fin {{mb_strtolower(DatesFr::MoisAnneeInsec($ecriture->date_valeur))}}
 			</td>
 			@foreach($banques as $banque)
