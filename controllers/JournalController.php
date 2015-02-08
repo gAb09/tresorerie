@@ -6,9 +6,9 @@ class JournalController extends BaseController {
 	private $statuts_accessibles = '1-2';
 
 	public function __construct(){
-		$this->journalRepo = new JournalRepository;
-		$this->banqueRepo = new BanqueRepository;
-		$this->statutRepo = new StatutRepository;
+		$this->journalDom = new JournalDomaine;
+		$this->banqueDom = new BanqueDomaine;
+		$this->statutDom = new StatutDomaine;
 	}
 
 	public function index($id = null) //
@@ -26,14 +26,14 @@ class JournalController extends BaseController {
 		Session::put('page_depart', Request::getUri());
 
 		// Récupérer la collection d'écriture pour la banque demandée
-		$ecritures = $this->journalRepo->collectionJournal($id, 'date_emission');
+		$ecritures = $this->journalDom->collectionJournal($id, 'date_emission');
 
 
 		/* S'il n'y a pas d'écriture pour la banque demandée : 
 		rediriger sur la page pointage par défaut avec un message d'erreur */
 		if (!$ecritures){
 			$message = 'Il n’y a aucune écriture pour la banque “';
-			$message .= $this->banqueRepo->nomBanque($id);
+			$message .= $this->banqueDom->nomBanque($id);
 			$message .= '”';
 			return Redirect::back()->withErrors($message);
 		}
@@ -44,7 +44,7 @@ class JournalController extends BaseController {
 		Session::put('Courant.banque_id', $ecritures[0]->banque->id);
 
 		// Assigner le tableau de correspondance pour gestion js de l'affichage de l'incrémentation des statuts. 
-		$classe_statut = $this->statutRepo->setClasseStatut();
+		$classe_statut = $this->statutDom->setClasseStatut();
 
 		/* Afficher la vue pointage pour la banque demandée. */ 
 		return View::make('tresorerie.views.journal.main')

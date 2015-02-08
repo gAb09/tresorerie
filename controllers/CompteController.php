@@ -7,14 +7,11 @@ class CompteController extends BaseController {
 
 	protected $validateur;
 
-	private function listerParentable()
-	{
-		return Compte::listForInputSelect('libelle', 'Parentable');
-	}
 
 	public function __construct(CompteValidation $validateur)
 	{
 		$this->validateur = $validateur;
+		$this->compteDom = new CompteDomaine;
 	}
 
 
@@ -57,13 +54,13 @@ class CompteController extends BaseController {
 
 		public function create()
 		{
-			$compte = new Compte(Compte::fillFormForCreate());
-			// $compte->fillFormForCreate();
+			$compte = $this->compteDom->create();
+			// dd($compte);
 
 			return View::Make('tresorerie.views.comptes.create')
 			->with('compte', $compte)
 			->with('position_class', 'invisible')
-			->with('parents', self::listerParentable())
+			->with('parents', $this->compteDom->getListParentables())
 			->with('titre_page', 'Création d’un nouveau compte')
 			;
 		}
@@ -110,7 +107,7 @@ class CompteController extends BaseController {
 			return View::Make('tresorerie.views.comptes.edit')
 			->with('compte', $compte)
 			->with('position_class', 'invisible')
-			->with('parents', self::listerParentable())
+			->with('parents', $this->compteDom->getListParentables())
 			;
 		}
 

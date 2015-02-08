@@ -85,15 +85,22 @@ onLoad="initVolets();"
 			<td class='recette'>
 				{{NombresFr::francais_insec($ecriture->cumul_rec_mois)}}
 			</td>
-			<td colspan="4">
-				Solde du mois : 
+			<td colspan="2">
+				Bilan du mois : 
 				@if($ecriture->solde < 0)
 				<span class="depense">{{NombresFr::francais_insec($ecriture->solde)}}</span>
 				@else
 				<span class="recette">{{NombresFr::francais_insec($ecriture->solde)}}</span>
 				@endif
 			</td>
-		</tr>
+			<td colspan="2">
+				Solde à fin {{$ecriture->mois_classement}} : 
+				@if($ecriture->solde < 0)
+				<span class="depense">{{NombresFr::francais_insec($ecriture->cumul_absolu)}}</span>
+				@else
+				<span class="recette">{{NombresFr::francais_insec($ecriture->cumul_absolu)}}</span>
+				@endif
+			</td>		</tr>
 		@endif
 
 		@endforeach

@@ -1,19 +1,12 @@
 <?php
 use Baum\Node;
-use Lib\traits\ModelTrait;
 
 class Compte extends Node {
-  use ModelTrait;
+
 	/* Accès au listes pour input select */
 
 	protected $guarded = array('id');
 
-	protected static $default_values_for_create = array(
-		'numero' => CREATE_FORM_DEFAUT_TXT_COMPTE_NUMERO,
-		'libelle' => CREATE_FORM_DEFAUT_TXT_LIBELLE,
-		'description_officiel' => '',
-		'actif' => 0,
-		);
 
 	/* —————————  RELATIONS  —————————————————*/
 

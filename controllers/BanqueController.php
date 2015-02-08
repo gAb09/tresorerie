@@ -11,6 +11,8 @@ class BanqueController extends BaseController {
 	public function __construct(BanqueValidation $validateur)
 	{
 		$this->validateur = $validateur;
+		$this->banqueDom = new BanqueDomaine;
+
 		// dd($this->validateur);  // CTRL
 	}
 
@@ -30,8 +32,7 @@ class BanqueController extends BaseController {
 
 	public function create()
 	{
-		$banque = new Banque(Banque::fillFormForCreate());
-		$banque->fillFormForCreate();
+		$banque = $this->banqueDom->create();
 
 		return View::Make('tresorerie.views.banques.create')
 		->with(compact('banque'))

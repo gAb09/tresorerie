@@ -1,7 +1,18 @@
 <?php
 
-class StatutRepository {
-	
+class StatutDomaine {
+
+	protected $default_values_for_create = [
+	'nom' => 'rehja,ea',
+	'classe' => 'Saisir un libellé',
+	'description' => 'Éventuellement le compléter',
+	];
+
+
+	public function create(){
+		return new Statut($this->default_values_for_create);
+	}
+
 	public function setClasseStatut(){
 		$statuts = Statut::all(['id', 'classe']);
 		foreach ($statuts as $statut) {

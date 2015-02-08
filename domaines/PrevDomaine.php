@@ -1,8 +1,8 @@
 <?php
-use Lib\traits\RepositoryTrait;
+use \Tresorerie\Domaines\TraitDomaine as TraitDomaine;
 
-class PrevRepository {
-	use RepositoryTrait;
+class PrevDomaine {
+	use TraitDomaine;
 
 	private $skip = array();
 

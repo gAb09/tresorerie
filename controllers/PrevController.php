@@ -9,9 +9,9 @@ class PrevController extends BaseController {
 	private $statuts_accessibles = '1-2';
 
 	public function __construct(){
-		$this->prevRepo = new PrevRepository;
-		$this->banqueRepo = new BanqueRepository;
-		$this->statutRepo = new StatutRepository;
+		$this->prevDom = new PrevDomaine;
+		$this->banqueDom = new BanqueDomaine;
+		$this->statutDom = new StatutDomaine;
 	}
 
 	public function index($annee = null)
@@ -23,10 +23,10 @@ class PrevController extends BaseController {
 		il faut passer (via la session) à EcritureController@update pour la redirection */
 		Session::put('page_depart', Request::getUri());
 
-		$banques = $this->banqueRepo->isPrevisionnel();
+		$banques = $this->banqueDom->isPrevisionnel();
 
 		// Récupérer la collection d'écriture
-		$ecritures = $this->prevRepo->collectionPrev($banques, $annee);
+		$ecritures = $this->prevDom->collectionPrev($banques, $annee);
 
 		/* S'il n'y a pas d'écriture pour la banque demandée : 
 		rediriger sur la page pointage par défaut avec un message d'erreur */
@@ -44,7 +44,7 @@ class PrevController extends BaseController {
 
 
 		// On peut assigner le tableau de correspondance pour gestion js de l'affichage de l'incrémentation des statuts. 
-		$classe_statut = $this->statutRepo->setClasseStatut();
+		$classe_statut = $this->statutDom->setClasseStatut();
 
 		/* On calcule les reports de l'année précédente */
 

@@ -10,6 +10,7 @@ class StatutController extends BaseController {
 	public function __construct(StatutValidation $validateur)
 	{
 		$this->validateur = $validateur;
+		$this->statutDom = new StatutDomaine;
 	}
 
 
@@ -39,7 +40,7 @@ class StatutController extends BaseController {
 	{
 		return 'Action inhibée pour l’instant';  // CTRL
 
-		$statut = new Statut(Statut::fillFormForCreate());
+		$statut = $this->statutDom->create();
 
 		return View::Make('tresorerie.views.statuts.create')
 		->with('titre_page', 'Création d’un statut')

@@ -44,15 +44,22 @@
 
 			<!-- - - - - - - - - - - - - - SOUS MENU - - - - - - - - - - - - - - -->
 
-			<nav class="navbar menus span9">
-				@include('menus/views/menus')
+			<nav class="navleft">
+				<nav class="navmodes">
+					@include('tresorerie/views/modes')
+				</nav>
+
+				<ul class="nav navconfig">	
+					<li  class="dropdown">
+						@include('tresorerie/views/configuration')
+					</li>
+				</ul>
 			</nav>
 
 
 			<!-- - - - - - - - - - - - - - - - USER / DECONNEXION - - - - - - - - - - - - - - -->
 
 			<div class="span3 user_widget">
-				@include('shared/views/user_widget')
 			</div>
 
 		</header>
@@ -67,7 +74,7 @@
 			</div>
 
 			<div class="span6">
-				@yield('topcontent2')
+				@include('shared/views/user_widget')
 			</div> 
 		</div>
 
@@ -96,9 +103,10 @@
 			<div class="zapette_actions">
 				@yield('zapette')
 			</div>
+			@yield('topcontent2')
 
 			<p class="zapette_infos">
-				 • • • <span>Version 1 - Layout du module tresorerie</span> • • •
+				• • • <span>Version 1 - Layout du module tresorerie</span> • • •
 			</p>
 
 			@if(App::environment() != 'o2switch')

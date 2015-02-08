@@ -10,6 +10,7 @@ class TypeController extends BaseController {
 	public function __construct(TypeValidation $validateur)
 	{
 		$this->validateur = $validateur;
+		$this->typeDom = new TypeDomaine;
 	}
 
 
@@ -28,7 +29,7 @@ class TypeController extends BaseController {
 
 	public function create()
 	{
-		$type = new Type(Type::fillFormForCreate());
+		$type = $this->typeDom->create();
 
 		return View::Make('tresorerie.views.types.create')
 		->with('type', $type)

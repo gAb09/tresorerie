@@ -1,8 +1,6 @@
 <?php
-use Lib\traits\ModelTrait;
 
 class Statut extends Eloquent {
-  use ModelTrait;
 
 	protected static $unguarded = true; // AFA
 
@@ -13,11 +11,6 @@ class Statut extends Eloquent {
 		return $this->hasMany('Ecriture');
 	}
 
-	protected static $default_values_for_create = [
-		'nom' => 'rehja,ea',
-		'classe' => 'Saisir un libellé',
-		'description' => 'Éventuellement le compléter',
-		];
 
 	/* —————————  Validation : règles et messages  —————————————————*/
 

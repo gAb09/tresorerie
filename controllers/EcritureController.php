@@ -19,16 +19,20 @@ class EcritureController extends BaseController {
 	{
 		$this->validateur = $validateur;
 		$this->validateur2 = $validateur2;
+		$this->ecritureDom = new EcritureDomaine;
+		$this->banqueDom = new BanqueDomaine;
+		$this->compteDom = new CompteDomaine;
+		$this->typeDom = new TypeDomaine;
 	}
 
 	private $listes = array();
 
 	private function getListes()
 	{
-		$this->listes['banque'] = Banque::listForInputSelect('nom');
-		$this->listes['compte'] = Compte::listForInputSelect('libelle', 'Actif');
-		$this->listes['compte_activation'] = Compte::listForInputSelect('libelle', 'Activable', false);
-		$this->listes['type'] = Type::listForInputSelect('nom', 'ByRang');
+		$this->listes['banque'] = $this->banqueDom->getListNom();
+		$this->listes['compte'] = $this->compteDom->getListActifs();
+		$this->listes['compte_activation'] = $this->compteDom->getListActivables();
+		$this->listes['type'] = $this->typeDom->getListNom();
 		return $this->listes;
 	}
 // aFa Séparer la génération des listes ? OUI
@@ -81,7 +85,7 @@ class EcritureController extends BaseController {
 
 	public function create()
 	{
-		$ecriture = new Ecriture(Ecriture::fillFormForCreate());
+		$ecriture = $this->ecritureDom->create();
 
 		return View::Make('tresorerie.views.ecritures.create')
 		->with('ecriture', $ecriture)
@@ -411,6 +415,13 @@ class EcritureController extends BaseController {
 
 		Session::put('Courant.mois', $mois);
 		return $mois;
+	}
+
+	public static function recherche(){
+
+				return Redirect::back()
+				->withErrors("La recherche sera fonctionnelle dans une prochaine version")
+				;
 	}
 
 }

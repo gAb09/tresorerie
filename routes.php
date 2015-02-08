@@ -24,13 +24,15 @@ Route::group(array('prefix' => 'tresorerie', 'before' => 'auth'), function()
 		Route::get('journal/{id?}', 'JournalController@index');
 
 
-// /*----------------------  Pointage  ----------------------------------*/
+	// /*----------------------  Pointage  ----------------------------------*/
 		Route::post('pointage/{id?}-{statuts?}', 'PointageController@incrementeStatut');
 		Route::get('pointage/{banque_id?}', array('as' => 'pointage', 'uses' => 'PointageController@index'));
 
+	// /*----------------------  Recherche  ----------------------------------*/
+		Route::get('recherche', 'EcritureController@recherche');
 
 		/*----------------------  Écritures  ----------------------------------*/
-	// Route::put('ecritures/{id}/ok', array('as' => 'confirmupdate', 'uses' => 'EcritureController@update'));
+		// Route::put('ecritures/{id}/ok', array('as' => 'confirmupdate', 'uses' => 'EcritureController@update'));
 		Route::get('banque/{banque}', array('as' => 'bank', 'uses' => 'EcritureController@indexBanque'));
 		Route::get('banque/dupli/{banque}', array('as' => 'dupli', 'uses' => 'EcritureController@duplicate'));
 		Route::resource('ecritures', 'EcritureController');
@@ -57,6 +59,7 @@ Route::group(array('prefix' => 'tresorerie', 'before' => 'auth'), function()
 		Route::resource('statuts', 'StatutController');
 
 	});
+
 /*----------------------  Prévisionnel  ----------------------------------*/
 Route::get('previsionnel/{annee?}', 'PrevController@index');
 
