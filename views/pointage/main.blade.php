@@ -4,6 +4,11 @@
 @parent
 @stop
 
+@section('assets')
+@parent
+	<link href="/assets/tresorerie/css/pointage.css" rel="stylesheet" type="text/css">
+@stop
+
 @section('body')
 onLoad="initVolets();"
 @stop
@@ -30,40 +35,40 @@ onLoad="initVolets();"
 
 @if($ecriture->mois_nouveau)
 
-<table>
+<table class="modes">
 	<caption class="ligne_mois" id="{{$ecriture->mois_classement}}" onclick="javascript:volet(this);">
 		{{ ucfirst(DatesFr::MoisAnneeInsec($ecriture->date_valeur)) }}
 	</caption>
 
 	<thead class="replie" id="tetiere{{$ecriture->mois_classement}}" >
-		<th style="width:10px">
+		<th class="statut">
 			Statut
 		</th>
-		<th>
+		<th class="date">
 			Date de valeur
 		</th>
-		<th>
+		<th class="libelle">
 			Libellé
 		</th>
-		<th>
+		<th class="montant">
 			Dépenses
 		</th>
-		<th>
+		<th class="montant">
 			Recettes
 		</th>
-		<th>
+		<th class="montant">
 			Solde
 		</th>
-		<th>
+		<th class="type">
 			Type
 		</th>
-		<th>
+		<th class="banque">
 			Banque(s)
 		</th>
-		<th>
+		<th class="compte">
 			Compte
 		</th>
-		<th>
+		<th class="icone iconemedium edit">
 			
 		</th>
 	</thead>

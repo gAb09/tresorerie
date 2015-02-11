@@ -28,18 +28,13 @@
 	@stop
 
 
-	@section('zapette')
-	{{ link_to(Session::get('page_depart')."#".Session::get('Courant.mois'), 'Retour à la liste', array('class' => 'btn btn-info btn-zapette iconesmall list')); }}
+	@section('actions')
+	{{ link_to(Session::get('page_depart')."#".Session::get('Courant.mois'), 'Retour à la liste', array('class' => 'btn btn-info btn-actions iconesmall list')); }}
 
-	{{ Form::submit('Modifier cette écriture', array('class' => 'btn btn-edit btn-zapette')) }}
+	{{ Form::submit('Modifier cette écriture', array('class' => 'btn btn-edit btn-actions')) }}
 	{{ Form::close() }}
 
 	{{ Form::open(array('url' => 'tresorerie/ecritures/'.$ecriture->id, 'method' => 'delete')) }}
-	{{ Form::submit('Supprimer cette écriture', ['class' => 'btn btn-danger', 'onClick' => 'javascript:return(confirmation());']) }}
+	{{ Form::submit('Supprimer cette écriture', ['class' => 'btn btn-danger btn-actions', 'onClick' => 'javascript:return(confirmation());']) }}
 	{{ Form::close() }}
-	@stop
-
-	@section('tresorerie/footer')
-	@parent
-	<h3>  Le footer de édition d'écritures</h3>
 	@stop

@@ -128,7 +128,7 @@ $head = array(
 
 	@stop
 
-	@section('zapette')
+	@section('actions')
 	{{link_to_action('EcritureController@create', 'Ajouter une écriture', null, ["class" => "btn btn-success iconemedium add"])}}
 	@stop
 

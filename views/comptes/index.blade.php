@@ -65,7 +65,7 @@ Nota : les comptes écrits en rouge sont des comptes du Plan Comptable Général
 		@endforeach
 		@stop
 
-		@section('zapette')
+		@section('actions')
 		<a href ="{{ URL::route('tresorerie.comptes.create') }}" class="btn btn-success iconemedium add"
 style="font-size:1.1em">Ajouter un nouveau compte</a><br />
 

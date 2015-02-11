@@ -25,7 +25,7 @@
 
 @stop
 
-@section('zapette')
+@section('actions')
 {{ link_to(Session::get('page_depart'), 'Retour liste', array('class' => 'btn btn-info iconesmall list',)); }}
 
 {{ Form::submit('Créer cette écriture', array('class' => 'btn btn-success iconmedium add')) }}

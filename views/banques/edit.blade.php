@@ -26,10 +26,10 @@
 
 
 
-@section('zapette')
-{{ link_to_action('BanqueController@index', 'Retour à la liste', null, array('class' => 'btn btn-info btn-zapette iconesmall list')); }}
+@section('actions')
+{{ link_to_action('BanqueController@index', 'Retour à la liste', null, array('class' => 'btn btn-info btn-actions iconesmall list')); }}
 
-{{ Form::submit('Modifier cette banque', array('class' => 'btn btn-edit btn-zapette')) }}
+{{ Form::submit('Modifier cette banque', array('class' => 'btn btn-edit btn-actions')) }}
 {{ Form::close() }}
 
 {{ Form::open(['method' => 'delete', 'action' => ['BanqueController@destroy', $banque->id]]) }}

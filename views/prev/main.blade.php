@@ -4,6 +4,11 @@
 @parent
 @stop
 
+@section('assets')
+@parent
+	<link href="/assets/tresorerie/css/prev.css" rel="stylesheet" type="text/css">
+@stop
+
 @section('body')
 onLoad="initVolets();"
 @stop
@@ -16,9 +21,6 @@ onLoad="initVolets();"
 
 @section('topcontent2')
 <div class="span6">
-	<p style="margin: 0px;">
-		Année courante
-	</p>
 	<a href ="{{ URL::to("tresorerie/previsionnel/2013") }}" 
 		class="badge badge-locale badge-big 
 		{{ (Session::get('Courant.annee') == '2013') ? 'badge-success' : ''}} " >
@@ -37,9 +39,7 @@ onLoad="initVolets();"
 </div>
 
 <div class="span6">
-	<p style="margin: 0px;">
-		Banque de référence
-	</p>
+	<span>Banque de référence</span>
 	@foreach(Banque::all() as $bank)
 	<p class="label label-locale label-medium {{ ($bank->rang == 1) ? 'btn-success' : ''}}"
 		onClick="javascript:alert('Le changement de banque de référence sera disponible dans la prochaine version');" >
@@ -57,43 +57,43 @@ onLoad="initVolets();"
 
 @if($ecriture->mois_nouveau)
 
-<table>
+<table class="modes">
 	<caption class="ligne_mois" id="{{$ecriture->mois_classement}}" onclick="javascript:volet(this);">
 		{{ DatesFr::MoisAnneeInsec($ecriture->date_valeur) }}
 	</caption>
 
 	<thead class="replie" id="tetiere{{$ecriture->mois_classement}}">
-		<th style="width:10px">
+		<th class="statut">
 			Statut
 		</th>
-		<th>
+		<th class="date">
 			Date de valeur
 		</th>
-		<th>
+		<th class="type">
 			Type
 		</th>
-		<th>
+		<th class="libelle">
 			Libellé
 		</th>
-		<th>
+		<th class="montant">
 			Montant
 		</th>
 		@foreach($banques as $banque)		
-		<th>
+		<th  class="montant">
 			{{$banque->nom}}
 		</th>
 		@endforeach
-		<th>
-			Solde global
+		<th class="montant">
+			Global
 		</th>
-		<th class="icone">
-			Edit
+		<th class="icone iconemedium edit">
+			
 		</th>
-		<th class="icone">
-			Dupli
+		<th class="icone iconemedium dupli">
+			
 		</th>
-		<th class="icone">
-			Sœur
+		<th class="icone iconemedium double">
+			
 		</th>
 	</thead>
 
@@ -139,10 +139,49 @@ onLoad="initVolets();"
 @stop
 
 
-@section('zapette')
+@section('actions')
+@if(Auth::user()->role_id != 3)
+{{link_to_action('EcritureController@create', 'Ajouter une écriture', null, ["class" => "btn btn-success btn-actions iconemedium add"])}}
+@else
+<table style="background-color:#EDDCC1">
+<caption  style="color:#FFF">
+Légende
+</caption>
 
-{{link_to_action('EcritureController@create', 'Ajouter une écriture', null, ["class" => "btn btn-success iconemedium add"])}}
+<tr class="st_prev">
+<td class="st_prev" style="width:30px">
+</td>
+<td>
+Prévisionnelle : écriture encore "virtuelle" - Dates d’émission et de valeur inconnues.
+</td>
+</tr>
 
+<tr class="st_emise">
+<td class="st_emise style="width:30px"">
+</td>
+<td>
+Émise : écriture réellement émise - Date d'émision connue, date de valeur imprécise.</td>
+</td>
+</tr>
+
+<tr class="st_www">
+<td class="st_www" style="width:30px">
+</td>
+<td>
+Pointée www : écriture pointée par rapport au site Caisse d’Épargne - Date de valeur connue.
+</td>
+</tr>
+
+<tr class="">
+<td class="" style="width:30px">
+</td>
+<td>
+Pointée : écriture pointée par rapport aux relevés bancaires.
+</td>
+</tr>
+
+</table>
+@endif
 @stop
 
 

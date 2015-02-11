@@ -25,10 +25,10 @@
 @stop
 
 
-@section('zapette')
-	{{ link_to_action('CompteController@index', 'Retour à la liste', Session::get('Courant.classe'), array('class' => 'btn btn-info btn-zapette iconemedium list')); }}
+@section('actions')
+	{{ link_to_action('CompteController@index', 'Retour à la liste', Session::get('Courant.classe'), array('class' => 'btn btn-info btn-actions iconemedium list')); }}
 
-	{{ Form::submit('Modifier ce compte', array('class' => 'btn btn-edit btn-zapette')) }}
+	{{ Form::submit('Modifier ce compte', array('class' => 'btn btn-edit btn-actions')) }}
 	{{ Form::close() }}
 
 

@@ -32,8 +32,8 @@
 
 @stop
 
-@section('zapette')
-		<a href ="{{ URL::action('BanqueController@create') }}" class="btn btn-success btn-zapette iconemedium add">Créer une banque</a>
+@section('actions')
+		<a href ="{{ URL::action('BanqueController@create') }}" class="btn btn-success btn-actions iconemedium add">Créer une banque</a>
 @stop
 
 @section('tresorerie/footer')

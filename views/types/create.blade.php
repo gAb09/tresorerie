@@ -24,10 +24,10 @@
 @stop
 
 
-@section('zapette')
-{{ link_to_action('TypeController@index', 'Retour à la liste', null, array('class' => 'btn btn-info btn-zapette iconesmall list')); }}
+@section('actions')
+{{ link_to_action('TypeController@index', 'Retour à la liste', null, array('class' => 'btn btn-info btn-actions iconesmall list')); }}
 
-{{ Form::submit('Créer ce type', array('class' => 'btn btn-success btn-zapette')) }}
+{{ Form::submit('Créer ce type', array('class' => 'btn btn-success btn-actions')) }}
 {{ Form::close() }}
 
 @stop

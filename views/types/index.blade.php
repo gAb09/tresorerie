@@ -41,7 +41,7 @@
 @stop
 
 
-@section('zapette')
+@section('actions')
 <a href ="{{ URL::route('tresorerie.types.create') }}" class="btn btn-success iconemedium add">Créer un nouveau type</a>
 @stop
 

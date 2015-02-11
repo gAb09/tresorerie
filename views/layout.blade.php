@@ -8,14 +8,18 @@
 		@show
 
 	</title>
+	@section('assets')
 	<link rel="shortcut icon" href="/assets/img/favicon.ico">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-	<link href="/assets/tresorerie/css/tresorerie.css" rel="stylesheet" type="text/css">
+	<link href="/assets/tresorerie/css/base.css" rel="stylesheet" type="text/css">
+	<link href="/assets/tresorerie/css/layout.css" rel="stylesheet" type="text/css">
+	<link href="/assets/tresorerie/css/tableaux.css" rel="stylesheet" type="text/css">
+	<link href="/assets/tresorerie/css/footer.css" rel="stylesheet" type="text/css">
 	<link href="/assets/css/style.css" rel="stylesheet" type="text/css">
 	<script src="/assets/tresorerie/js/tresorerie.js"></script>
-
+	@show
 </head>
 
 
@@ -42,46 +46,45 @@
 			</nav>
 
 
-			<!-- - - - - - - - - - - - - - SOUS MENU - - - - - - - - - - - - - - -->
+		</header>
 
-			<nav class="navleft">
-				<nav class="navmodes">
-					@include('tresorerie/views/modes')
-				</nav>
-
-				<ul class="nav navconfig">	
-					<li  class="dropdown">
-						@include('tresorerie/views/configuration')
-					</li>
-				</ul>
+		<!-- - - - - - - - - - - - - - SOUS MENU MODES - - - - - - - - - - - - - - -->
+@if(Auth::user()->role_id != 3)
+		<nav class="navleft">
+			<nav class="navmodes">
+				@include('tresorerie/views/modes')
 			</nav>
 
-
-			<!-- - - - - - - - - - - - - - - - USER / DECONNEXION - - - - - - - - - - - - - - -->
-
-			<div class="span3 user_widget">
-			</div>
-
-		</header>
+			<ul class="nav navconfig">	
+				<li  class="dropdown">
+					@include('tresorerie/views/configuration')
+				</li>
+			</ul>
+		</nav>
+@endif
 
 		<!-- - - - - - - - - - - - - - - - TOP CONTENT (2 zones) - - - - - - - - - - - - - - -->
 
 
-		<div class="row-fluid" style="padding-bottom:5px">
+		<div class="row-fluid topcontent">
 
-			<div class="span6">
+			<!-- - - - - - - - - - - - - - TITREPAGE - - - - - - - - - - - - - - -->
+			<div class="span9 titrepage">
 				@yield('topcontent1')
 			</div>
 
-			<div class="span6">
+
+			<!-- - - - - - - - - - - - - - - - USER / DECONNEXION - - - - - - - - - - - - - - -->
+			<div class="span3 user_widget">
 				@include('shared/views/user_widget')
 			</div> 
 		</div>
 
+
 		<!-- - - - - - - - - - - - - - - - CONTENU - - - - - - - - - - - - - - -->
 
 
-		<div class="row-fluid">
+		<div class="row-fluid content">
 			<div>
 				@yield('contenu')
 			</div>
@@ -91,43 +94,29 @@
 		<!-- - - - - - - - - - - - - - - - FOOTER - - - - - - - - - - - - - - -->
 
 		<footer>
-			<hr>
-			@section('tresorerie/footer')
-			© gAb
-			@show
+
+			<div class="span12 row-fluid topfooter">
+
+
+
+				<!-- - - - - - - - - - - - - - - - ACTIONS - - - - - - - - - - - - - - -->
+				<div class="span6 actions">
+					@yield('actions')
+				</div>
+
+				<!-- - - - - - - - - - - - - - - - AFFICHAGE - - - - - - - - - - - - - - -->
+				<div class="span6 affichage">
+					@yield('topcontent2')
+				</div>
+			</div>
+			<div>
+				@section('tresorerie/footer')
+				© gAb – Tresorerie version 1.0
+				@show
+			</div>
 		</footer>
 
-		<!-- - - - - - - - - - - - - - - - BARRE COMMANDES (Zapette) - - - - - - - - - - - - - - -->
 
-		<div class="zapette">
-			<div class="zapette_actions">
-				@yield('zapette')
-			</div>
-			@yield('topcontent2')
-
-			<p class="zapette_infos">
-				• • • <span>Version 1 - Layout du module tresorerie</span> • • •
-			</p>
-
-			@if(App::environment() != 'o2switch')
-			<p class="zapette_infos">
-				<span>Environnement : {{App::environment()}}</span>
-				<span>•••</span>
-				<span>Nombre par page : {{Session::get('Courant.nbre_par_page')}}</span>
-				<span>•</span>
-				<span>Tri (paramètre) : {{Session::get('Courant.tri')}}</span>
-				<span>•</span>
-				<span>Tri (sens) : {{Session::get('Courant.tri_sens')}}</span>
-				<span>•••</span>
-				<span>Classe de compte : {{Session::get('Courant.classe')}}</span>
-				<span>•••</span>
-				<span>Base de données : {{DB::getDatabaseName()}}</span>
-			</p>
-			@endif
-
-		</div>
-
-		
 		@section('script')
 
 		@show
