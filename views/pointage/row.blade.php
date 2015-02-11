@@ -6,7 +6,7 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 	<!-- Statut -->
 	<td 
 	id="statut_td_{{ $ecriture->id }}"
-	class="{{$ecriture->statut->classe}}">
+	class="statut {{$ecriture->statut->classe}}">
 	
 		@if (strpos($statuts_accessibles, (string)$ecriture->statut->rang) !== false)
 		{{ Form::open(array('name' => 'pointage', 'action' => ['PointageController@incrementeStatut', $ecriture->id, $statuts_accessibles], 'method' => 'post', 'class' => 'pointage')) }}
@@ -25,7 +25,7 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 	</td>
 
 	<!-- Dates -->
-	<td id="valeur{{ $ecriture->id }}" class="info">
+	<td id="valeur{{ $ecriture->id }}" class="date info">
 		{{ DatesFr::longue($ecriture->date_valeur) }}
 		<span>
 			Date d’émission : {{ DatesFr::longue($ecriture->date_emission) }}
@@ -35,7 +35,7 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 
 
 	<!-- Libellé -->
-	<td>
+	<td class="libelle">
 		{{ $ecriture->libelle }}
 		@if($ecriture->libelle_detail)
 		— 
@@ -45,14 +45,14 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 
 
 	<!-- Montant -->
-	<td class="{{$ecriture->signe->nom_sys}}">
+	<td class="montant {{$ecriture->signe->nom_sys}}">
 
 		@if($ecriture->signe_id == 1)
 		{{ NombresFr::francais_insec($ecriture->montant) }}
 		@endif
 	</td>
 
-	<td class="{{$ecriture->signe->nom_sys}}">
+	<td class="montant {{$ecriture->signe->nom_sys}}">
 
 		@if($ecriture->signe_id == 2)
 		{{ NombresFr::francais_insec($ecriture->montant) }}
@@ -61,7 +61,7 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 
 
 	<!-- Solde -->
-	<td class="cumul_absolu">
+	<td class="montant cumul_absolu">
 		@if($ecriture->cumul_absolu < 0)
 		<span class="depense">{{NombresFr::francais_insec($ecriture->cumul_absolu)}}</span>
 		@else
@@ -70,7 +70,7 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 	</td>
 
 	<!-- Type -->
-	<td>
+	<td class="type">
 		@if($ecriture->type->id == 10)<span class="depense">{{ $ecriture->type->nom}}</span>@else{{ $ecriture->type->nom}}@endif
 		@if($ecriture->justificatif)
 		{{ $ecriture->type->sep_justif }}
@@ -80,7 +80,7 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 
 
 	<!-- Banque -->
-	<td>
+	<td class="banque">
 		{{ $ecriture->banque->nom }}
 		@if($ecriture->is_double)
 		@if($ecriture->signe->signe == -1)
@@ -93,15 +93,14 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 	</td>
 
 	<!-- Compte -->
-	<td>
+	<td class="compte">
 		{{ $ecriture->compte->libelle }}
 	</td>
 
 
 	<!-- Edit -->
-	<td>
-		<a class="iconemedium edit" href ="{{ URL::action('EcritureController@edit', [$ecriture->id]) }}">
-		</a>
+	<td class="icone">
+		<a class="iconemedium edit" href ="{{ URL::action('EcritureController@edit', [$ecriture->id]) }}"></a>
 	</td>
 
 </tr>

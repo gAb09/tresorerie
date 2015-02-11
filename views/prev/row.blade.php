@@ -2,20 +2,20 @@
 			ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [$ecriture->id]) }}">
 
 			<!-- Statuts -->
-		<td 
+		<td
 			id="statut_td_{{ $ecriture->id }}"
-			class="{{$ecriture->statut->classe}}">
+			class="statut {{$ecriture->statut->classe}}">
 		</td>
 
 		<!-- Dates -->
-		<td id="valeur{{ $ecriture->id }}" class="info">
+		<td id="valeur{{ $ecriture->id }}" class="info date">
 			{{ DatesFr::longue($ecriture->date_valeur) }}
 			<span>
 				Date d’émission : {{ DatesFr::longue($ecriture->date_emission) }}
 			</span>
 		</td>
 
-		<td>
+		<td class="type">
 			@if($ecriture->type->id == 10)<span class="depense">{{ $ecriture->type->nom}}</span>@else{{ $ecriture->type->nom}}@endif
 			@if($ecriture->justificatif)
 			{{ $ecriture->type->sep_justif }}
@@ -23,14 +23,14 @@
 			{{ $ecriture->justificatif }}
 		</td>
 
-		<td>
+		<td class="libelle">
 			{{ $ecriture->libelle }}
 			@if($ecriture->libelle_detail)
 			– {{ $ecriture->libelle_detail }}
 			@endif
 		</td>
 
-		<td class="{{$ecriture->signe->nom_sys}}">
+		<td class="montant {{$ecriture->signe->nom_sys}}">
 			{{ NombresFr::francais_insec($ecriture->montant) }}
 		</td>
 
@@ -38,7 +38,7 @@
 		<?php $id = 'solde_'.$banque->id; ?>
 		<?php $show = 'show_'.$banque->id; ?>
 
-		<td class="{{($ecriture->{$id} >=0) ? 'recette' : 'depense' }}">
+		<td class="{{($ecriture->{$id} >=0) ? 'montant recette' : 'montant depense' }}">
 			@if($ecriture->{$show})
 			{{ NombresFr::francais_insec($ecriture->{$id}) }}
 			@endif
@@ -46,7 +46,7 @@
 
 		@endforeach
 
-		<td class="{{($ecriture->solde_total >=0) ? 'recette' : 'depense' }}">
+		<td class=" montant {{($ecriture->solde_total >=0) ? 'recette' : 'depense' }}">
 			{{NombresFr::francais_insec($ecriture->solde_total)}}
 		</td>
 
