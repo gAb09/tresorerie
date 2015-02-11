@@ -20,6 +20,9 @@ Route::group(array('prefix' => 'tresorerie', 'before' => 'auth'), function()
 			return View::make('tresorerie/views/statuts/visu');
 		});
 
+		/*----------------------  Export  -----------------------------*/
+		Route::get('export/{id?}', array('as' => 'export', 'uses' => 'ExportController@export'));
+
 		/*----------------------  Journal  -----------------------------*/
 		Route::get('journal/{id?}', 'JournalController@index');
 
