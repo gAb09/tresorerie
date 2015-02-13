@@ -4,11 +4,11 @@ use \Tresorerie\Domaines\TraitDomaine as TraitDomaine;
 class JournalDomaine {
 	use TraitDomaine;
 
-	private $cumul_dep_mois = 0.0;
+	private $somme_dep_mois = 0.0;
 
-	private $cumul_rec_mois = 0.0;
+	private $somme_rec_mois = 0.0;
 
-	private $cumul_absolu = 0.0;
+	private $cumul = 0.0;
 
 	private $rang = 0;
 
@@ -46,25 +46,25 @@ class JournalDomaine {
 			/* Réinitialiser les cumuls pour la première ecriture de chaque mois */
 				if($ecriture->mois_nouveau == 'nouveau')
 				{
-					$this->cumul_dep_mois = 0;
-					$this->cumul_rec_mois = 0;
+					$this->somme_dep_mois = 0;
+					$this->somme_rec_mois = 0;
 				}
 
 			/* Calculer les cumuls */
 			if($ecriture->signe_id == 1){
-				$this->cumul_dep_mois += $ecriture->montant;
-				$this->cumul_absolu -= $ecriture->montant;
+				$this->somme_dep_mois += $ecriture->montant;
+				$this->cumul -= $ecriture->montant;
 			}
 			if($ecriture->signe_id == 2){
-				$this->cumul_rec_mois += $ecriture->montant;
-				$this->cumul_absolu += $ecriture->montant;
+				$this->somme_rec_mois += $ecriture->montant;
+				$this->cumul += $ecriture->montant;
 			}
 
 			/* Affecter les cumuls à l'écriture */
-			$ecriture->cumul_dep_mois = $this->cumul_dep_mois;
-			$ecriture->cumul_rec_mois = $this->cumul_rec_mois;
-			$ecriture->solde = $this->cumul_rec_mois - $this->cumul_dep_mois;
-			$ecriture->cumul_absolu = $this->cumul_absolu;
+			$ecriture->somme_dep_mois = $this->somme_dep_mois;
+			$ecriture->somme_rec_mois = $this->somme_rec_mois;
+			$ecriture->solde_mois = $this->somme_rec_mois - $this->somme_dep_mois;
+			$ecriture->cumul = $this->cumul;
 
 		});
 
