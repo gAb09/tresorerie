@@ -25,7 +25,7 @@
 @section('actions')
 {{ link_to_action('CompteController@index', 'Retour à la liste', null, array('class' => 'btn btn-info btn-actions iconemedium list', 'style' => 'font-size:1.1em')); }}
 
-{{ Form::submit('Créer ce compte', array('class' => 'btn btn_actions, btn-success')) }}
+{{ Form::submit('Créer ce compte', array('class' => 'btn btn-actions btn-success')) }}
 {{ Form::close() }}
 @stop
 

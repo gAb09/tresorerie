@@ -26,7 +26,7 @@
 @section('actions')
 {{ link_to_action('BanqueController@index', 'Retour à la liste', null, array('class' => 'btn btn-info btn-actions iconesmall list')); }}
 
-{{ Form::submit('Créer cette banque', array('class' => 'btn btn-success')) }}
+{{ Form::submit('Créer cette banque', array('class' => 'btn btn-success btn-actions')) }}
 {{ Form::close() }}
 @stop
 

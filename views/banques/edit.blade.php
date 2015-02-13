@@ -33,7 +33,7 @@
 {{ Form::close() }}
 
 {{ Form::open(['method' => 'delete', 'action' => ['BanqueController@destroy', $banque->id]]) }}
-{{ Form::submit('Supprimer cette banque', array('class' => 'btn btn-danger', 'onClick' => 'javascript:return(confirmation());')) }}
+{{ Form::submit('Supprimer cette banque', array('class' => 'btn btn-danger btn-actions', 'onClick' => 'javascript:return(confirmation());')) }}
 {{ Form::close() }}
 @stop
 

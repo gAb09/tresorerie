@@ -42,7 +42,7 @@
 
 
 @section('actions')
-<a href ="{{ URL::route('tresorerie.types.create') }}" class="btn btn-success iconemedium add">Créer un nouveau type</a>
+<a href ="{{ URL::route('tresorerie.types.create') }}" class="btn btn-success btn-actions iconemedium add">Créer un nouveau type</a>
 @stop
 
 

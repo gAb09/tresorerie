@@ -129,12 +129,11 @@ $head = array(
 	@stop
 
 	@section('actions')
-	{{link_to_action('EcritureController@create', 'Ajouter une écriture', null, ["class" => "btn btn-success iconemedium add"])}}
+	{{link_to_action('EcritureController@create', 'Ajouter une écriture', null, ["class" => "btn btn-success btn-actions iconemedium add"])}}
 	@stop
 
 	@section('tresorerie/footer')
 	@parent
-	<h3>  Le footer de ecritures</h3>
 	@stop
 
 	@section('script')

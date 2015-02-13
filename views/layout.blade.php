@@ -111,7 +111,7 @@
 			</div>
 			<div>
 				@section('tresorerie/footer')
-				© gAb – Tresorerie version 1.0
+				© gAb – Tresorerie version 1.1
 				@show
 			</div>
 		</footer>

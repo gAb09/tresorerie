@@ -38,5 +38,4 @@
 
 @section('tresorerie/footer')
 @parent
-<h3>  Le footer de banques</h3>
 @stop

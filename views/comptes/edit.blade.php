@@ -34,7 +34,7 @@
 
 	@if(!$compte->pco)
 	{{ Form::open( ['method' => 'delete', 'action' => ['CompteController@destroy', $compte->id]] ) }}
-	{{ Form::submit('Supprimer ce compte', ['class' => 'btn btn-danger', 'onClick' => 'javascript:return(confirmation());']) }}
+	{{ Form::submit('Supprimer ce compte', ['class' => 'btn btn-danger btn-actions', 'onClick' => 'javascript:return(confirmation());']) }}
 	{{ Form::close() }}
 	@endif
 @stop

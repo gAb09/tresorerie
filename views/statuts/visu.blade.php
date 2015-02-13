@@ -32,6 +32,5 @@ $statuts = Statut::all();
 
 @section('tresorerie/footer')
 @parent
-<h3>  Le footer de statuts</h3>
 @stop
 

@@ -31,7 +31,7 @@
 {{ Form::close() }}
 
 {{ Form::open(['method' => 'delete', 'action' => ['TypeController@destroy', $type->id]]) }}
-{{ Form::submit('Supprimer ce type', array('class' => 'btn btn-danger', 'onClick' => 'javascript:return(confirmation());')) }}
+{{ Form::submit('Supprimer ce type', array('class' => 'btn btn-danger btn-actions', 'onClick' => 'javascript:return(confirmation());')) }}
 {{ Form::close() }}
 
 @stop
