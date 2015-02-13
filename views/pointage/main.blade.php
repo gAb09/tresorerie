@@ -14,19 +14,11 @@ onLoad="initVolets();"
 @stop
 
 
-@section('topcontent1')
+@section('titrepage')
 <h1 class="titrepage">{{ $titre_page }}</h1>
 @stop
 
 
-@section('topcontent2')
-<div class="banques">
-	@foreach(Banque::all() as $bank)
-<a href ="{{ URL::route('pointage', $bank->id) }}" class="badge badge-locale badge-big {{ ($bank->nom == Session::get('Courant.banque')) ? 'badge-success' : ''}}">{{ $bank->nom }}</a>
-	@endforeach
-</div>
-
-@stop
 
 
 @section('contenu')
@@ -113,6 +105,16 @@ onLoad="initVolets();"
 	</tbody>
 
 </table>
+
+@stop
+
+
+@section('affichage')
+<div class="banques">
+	@foreach(Banque::all() as $bank)
+<a href ="{{ URL::route('pointage', $bank->id) }}" class="badge badge-locale badge-big {{ ($bank->nom == Session::get('Courant.banque')) ? 'badge-success' : ''}}">{{ $bank->nom }}</a>
+	@endforeach
+</div>
 
 @stop
 

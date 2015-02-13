@@ -14,7 +14,7 @@ onLoad="initVolets();"
 @stop
 
 
-@section('topcontent1')
+@section('titrepage')
 <h1 class="titrepage">{{ $titre_page }}</h1>
 @stop
 
@@ -109,7 +109,7 @@ onLoad="initVolets();"
 
 @stop
 
-@section('topcontent2')
+@section('affichage')
 <div class="banques">
 	@foreach(Banque::all() as $bank)
 	

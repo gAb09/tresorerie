@@ -7,12 +7,8 @@
 @stop
 
 
-@section('topcontent1')
+@section('titrepage')
 		<h1 class="titrepage">Édition du statut n° {{$statut->id}} : {{$statut->nom}}</h1>
-@stop
-
-
-@section('topcontent2')
 @stop
 
 

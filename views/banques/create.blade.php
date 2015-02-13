@@ -5,13 +5,10 @@
 @stop
 
 
-@section('topcontent1')
+@section('titrepage')
 <h1 class="titrepage">{{$titre_page}}</h1>
 @stop
 
-
-@section('topcontent2')
-@stop
 
 
 @section('contenu')
@@ -28,6 +25,9 @@
 
 {{ Form::submit('Créer cette banque', array('class' => 'btn btn-success btn-actions')) }}
 {{ Form::close() }}
+@stop
+
+@section('affichage')
 @stop
 
 @section('footer')

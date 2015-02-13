@@ -5,14 +5,11 @@
 @stop
 
 
-@section('topcontent1')
+@section('titrepage')
 		<h1 class="titrepage">{{$titre_page}}</h1>
 <p class="badge badge-locale iconesmall add"><a href="{{ URL::action('StatutController@create') }}">Ajouter un nouveau statut</a></p>
 @stop
 
-
-@section('topcontent2')
-@stop
 
 
 @section('contenu')

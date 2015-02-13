@@ -7,20 +7,16 @@
 @stop
 
 
-@section('topcontent1')
+@section('titrepage')
 <h1 class="titrepage">{{ $titre_page }}</h1>
 @stop
 
 
-@section('topcontent2')
-@stop
-
-
-	@section('contenu')
-	<p style="margin-bottom:2px"><span class="pco">Les comptes du Plan Comptable Général (PCG) apparaissent en rouge.
-		Ils ne peuvent être supprimés ni modifiés. Seulement recevoir une description complémentaire et être activés/désactivés.</span>
-		<br /> Les comptes "maison" (lmh) apparaisent en vert et sont totalement éditables.
-		<div class="compte actif">Qu’il soit <span class="pco">PCG</span> ou lmh, un compte activé apparaît sur fond vert.
+@section('contenu')
+<p style="margin-bottom:2px"><span class="pco">Les comptes du Plan Comptable Général (PCG) apparaissent en rouge.
+	Ils ne peuvent être supprimés ni modifiés. Seulement recevoir une description complémentaire et être activés/désactivés.</span>
+	<br /> Les comptes "maison" (lmh) apparaisent en vert et sont totalement éditables.
+	<div class="compte actif">Qu’il soit <span class="pco">PCG</span> ou lmh, un compte activé apparaît sur fond vert.
 		<br />Un compte activé sera disponible dans les listes pour être appliqué à une écriture.</div>
 
 		@foreach($comptes as $compte)
@@ -62,14 +58,14 @@
 		@stop
 
 		@section('affichage')
-@foreach($classes as $classe)
-<div class="classeRacine">Classe {{ $classe->numero }} :
-	<br />{{ link_to_action('CompteController@index', $classe->libelle, $classe->numero) }}</div>
-	@endforeach
-		@stop
+		@foreach($classes as $classe)
+		<div class="classeRacine">Classe {{ $classe->numero }} :
+			<br />{{ link_to_action('CompteController@index', $classe->libelle, $classe->numero) }}</div>
+			@endforeach
+			@stop
 
-		@section('footer')
-		@parent
-		<h3>  Le footer de comptes</h3>
+			@section('footer')
+			@parent
+			<h3>  Le footer de comptes</h3>
 
-		@stop
+			@stop

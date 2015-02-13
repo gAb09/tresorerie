@@ -14,40 +14,8 @@ onLoad="initVolets();"
 @stop
 
 
-@section('topcontent1')
+@section('titrepage')
 <h1 class="titrepage">{{ $titre_page }}</h1>
-@stop
-
-
-@section('topcontent2')
-<div class="span6">
-	<a href ="{{ URL::to("tresorerie/previsionnel/2013") }}" 
-		class="badge badge-locale badge-big 
-		{{ (Session::get('Courant.annee') == '2013') ? 'badge-success' : ''}} " >
-		2013
-	</a>
-	<a href ="{{ URL::to("tresorerie/previsionnel/2014") }}" 
-		class="badge badge-locale badge-big 
-		{{ (Session::get('Courant.annee') == '2014') ? 'badge-success' : ''}} " >
-		2014
-	</a>
-	<a href ="{{ URL::to("tresorerie/previsionnel/2015") }}" 
-		class="badge badge-locale badge-big 
-		{{ (Session::get('Courant.annee') == '2015') ? 'badge-success' : ''}} " >
-		2015
-	</a>
-</div>
-
-<div class="span6">
-	<span>Banque de référence</span>
-	@foreach(Banque::all() as $bank)
-	<p class="label label-locale label-medium {{ ($bank->rang == 1) ? 'btn-success' : ''}}"
-		onClick="javascript:alert('Le changement de banque de référence sera disponible dans la prochaine version');" >
-		{{ $bank->nom }}
-	</p>
-	@endforeach
-</div>
-
 @stop
 
 
@@ -185,6 +153,36 @@ Pointée : écriture pointée par rapport aux relevés bancaires.
 @stop
 
 
+@section('affichage')
+<div class="span6">
+	<a href ="{{ URL::to("tresorerie/previsionnel/2013") }}" 
+		class="badge badge-locale badge-big 
+		{{ (Session::get('Courant.annee') == '2013') ? 'badge-success' : ''}} " >
+		2013
+	</a>
+	<a href ="{{ URL::to("tresorerie/previsionnel/2014") }}" 
+		class="badge badge-locale badge-big 
+		{{ (Session::get('Courant.annee') == '2014') ? 'badge-success' : ''}} " >
+		2014
+	</a>
+	<a href ="{{ URL::to("tresorerie/previsionnel/2015") }}" 
+		class="badge badge-locale badge-big 
+		{{ (Session::get('Courant.annee') == '2015') ? 'badge-success' : ''}} " >
+		2015
+	</a>
+</div>
+
+<div class="span6">
+	<span>Banque de référence</span>
+	@foreach(Banque::all() as $bank)
+	<p class="label label-locale label-medium {{ ($bank->rang == 1) ? 'btn-success' : ''}}"
+		onClick="javascript:alert('Le changement de banque de référence sera disponible dans la prochaine version');" >
+		{{ $bank->nom }}
+	</p>
+	@endforeach
+</div>
+
+@stop
 
 
 @section('script')

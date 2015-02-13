@@ -7,13 +7,10 @@
 @stop
 
 
-@section('topcontent1')
+@section('titrepage')
 		<h1 class="titrepage">{{$titre_page}}</h1>
 @stop
 
-
-@section('topcontent2')
-@stop
 
 @section('contenu')
 <hr>

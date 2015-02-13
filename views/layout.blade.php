@@ -70,7 +70,7 @@
 
 			<!-- - - - - - - - - - - - - - TITREPAGE - - - - - - - - - - - - - - -->
 			<div class="span9 titrepage">
-				@yield('topcontent1')
+				@yield('titrepage')
 			</div>
 
 

@@ -5,12 +5,8 @@
 @stop
 
 
-@section('topcontent1')
+@section('titrepage')
 <h1 class="titrepage  ">Édition du compte n° {{$compte->numero}} : <span class="{{ $compte->class_pco }}">{{$compte->libelle}}</span></h1>
-@stop
-
-
-@section('topcontent2')
 @stop
 
 
