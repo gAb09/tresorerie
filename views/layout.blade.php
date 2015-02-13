@@ -106,7 +106,7 @@
 
 				<!-- - - - - - - - - - - - - - - - AFFICHAGE - - - - - - - - - - - - - - -->
 				<div class="span6 affichage">
-					@yield('topcontent2')
+					@yield('affichage')
 				</div>
 			</div>
 			<div>
