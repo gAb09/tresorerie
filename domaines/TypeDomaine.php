@@ -29,7 +29,7 @@ class TypeDomaine {
 		le controleur validera et passera le nom pour le message de confirmation. */
 
 		$item = Type::with('ecriture')->findOrFail($id);
-		if (!$item->ecriture->count() != 0) {
+		if ($item->ecriture->count() != 0) {
 			return $item->ecriture;
 		}
 		$item->delete();
