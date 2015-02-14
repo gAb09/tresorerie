@@ -41,7 +41,7 @@
 
 			<div>
 				@if ($compte->description_lmh)
-				<h5>Compte spécifique La Mauvaise Herbe :</h5>
+				<h5>Compte spécifique :</h5>
 				<p>{{ $compte->description_lmh }}</p>
 				@endif
 			</div>

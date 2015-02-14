@@ -69,7 +69,7 @@ onLoad="togle_actif();getFreres();"
 
 	<div style="display:inline-block">
 		@if(!$compte->pco)
-		<!-- Descrition lmh (La Mauvaise Herbe) -->
+		<!-- Descrition perso -->
 		{{ Form::label('description_lmh', 'Description maison', array ('class' => '')) }}
 		{{ Form::textarea('description_lmh', $compte->description_lmh, array ('class' => '', 'style' => 'width:450px')) }}
 		@endif
