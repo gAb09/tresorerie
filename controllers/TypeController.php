@@ -96,13 +96,21 @@ class TypeController extends BaseController {
 
 	public function destroy($id)
 	{
-		$item = Type::findOrFail($id);
+		$reponse = $this->typeDom->destroy($id);
 
-		$item->delete();
+		if (is_object($reponse)) { // la reponse est une collection
+			$message = 'Ce type ne peut être supprimé car il référence les écritures suivantes :<br />';
+			foreach ($reponse as $ecriture) {
+				$message .= "• ".$ecriture->libelle." – ".$ecriture->libelle_detail."<br />";
+			}
 
-		Session::flash('success', "Le type “$item->nom'” a bien été supprimé");
+			return Redirect::back()->withInput(Input::all())->withErrors($message);
 
-		return Redirect::action('TypeController@index');
+		}else{ // la réponse est une chaîne
+
+			Session::flash('success', "Le type \"$reponse\" a bien été supprimé");
+
+			return Redirect::action('TypeController@index');
+		}
 	}
-
 }
