@@ -171,6 +171,7 @@ class EcritureController extends BaseController {
 		$ec1->justificatif = Input::get('justificatif');
 		$ec1->compte_id = Input::get('compte_id');
 		$ec1->is_double = Input::get('is_double');
+		$ec1->note = Input::get('note');
 
 		return $ec1;
 	}
@@ -199,6 +200,7 @@ class EcritureController extends BaseController {
 		$ec2->justificatif = Input::get('justif2');
 		$ec2->compte_id = Input::get('compte_id');
 		$ec2->is_double = Input::get('is_double');
+		$ec1->note = Input::get('note');
 
 		return array($ec1, $ec2);
 

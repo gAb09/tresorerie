@@ -54,4 +54,21 @@ trait TraitDomaine {
 
 		}
 
+	/**
+	 * Assigne la classe de base (hors statut) de chaque ligne.
+	 *
+	 * @param $ligne. La ligne du tableau en cours de traitement.
+	 *
+	 * @return string la classe de base.
+	 *
+	 */
+	private function setClasseBase($ligne){
+
+			if ($ligne->note) {
+				return $ligne->classe_base = "note surlignage";
+			}
+
+			return $ligne->classe_base = "surlignage";
+		}
+
 }

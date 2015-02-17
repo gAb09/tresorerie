@@ -169,6 +169,16 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 	</div>
 </fieldset>
 
+
+<!--  NOTES -->
+@if($ecriture->note)
+<fieldset>
+		{{ Form::label('note', 'Notes', array ('class' => '', 'id' => 'note_label'))}}
+
+		<br />{{Form::textarea('note', $ecriture->note, array ('class' => '', 'id' => 'note')) }}
+</fieldset>
+@endif
+
 @section('script')
 <script src="/assets/tresorerie/js/ecritures.js">
 </script>
@@ -189,6 +199,13 @@ foreach($types as $i) {
 
 var txt_label = "{{VERROU}}";
 
+</script>
+
+<script>
+CKEDITOR.replace( 'note', {
+	language: 'en',
+	uiColor: '#EDDCC1',
+});
 </script>
 
 @stop

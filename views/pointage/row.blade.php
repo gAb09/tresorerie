@@ -1,6 +1,6 @@
 <tr 
 id="row_{{ $ecriture->id }}" 
-class="surlignage {{$ecriture->statut->classe}}" 
+class="{{$ecriture->classe_base}} {{$ecriture->statut->classe}}" 
 ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [$ecriture->id]) }}">
 
 	<!-- Statut -->
@@ -98,9 +98,18 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 	</td>
 
 
-	<!-- Edit -->
-	<td class="icone">
-		<a class="iconemedium edit" href ="{{ URL::action('EcritureController@edit', [$ecriture->id]) }}"></a>
-	</td>
+	@if($ecriture->note)
+	<td class="icone info">
+		@else
+		<td class="icone">
+			@endif
+
+			<a class="iconemedium edit" href ="{{ URL::action('EcritureController@edit', [$ecriture->id]) }}"></a>
+			@if($ecriture->note)
+			<span class="left">
+				{{ $ecriture->note }}
+			</span>
+			@endif
+		</td>
 
 </tr>
