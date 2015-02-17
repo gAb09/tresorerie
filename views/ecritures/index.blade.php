@@ -12,13 +12,6 @@
 @stop
 
 
-@foreach(Banque::all() as $bank)
-{{link_to_route('bank', $bank->nom, $bank->id, ["class" => "badge badge-locale badge-big"])}}
-@endforeach
-
-@stop
-
-
 @section('contenu')
 
 <?php
@@ -131,6 +124,10 @@ $head = array(
 
 	@section('affichage')
 	{{link_to_route('tresorerie.ecritures.index', 'Toutes les écritures', null, ["class" => "badge badge-locale badge-big"])}}
+@foreach(Banque::all() as $bank)
+{{link_to_route('bank', $bank->nom, $bank->id, ["class" => "badge badge-locale badge-big"])}}
+@endforeach
+	@stop
 
 	@section('tresorerie/footer')
 	@parent
