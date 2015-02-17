@@ -171,13 +171,11 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 
 
 <!--  NOTES -->
-@if($ecriture->note)
 <fieldset>
 		{{ Form::label('note', 'Notes', array ('class' => '', 'id' => 'note_label'))}}
 
 		<br />{{Form::textarea('note', $ecriture->note, array ('class' => '', 'id' => 'note')) }}
 </fieldset>
-@endif
 
 @section('script')
 <script src="/assets/tresorerie/js/ecritures.js">
