@@ -5,24 +5,27 @@ use tresorerie\Validations\EcritureDoubleValidation;
 
 class EcritureController extends BaseController {
 
-	protected $validateur;
-
-	protected $validateur2; // Pour double écritures
-
 	/* Attribuer le qualificatif donné à l'écriture n°1 dans les messages (souci de clarté pour l’utilisateur)
 	afin de pouvoir le changer globalement on le place dans une variable  */
 	private $nommage = 'en cours d’édition';
 
 
 
-	public function __construct(EcritureValidation $validateur, EcritureDoubleValidation $validateur2)
+	public function __construct(
+		EcritureValidation $validateur, 
+		EcritureDoubleValidation $validateur2, 
+		EcritureDomaine $ecritureDom,
+		BanqueDomaine $banqueDom,
+		CompteDomaine $compteDom,
+		TypeDomaine $typeDom
+		)
 	{
 		$this->validateur = $validateur;
 		$this->validateur2 = $validateur2;
-		$this->ecritureDom = new EcritureDomaine;
-		$this->banqueDom = new BanqueDomaine;
-		$this->compteDom = new CompteDomaine;
-		$this->typeDom = new TypeDomaine;
+		$this->ecritureDom = $ecritureDom ;
+		$this->banqueDom = $banqueDom;
+		$this->compteDom = $compteDom ;
+		$this->typeDom = $typeDom ;
 	}
 
 	private $listes = array();
@@ -37,14 +40,6 @@ class EcritureController extends BaseController {
 	}
 // aFa Séparer la génération des listes ? OUI
 
-	public function indexBanque($choix = null)
-	{
-		$banque = (is_null($choix)) ? Session::get('Courant.banque') : $choix ;
-
-		Session::push('Courant.banque', $banque);
-
-		return $this->index($banque);
-	}
 
 	public function index($banque = null)
 	{	
@@ -66,6 +61,7 @@ class EcritureController extends BaseController {
 			$bank_nom = Banque::find($banque)->nom;
 			$ecritures = Ecriture::whereBanqueId($banque)->orderBy($tri_sur_ok, $sens_tri)->paginate($par_page);
 			$titre_page = 'Écritures de “'.$bank_nom.'”';
+			Session::push('Courant["banque"]', $banque);
 		}
 		// S'il n'y a pas d'écriture pour la banque demandée : rediriger sur la page pointage par défaut avec un message d'erreur
 		if ($ecritures->isEmpty()){
@@ -175,6 +171,7 @@ class EcritureController extends BaseController {
 		$ec1->justificatif = Input::get('justificatif');
 		$ec1->compte_id = Input::get('compte_id');
 		$ec1->is_double = Input::get('is_double');
+		$ec1->note = Input::get('note');
 
 		return $ec1;
 	}
@@ -203,6 +200,7 @@ class EcritureController extends BaseController {
 		$ec2->justificatif = Input::get('justif2');
 		$ec2->compte_id = Input::get('compte_id');
 		$ec2->is_double = Input::get('is_double');
+		$ec1->note = Input::get('note');
 
 		return array($ec1, $ec2);
 

@@ -31,6 +31,9 @@ class JournalDomaine {
 		/* Lancer la boucle sur la colection */
 		$ecritures->each(function($ecriture) use ($ecritures, $order, $last) {
 
+			/* Attribuer la classe de base */
+			$ecriture->classe_base = $this->setClasseBase($ecriture);
+
 			/* Affecter la valeur de la propriété $this-rang initialisée à 0. */
 			$ecriture->rang = $this->rang;
 

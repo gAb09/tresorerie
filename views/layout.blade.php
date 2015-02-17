@@ -19,6 +19,7 @@
 	<link href="/assets/tresorerie/css/footer.css" rel="stylesheet" type="text/css">
 	<link href="/assets/css/style.css" rel="stylesheet" type="text/css">
 	<script src="/assets/tresorerie/js/tresorerie.js"></script>
+	<script src="/ckeditor/ckeditor.js"></script>
 	@show
 </head>
 

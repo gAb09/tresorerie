@@ -112,7 +112,7 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 <fieldset>
 	<div class="input">
 		{{ Form::label('compte_id', 'Compte', array ('class' => '', 'id' => 'compte_id')) }}
-		{{Form::select('compte_id', $list['compte'], $ecriture->type_id, array ('class' => 'input-long nobr', 'id' => 'compte_id_actif')) }}
+		{{Form::select('compte_id', $list['compte'], $ecriture->compte_id, array ('class' => 'input-long nobr', 'id' => 'compte_id_actif')) }}
 
 		<input id="desactive_compte" value="Désactiver ce compte" type="button" class="invisible" 
 		onclick = "modificationCompte('{{URL::action('CompteController@updateActif')}}', 0 )">
@@ -169,6 +169,16 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 	</div>
 </fieldset>
 
+
+<!--  NOTES -->
+@if($ecriture->note)
+<fieldset>
+		{{ Form::label('note', 'Notes', array ('class' => '', 'id' => 'note_label'))}}
+
+		<br />{{Form::textarea('note', $ecriture->note, array ('class' => '', 'id' => 'note')) }}
+</fieldset>
+@endif
+
 @section('script')
 <script src="/assets/tresorerie/js/ecritures.js">
 </script>
@@ -189,6 +199,13 @@ foreach($types as $i) {
 
 var txt_label = "{{VERROU}}";
 
+</script>
+
+<script>
+CKEDITOR.replace( 'note', {
+	language: 'en',
+	uiColor: '#EDDCC1',
+});
 </script>
 
 @stop
