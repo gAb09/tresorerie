@@ -112,7 +112,7 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 <fieldset>
 	<div class="input">
 		{{ Form::label('compte_id', 'Compte', array ('class' => '', 'id' => 'compte_id')) }}
-		{{Form::select('compte_id', $list['compte'], $ecriture->type_id, array ('class' => 'input-long nobr', 'id' => 'compte_id_actif')) }}
+		{{Form::select('compte_id', $list['compte'], $ecriture->compte_id, array ('class' => 'input-long nobr', 'id' => 'compte_id_actif')) }}
 
 		<input id="desactive_compte" value="Désactiver ce compte" type="button" class="invisible" 
 		onclick = "modificationCompte('{{URL::action('CompteController@updateActif')}}', 0 )">
