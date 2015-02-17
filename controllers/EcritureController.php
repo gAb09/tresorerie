@@ -424,4 +424,11 @@ class EcritureController extends BaseController {
 				;
 	}
 
+	public static function analytique(){
+
+				return Redirect::back()
+				->withErrors("Les fonctions analytiques seront fonctionnelles dans une prochaine version")
+				;
+	}
+
 }

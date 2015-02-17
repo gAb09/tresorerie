@@ -34,6 +34,9 @@ Route::group(array('prefix' => 'tresorerie', 'before' => 'auth'), function()
 	// /*----------------------  Recherche  ----------------------------------*/
 		Route::get('recherche', 'EcritureController@recherche');
 
+	// /*----------------------  Analytique  ----------------------------------*/
+		Route::get('analytique', 'EcritureController@analytique');
+
 		/*----------------------  Écritures  ----------------------------------*/
 		// Route::put('ecritures/{id}/ok', array('as' => 'confirmupdate', 'uses' => 'EcritureController@update'));
 		Route::get('banque/{banque}', array('as' => 'bank', 'uses' => 'EcritureController@indexBanque'));
