@@ -55,20 +55,18 @@ trait TraitDomaine {
 		}
 
 	/**
-	 * Assigne la classe de base (hors statut) de chaque ligne.
+	 * Assigne la classe de présence d'une note.
 	 *
 	 * @param $ligne. La ligne du tableau en cours de traitement.
 	 *
-	 * @return string la classe de base.
+	 * @return string le nom de la classe/la ligne sans modif.
 	 *
 	 */
-	private function setClasseBase($ligne){
+	private function setPresenceNote($ligne){
 
 			if ($ligne->note) {
-				return $ligne->classe_base = "note surlignage";
+				return $ligne->presence_note = "info note";
 			}
-
-			return $ligne->classe_base = "surlignage";
 		}
 
 }

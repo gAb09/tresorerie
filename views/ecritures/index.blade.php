@@ -57,7 +57,7 @@ $head = array(
 
 		<tbody>
 			@foreach($ecritures as $ecriture)
-			<tr id ="{{$ecriture->id}}" class="surlignage"
+			<tr id ="{{$ecriture->id}}" class=""
 				ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [$ecriture->id]) }}">
 				<td>{{ $ecriture->id }}</td>
 				<td class ="info">{{ DatesFr::longue($ecriture->date_valeur) }}

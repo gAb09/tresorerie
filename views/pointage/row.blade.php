@@ -1,6 +1,6 @@
 <tr 
 id="row_{{ $ecriture->id }}" 
-class="{{$ecriture->classe_base}} {{$ecriture->statut->classe}}" 
+class="{{$ecriture->statut->classe}}" 
 ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [$ecriture->id]) }}">
 
 	<!-- Statut -->
@@ -34,14 +34,23 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 	</td>
 
 
-	<!-- Libellé -->
-	<td class="libelle">
-		{{ $ecriture->libelle }}
-		@if($ecriture->libelle_detail)
-		— 
-		{{ $ecriture->libelle_detail }}
-		@endif
-	</td>
+<!-- Libellé -->
+	@if($ecriture->note)
+	<td class="libelle {{$ecriture->presence_note}}">
+		@else
+		<td class="libelle">
+			@endif
+			{{ $ecriture->libelle }}
+			@if($ecriture->libelle_detail)
+			— 
+			{{ $ecriture->libelle_detail }}
+			@endif
+			@if($ecriture->note)
+			<span class="left">
+				{{ $ecriture->note }}
+			</span>
+			@endif
+		</td>
 
 
 	<!-- Montant -->
@@ -98,18 +107,9 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 	</td>
 
 
-	@if($ecriture->note)
-	<td class="icone info">
-		@else
+	<!-- Edit -->
 		<td class="icone">
-			@endif
-
 			<a class="iconemedium edit" href ="{{ URL::action('EcritureController@edit', [$ecriture->id]) }}"></a>
-			@if($ecriture->note)
-			<span class="left">
-				{{ $ecriture->note }}
-			</span>
-			@endif
 		</td>
 
 </tr>

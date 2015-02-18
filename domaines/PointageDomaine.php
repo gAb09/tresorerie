@@ -31,8 +31,8 @@ class PointageDomaine {
 		/* Lancer la boucle sur la colection */
 		$ecritures->each(function($ecriture) use ($ecritures, $order, $last) {
 
-			/* Attribuer la classe de base */
-			$ecriture->classe_base = $this->setClasseBase($ecriture);
+			/* Gérere l'existence d'une note */
+			$ecriture->presence_note = $this->setPresenceNote($ecriture);
 
 			/* Affecter la valeur de la propriété $this-rang initialisée à 0. */
 			$ecriture->rang = $this->rang;
