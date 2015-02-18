@@ -39,7 +39,7 @@ Route::group(array('prefix' => 'tresorerie', 'before' => 'auth'), function()
 
 		/*----------------------  Écritures  ----------------------------------*/
 		// Route::put('ecritures/{id}/ok', array('as' => 'confirmupdate', 'uses' => 'EcritureController@update'));
-		Route::get('ecritures/{banque}', array('as' => 'bank', 'uses' => 'EcritureController@index'));
+		Route::get('ecritures/banque/{banque}', array('as' => 'bank', 'uses' => 'EcritureController@index'));
 		Route::get('banque/dupli/{banque}', array('as' => 'dupli', 'uses' => 'EcritureController@duplicate'));
 		Route::resource('ecritures', 'EcritureController');
 
