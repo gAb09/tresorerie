@@ -61,9 +61,6 @@ class PrevDomaine {
 
 		$ecritures->each(function($ecriture) use ($ecritures, $order, $banques, $last) {
 
-			/* Gérere l'existence d'une note */
-			$ecriture->presence_note = $this->setPresenceNote($ecriture);
-
 			/* Affecter la valeur de la propriété $this-rang initialisée à 0. */
 			$ecriture->rang = $this->rang;
 
