@@ -24,20 +24,11 @@
 		</td>
 
 <!-- Libellé -->
-	@if($ecriture->note)
-	<td class="libelle {{$ecriture->presence_note}}">
-		@else
 		<td class="libelle">
-			@endif
 			{{ $ecriture->libelle }}
 			@if($ecriture->libelle_detail)
 			— 
 			{{ $ecriture->libelle_detail }}
-			@endif
-			@if($ecriture->note)
-			<span class="left">
-				{{ $ecriture->note }}
-			</span>
 			@endif
 		</td>
 
