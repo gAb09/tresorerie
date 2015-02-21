@@ -1,5 +1,4 @@
 <?php
-
 class EcritureDomaine {
 
 	protected $default_values_for_create = array(
@@ -15,21 +14,33 @@ class EcritureDomaine {
 		);
 
 
-		public function create()
-		{
-			return new Ecriture($this->default_values_for_create);
-		}
-
-		public function find($id)
-		{
-			return Ecriture::find($id);
-		}
-
-
-		public function save($ecriture)
-		{
-			$ecriture->save();
-		}
-
-
+	public function create()
+	{
+		return new Ecriture($this->default_values_for_create);
 	}
+
+	public function find($id)
+	{
+		return Ecriture::find($id);
+	}
+
+
+	public function save($ecriture)
+	{
+		$ecriture->save();
+	}
+
+	public function tri($critere_tri, $sens_tri, $nbre_par_page, $banque)
+	{
+		$scope = "TriPar_$critere_tri";
+		$scopename = "scopeTriPar_$critere_tri";
+
+		if(method_exists('Ecriture', $scopename)){
+			// return var_dump("Scope : ".$scopename.$scope);
+			return Ecriture::SelectBanque($banque)->$scope($critere_tri, $sens_tri)->paginate($nbre_par_page);
+		}else{
+			return $ecritures = Ecriture::SelectBanque($banque)->orderBy($critere_tri, $sens_tri)->paginate($nbre_par_page);
+		}
+	}
+
+}

@@ -39,6 +39,28 @@ class Ecriture extends Eloquent {
 	}
 
 
+	/* —————————  SCOPES  —————————————————*/
+	static public function scopeSelectBanque($q, $banque)
+	{
+		if ($banque === null) {
+			return $q;
+		}
+		return $q->whereBanqueId($banque);
+	}
+
+
+	static public function scopeTriPar_libelle($query, $critere_tri, $sens_tri)
+	{
+		return  $query->orderBy('libelle', $sens_tri)->orderBy('libelle_detail', $sens_tri);
+	}
+
+
+	static public function scopeTriPar_compte_id($query, $critere_tri, $sens_tri)
+	{
+		return  $query->where('compte_id', '<>', 1);
+	}
+
+
 	/* —————————  DATES  —————————————————*/
 	public function getDates()
 	{
@@ -49,10 +71,9 @@ class Ecriture extends Eloquent {
 	/* —————————  ACCESSORS  —————————————————*/
 	public function getMontantAttribute($value)
 	{
-		
+
 		return (double) $value;
 	}
-
 
 
 	/* —————————  MUTATORS  —————————————————*/

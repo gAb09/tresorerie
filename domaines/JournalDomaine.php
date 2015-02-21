@@ -28,7 +28,7 @@ class JournalDomaine {
 		/* Déterminer le rang de la dernière écriture de la page. */
 		$last = $ecritures->count() -1;
 
-		/* Lancer la boucle sur la colection */
+		/* Lancer la boucle sur la collection */
 		$ecritures->each(function($ecriture) use ($ecritures, $order, $last) {
 
 			/* Gérere l'existence d'une note */

@@ -31,7 +31,7 @@ $head = array(
 		<thead>
 			@foreach($head as $key => $value)
 			<?php
-			if ($key == $tri_sur) {
+			if ($key == $critere_tri) {
 				if ($sens_tri == 'asc') {
 					$th_class = 'iconesmall asc tri_selon';
 				}else{
@@ -65,7 +65,7 @@ $head = array(
 						Date d’émission : {{ DatesFr::longue($ecriture->date_emission) }}
 					</span>
 				</td>
-				<td>@if($ecriture->type->id == 10)<span class="depense">{{ $ecriture->type->nom}}</span>@else{{ $ecriture->type->nom}}@endif
+				<td>@if($ecriture->type->id == 10)<span class="indefini">{{ $ecriture->type->nom}}</span>@else{{ $ecriture->type->nom}}@endif
 					@if($ecriture->justificatif){{$ecriture->type->sep_justif}}{{$ecriture->justificatif}}@endif
 				</td>
 				<td><b>{{ $ecriture->banque->nom }}</b>
@@ -105,14 +105,14 @@ $head = array(
 	</table>
 
 	Écritures {{ $ecritures->getFrom() }} à {{ $ecritures->getTo() }} sur un total de {{ $ecritures->getTotal() }}, réparties sur {{ $ecritures->getLastPage() }} pages.
-	{{ $ecritures->appends(array('tri_sur' => $tri_sur, 'sens_tri' => $sens_tri))->links() }}
-	Le réglage par défaut est de {{PAR_PAGE}} écritures par page.
+	{{ $ecritures->appends(array('critere_tri' => $critere_tri, 'sens_tri' => $sens_tri))->links() }}
+	Le réglage par défaut est de {{NBRE_PAR_PAGE}} écritures par page.
 	<br />Vous pouvez temporairement changer cette valeur ici : 
 
-	<input id="par_page" class="court" type="text" value="{{$ecritures->getPerPage()}}" name="par_page" onChange="javascript:changeParPage('{{Request::url()}}', '{{$tri_sur}}', '{{$sens_tri}}');">
+	<input id="nbre_par_page" class="court" type="text" value="{{$ecritures->getPerPage()}}" name="nbre_par_page" onChange="javascript:changeParPage('{{Request::url()}}', '{{$critere_tri}}', '{{$sens_tri}}');">
 
 
-	{{ Form::hidden('prev_tri_sur', $tri_sur, array ('class' => 'long', 'id' => 'prev_tri_sur')) }}
+	{{ Form::hidden('prev_critere_tri', $critere_tri, array ('class' => 'long', 'id' => 'prev_critere_tri')) }}
 
 	{{ Form::hidden('sens_tri', $sens_tri, array ('class' => 'long', 'id' => 'sens_tri')) }}
 

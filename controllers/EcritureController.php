@@ -43,36 +43,35 @@ class EcritureController extends BaseController {
 
 	public function index($banque = null)
 	{	
-		$par_page = (Input::get('par_page')) ? Input::get('par_page') : PAR_PAGE;
-		$tri_sur = (Input::get('tri_sur')) ? Input::get('tri_sur') : 'date_emission';
-		$tri_sur_ok = ($tri_sur == 'ids')? 'id' : $tri_sur;
-
-		$sens_tri = Input::get('sens_tri') ? Input::get('sens_tri') : 'asc';
-
-		// var_dump($tri_sur); // CTRL
-		// var_dump($par_page); // CTRL
-		// var_dump($sens_tri); // CTRL
 		Session::put('page_depart', Request::getUri());
 
-		if ($banque === null) {
-			$ecritures = Ecriture::orderBy($tri_sur_ok, $sens_tri)->paginate($par_page);
-			$titre_page = 'Toutes les écritures';
-		}else{
-			$bank_nom = Banque::find($banque)->nom;
-			$ecritures = Ecriture::whereBanqueId($banque)->orderBy($tri_sur_ok, $sens_tri)->paginate($par_page);
+		$nbre_par_page = (Input::get('nbre_par_page')) ? Input::get('nbre_par_page') : NBRE_PAR_PAGE;
+
+		// La date d'émission est le critère par défaut
+		$critere_tri = (Input::get('critere_tri')) ? Input::get('critere_tri') : 'libelle';
+
+		// "asc" est le sens du tri par défaut
+		$sens_tri = Input::get('sens_tri') ? Input::get('sens_tri') : 'asc';
+
+		// Comme il est délicat d'utiliser "id", j'ai utilisé "ids"…
+		// Mais il faut en tenir compte maintenant et remplacer par "id" le cas échéant
+		$critere_tri = ($critere_tri == 'ids')? 'id' : $critere_tri;
+
+		if ($banque !== null) {
+			$bank_nom = $this->banqueDom->nomBanque($banque);
 			$titre_page = 'Écritures de “'.$bank_nom.'”';
 			Session::push('Courant["banque"]', $banque);
+			$ecritures = $this->ecritureDom->tri($critere_tri, $sens_tri, $nbre_par_page, $banque);
+		}else{
+			$ecritures = $this->ecritureDom->tri($critere_tri, $sens_tri, $nbre_par_page, null);
+			$titre_page = 'Toutes les écritures';
 		}
-		// S'il n'y a pas d'écriture pour la banque demandée : rediriger sur la page pointage par défaut avec un message d'erreur
-		if ($ecritures->isEmpty()){
-			$message = 'Il n’y a aucune écriture pour la banque “'.$bank_nom.'”';
-			return Redirect::to('tresorerie/ecritures')->withErrors($message);
-		}
+
 
 		return View::Make('tresorerie.views.ecritures.index')
 		->with(compact('ecritures'))
 		->with(compact('titre_page'))
-		->with(compact('tri_sur'))
+		->with(compact('critere_tri'))
 		->with(compact('sens_tri'))
 		;
 	}
@@ -417,16 +416,16 @@ class EcritureController extends BaseController {
 
 	public static function recherche(){
 
-				return Redirect::back()
-				->withErrors("La recherche sera fonctionnelle dans une prochaine version")
-				;
+		return Redirect::back()
+		->withErrors("La recherche sera fonctionnelle dans une prochaine version")
+		;
 	}
 
 	public static function analytique(){
 
-				return Redirect::back()
-				->withErrors("Les fonctions analytiques seront fonctionnelles dans une prochaine version")
-				;
+		return Redirect::back()
+		->withErrors("Les fonctions analytiques seront fonctionnelles dans une prochaine version")
+		;
 	}
 
 }

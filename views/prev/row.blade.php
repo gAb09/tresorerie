@@ -16,7 +16,7 @@
 		</td>
 
 		<td class="type">
-			@if($ecriture->type->id == 10)<span class="depense">{{ $ecriture->type->nom}}</span>@else{{ $ecriture->type->nom}}@endif
+			@if($ecriture->type->id == 10)<span class="indefini">{{ $ecriture->type->nom}}</span>@else{{ $ecriture->type->nom}}@endif
 			@if($ecriture->justificatif)
 			{{ $ecriture->type->sep_justif }}
 			@endif

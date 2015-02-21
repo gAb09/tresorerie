@@ -58,7 +58,7 @@ class Compte extends Node {
 
 	public static function scopeActif()
 	{
-		foreach(self::where('actif', 1)->get(array('id', 'libelle', 'numero')) as $item)
+		foreach(self::where('actif', 1)->orderBy('numero')->get(array('id', 'libelle', 'numero')) as $item)
 		{
 			$list[$item->id] = '('.$item->numero.') '.$item->libelle;
 		}
