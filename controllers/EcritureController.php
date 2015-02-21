@@ -58,14 +58,28 @@ class EcritureController extends BaseController {
 		$critere_tri = ($critere_tri == 'ids')? 'id' : $critere_tri;
 
 		if ($banque !== null) {
+			Session::put('ParamEnv.tresorerie.banque_id', $banque);
 			$bank_nom = $this->banqueDom->nomBanque($banque);
 			$titre_page = 'Écritures de “'.$bank_nom.'”';
-			Session::push('Courant["banque"]', $banque);
 			$ecritures = $this->ecritureDom->tri($critere_tri, $sens_tri, $nbre_par_page, $banque);
 		}else{
 			$ecritures = $this->ecritureDom->tri($critere_tri, $sens_tri, $nbre_par_page, null);
 			$titre_page = 'Toutes les écritures';
 		}
+
+		// Créer un tableau pour la construction de la tétière
+		$head = array(
+			'ids' => 'Id',
+			'date_valeur' => 'Date valeur',
+			'type_id' => 'Type',
+			'banque_id' => 'Banque',
+			'libelle' => 'Libellé',
+			'montant' => 'Montant',
+			'compte_id'=> 'Compte',
+			'created_at'=> 'Créé le',
+			'updated_at'=> 'Modifié le',
+			);
+
 
 
 		return View::Make('tresorerie.views.ecritures.index')
@@ -73,6 +87,7 @@ class EcritureController extends BaseController {
 		->with(compact('titre_page'))
 		->with(compact('critere_tri'))
 		->with(compact('sens_tri'))
+		->with(compact('head'))
 		;
 	}
 
@@ -153,7 +168,7 @@ class EcritureController extends BaseController {
 			$ec1->save();
 		}
 		$mois = self::setMoisCourant($ec1);
-		return Redirect::to(Session::get('page_depart')."#".Session::get('Courant.mois'));
+		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.annee_courante'));
 
 	}
 

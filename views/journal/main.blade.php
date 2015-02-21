@@ -113,7 +113,7 @@ onLoad="initVolets();"
 <div class="banques">
 	@foreach(Banque::all() as $bank)
 	
-	<a href ="{{ URL::to("tresorerie/journal/$bank->id") }}" class="badge badge-locale badge-big {{ ($bank->nom == Session::get('Courant.banque')) ? 'badge-success' : ''}}">{{ $bank->nom }}</a>
+	<a href ="{{ URL::to("tresorerie/journal/$bank->id") }}" class="badge badge-locale badge-big {{ ($bank->nom == Session::get('ParamEnv.tresorerie.banque_nom')) ? 'badge-success' : ''}}">{{ $bank->nom }}</a>
 	@endforeach
 </div>
 @stop
@@ -133,7 +133,7 @@ echo "var statuts_accessibles = '".$statuts_accessibles."';";
 
 /* Transmettre au javascript "initVolets()"
 la variable du mois courant */
-echo 'var mois = "'.Session::get('Courant.mois').'";';
+echo 'var mois = "'.Session::get('ParamEnv.tresorerie.mois_courant').'";';
 
 ?>
 </script>

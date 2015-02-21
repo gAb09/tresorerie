@@ -83,6 +83,9 @@
 
 
 		<!-- - - - - - - - - - - - - - - - CONTENU - - - - - - - - - - - - - - -->
+			<div>
+<?php var_dump(Session::all());?>
+		</div>
 
 
 		<div class="row-fluid content">
@@ -90,7 +93,6 @@
 				@yield('contenu')
 			</div>
 		</div>
-
 
 		<!-- - - - - - - - - - - - - - - - FOOTER - - - - - - - - - - - - - - -->
 

@@ -17,7 +17,7 @@ class PrevController extends BaseController {
 	public function index($annee = null)
 	{
 		/* Si l'année n'est pas spécifiée on utilise l'année courante */
-		$annee = (is_null($annee))? Session::get('Courant.annee') : $annee;
+		$annee = (is_null($annee))? Session::get('ParamEnv.tresorerie.annee_courante') : $annee;
 
 		/* Si l'édition d’une écriture est demandée depuis cette page, 
 		il faut passer (via la session) à EcritureController@update pour la redirection */
@@ -40,7 +40,7 @@ class PrevController extends BaseController {
 		/* Puisqu'il y a des écritures */
 
 		/* On peut passer cette année en année courante */
-		Session::put('Courant.annee', $annee);
+		Session::put('ParamEnv.tresorerie.annee', $annee);
 
 
 		// On peut assigner le tableau de correspondance pour gestion js de l'affichage de l'incrémentation des statuts. 

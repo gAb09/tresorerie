@@ -18,7 +18,7 @@ class JournalController extends BaseController {
 		qui est l'Id de la banque principale */
 		if (is_null($id))
 		{
-			$id = (Session::get('Courant.banque_id'))? Session::get('Courant.banque_id') : 1;
+			$id = (Session::get('ParamEnv.tresorerie.banque_id'))? Session::get('ParamEnv.tresorerie.banque_id') : 1;
 		}
 
 		/* Si l'édition d’une écriture est demandée depuis cette page, 
@@ -40,8 +40,8 @@ class JournalController extends BaseController {
 
 		/* Passer le nom et l’id de la banque à la session 
 		pour mémorisation de la banque en cours de traitement. */
-		Session::put('Courant.banque', $ecritures[0]->banque->nom);
-		Session::put('Courant.banque_id', $ecritures[0]->banque->id);
+		Session::put('ParamEnv.tresorerie.banque_nom', $ecritures[0]->banque->nom);
+		Session::put('ParamEnv.tresorerie.banque_id', $ecritures[0]->banque->id);
 
 		// Assigner le tableau de correspondance pour gestion js de l'affichage de l'incrémentation des statuts. 
 		$classe_statut = $this->statutDom->setClasseStatut();
@@ -51,7 +51,7 @@ class JournalController extends BaseController {
 		->with(compact('ecritures'))
 		->with(compact('classe_statut'))
 		->with(array('statuts_accessibles' => $this->statuts_accessibles)) 
-		->with(array('titre_page' => "Journal de ".Session::get('Courant.banque')))
+		->with(array('titre_page' => "Journal de ".Session::get('ParamEnv.tresorerie.banque_nom')))
 		;
 	}
 

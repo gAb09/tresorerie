@@ -25,7 +25,7 @@
 
 
 	@section('actions')
-	{{ link_to(Session::get('page_depart')."#".Session::get('Courant.mois'), 'Retour à la liste', array('class' => 'btn btn-info btn-actions iconesmall list')); }}
+	{{ link_to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_courant'), 'Retour à la liste', array('class' => 'btn btn-info btn-actions iconesmall list')); }}
 
 	{{ Form::submit('Modifier cette écriture', array('class' => 'btn btn-edit btn-actions')) }}
 	{{ Form::close() }}

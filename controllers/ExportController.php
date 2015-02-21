@@ -11,12 +11,16 @@ class ExportController extends BaseController {
 	{
 		/* Si pas d'$id spécifié on utilise celui de la banque courante
 		(stocké en session). Si on est en début de session on initialise alors à 1
-		qui est l'Id de la banque principale */
+		qui est l'Id de la banque principale. */
 		if (is_null($id))
 		{
-			$id = (Session::get('Courant.banque_id'))? Session::get('Courant.banque_id') : 1;
+			$id = (Session::get('ParamEnv.tresorerie.banque_id'))? Session::get('ParamEnv.tresorerie.banque_id') : 1;
+			
 		}
 
+		/* Obtenir le nom en clair de la banque courante et le mettre en session */
+		$banque_nom = $this->banqueDom->nomBanque($id);
+		Session::put('ParamEnv.tresorerie.banque_nom', $banque_nom);
 		// Récupérer la collection d'écriture pour la banque demandée
 		$ecritures = $this->exportDom->collectionExport($id, 'date_emission');
 
@@ -24,7 +28,7 @@ class ExportController extends BaseController {
 		rediriger sur la page pointage par défaut avec un message d'erreur */
 		if (!$ecritures){
 			$message = 'Il n’y a aucune écriture pour la banque “';
-			$message .= $this->banqueDom->nomBanque($id);
+			$message .= $banque_nom;
 			$message .= '”';
 			return Redirect::back()->withErrors($message);
 		}
@@ -33,7 +37,7 @@ class ExportController extends BaseController {
 		/* Afficher la vue pointage pour la banque demandée. */ 
 		return View::make('tresorerie.views.export')
 		->with(compact('ecritures'))
-		->with(array('titre_page' => "Export de ".Session::get('Courant.banque')))
+		->with(array('titre_page' => "Export de ".$banque_nom))
 		;
 	}
 

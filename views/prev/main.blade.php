@@ -157,17 +157,17 @@ Pointée : écriture pointée par rapport aux relevés bancaires.
 <div class="span6">
 	<a href ="{{ URL::to("tresorerie/previsionnel/2013") }}" 
 		class="badge badge-locale badge-big 
-		{{ (Session::get('Courant.annee') == '2013') ? 'badge-success' : ''}} " >
+		{{ (Session::get('ParamEnv.tresorerie.annee_courante') == '2013') ? 'badge-success' : ''}} " >
 		2013
 	</a>
 	<a href ="{{ URL::to("tresorerie/previsionnel/2014") }}" 
 		class="badge badge-locale badge-big 
-		{{ (Session::get('Courant.annee') == '2014') ? 'badge-success' : ''}} " >
+		{{ (Session::get('ParamEnv.tresorerie.annee_courante') == '2014') ? 'badge-success' : ''}} " >
 		2014
 	</a>
 	<a href ="{{ URL::to("tresorerie/previsionnel/2015") }}" 
 		class="badge badge-locale badge-big 
-		{{ (Session::get('Courant.annee') == '2015') ? 'badge-success' : ''}} " >
+		{{ (Session::get('ParamEnv.tresorerie.annee_courante') == '2015') ? 'badge-success' : ''}} " >
 		2015
 	</a>
 </div>
@@ -192,7 +192,7 @@ Pointée : écriture pointée par rapport aux relevés bancaires.
 
 /* Transmettre au javascript "initVolets()"
 la variable du mois courant */
-echo 'var mois = "'.Session::get('Courant.mois').'";';
+echo 'var mois = "'.Session::get('ParamEnv.tresorerie.mois_courant').'";';
 
 ?>
 </script>
