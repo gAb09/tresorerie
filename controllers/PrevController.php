@@ -40,7 +40,7 @@ class PrevController extends BaseController {
 		/* Puisqu'il y a des écritures */
 
 		/* On peut passer cette année en année courante */
-		Session::put('ParamEnv.tresorerie.annee', $annee);
+		Session::put('ParamEnv.tresorerie.annee_courante', $annee);
 
 
 		// On peut assigner le tableau de correspondance pour gestion js de l'affichage de l'incrémentation des statuts. 

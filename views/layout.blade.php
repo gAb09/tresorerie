@@ -50,7 +50,7 @@
 		</header>
 
 		<!-- - - - - - - - - - - - - - SOUS MENU MODES - - - - - - - - - - - - - - -->
-@if(Auth::user()->role_id != 3)
+		@if(Auth::user()->role_id != 3)
 		<nav class="navleft">
 			<nav class="navmodes">
 				@include('tresorerie/views/modes')
@@ -62,7 +62,7 @@
 				</li>
 			</ul>
 		</nav>
-@endif
+		@endif
 
 		<!-- - - - - - - - - - - - - - - - TOP CONTENT (2 zones) - - - - - - - - - - - - - - -->
 
@@ -83,9 +83,9 @@
 
 
 		<!-- - - - - - - - - - - - - - - - CONTENU - - - - - - - - - - - - - - -->
-			<div>
-<?php var_dump(Session::all());?>
-		</div>
+		<!-- <div style="margin-top:60px">
+			<?php var_dump(Session::all());?>
+		</div> -->
 
 
 		<div class="row-fluid content">

@@ -16,9 +16,9 @@
 
 <table style="font-size:12px;border:0px">
 	<thead>
-		@foreach($head as $key => $value)
+		@foreach($head as $colonne => $entete)
 		<?php
-		if ($key == $critere_tri) {
+		if ($colonne == $critere_tri) {
 			if ($sens_tri == 'asc') {
 				$th_class = 'iconesmall asc tri_selon';
 			}else{
@@ -28,7 +28,9 @@
 			$th_class = '';
 		}
 		?>
-		<th class="{{$th_class}}" id="{{$key}}" onClick="javascript:tri('{{Request::url()}}', {{$key}});">{{$value}}</th>
+		<th class="{{$th_class}}" id="{{$colonne}}" onClick="javascript:tri('{{Request::url()}}', {{$colonne}});">
+			{{$entete}}
+		</th>
 
 		@endforeach
 		<th class="icone">
