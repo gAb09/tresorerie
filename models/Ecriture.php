@@ -55,11 +55,6 @@ class Ecriture extends Eloquent {
 	}
 
 
-	static public function scopeTriPar_compte_id($query, $critere_tri, $sens_tri)
-	{
-		return  $query->where('compte_id', '<>', 1);
-	}
-
 
 	/* —————————  DATES  —————————————————*/
 	public function getDates()
