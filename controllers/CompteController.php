@@ -17,13 +17,13 @@ class CompteController extends BaseController {
 
 	public function index($choix = null)
 	{
-		$numero = (is_null($choix)) ? Session::get('Courant.classe') : $choix ;
+		$numero = (is_null($choix)) ? Session::get('ParamEnv.tresorerie.classePCG') : $choix ;
 
 		/* Passer en session le numero,
 		pour mémoriser la classe sur laquelle
 		l’utilisateur est en cours de travail
 		et la mémoriser au fil de la navigation. */
-		Session::set('Courant.classe', $numero);
+		Session::put('ParamEnv.tresorerie.classePCG', $numero);
 
 		/* Assigner la liste des racines de comptes (classes) 
 		pour le tableau de sélection des classes */
