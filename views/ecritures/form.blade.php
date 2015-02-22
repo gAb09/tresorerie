@@ -7,14 +7,6 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 ?>
 
 
-	<!-- Champs cachés ("créé par" et "modifié par") -->
-		{{ Form::label('createur', 'Créateur') }}
-		{{ Form::text('createur', $ecriture->createur) }}
-
-		{{ Form::label('modificateur', 'Modificateur') }}
-		{{ Form::text('modificateur', $ecriture->modificateur) }}
-
-
 <fieldset>
 	<!-- Écriture simple/double -->
 	<div class="input nobr">
@@ -148,12 +140,6 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 		Écriture liée
 	</legend>
 	<div class="input">
-<!-- Banque 2 -->
-<fieldset id="ecriture2" >
-	<legend class="input">
-		Écriture liée
-	</legend>
-	<div class="input">
 		<!-- Banque 2 -->
 		{{ Form::hidden('ecriture2_id', isset($ecriture->ecriture2->id) ? $ecriture->ecriture2->id : '') }}
 		{{ Form::label('banque2_id', 'Banque liée', array ('class' => '', 'id' => 'banque2_label')) }}
@@ -193,6 +179,7 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 
 		<br />{{Form::textarea('note', $ecriture->note, array ('class' => '', 'id' => 'note')) }}
 </fieldset>
+
 
 @section('script')
 <script src="/assets/tresorerie/js/ecritures.js">

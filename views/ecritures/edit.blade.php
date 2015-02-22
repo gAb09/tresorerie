@@ -9,6 +9,19 @@
 
 @section('titrepage')
 <h1 class="titrepage">{{$titre_page}}</h1>
+<p>
+	Créée le {{ DatesFr::longue($ecriture->created_at) }}
+	@if(isset($ecriture->createur->login))
+	par {{ $ecriture->createur->login }}<br />
+	@endif
+</p>
+
+<p>
+	Modifiée le {{ DatesFr::longue($ecriture->updated_at) }} 
+	@if(isset($ecriture->modificateur->login))
+	par {{ $ecriture->modificateur->login }}
+	@endif
+</p>
 @stop
 
 @section('contenu')
@@ -18,9 +31,7 @@
 
 @include('tresorerie/views/ecritures/form')
 
-<p>Créée le {{ DatesFr::longue($ecriture->created_at) }}<br />
-	Modifiée le {{ DatesFr::longue($ecriture->updated_at) }}</p>
-	@stop
+@stop
 
 
 	@section('actions')

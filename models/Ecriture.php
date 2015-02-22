@@ -38,6 +38,21 @@ class Ecriture extends Eloquent {
 		return $this->belongsTo('Statut');
 	}
 
+	public function createur()
+	{
+		return $this->belongsTo('Utilisateur', 'created_by');
+	}
+
+	public function modificateur()
+	{
+		return $this->belongsTo('Utilisateur', 'updated_by');
+	}
+
+	public function effaceur()
+	{
+		return $this->belongsTo('Utilisateur', 'deleted_by');
+	}
+
 
 	/* —————————  SCOPES  —————————————————*/
 	static public function scopeSelectBanque($q, $banque)

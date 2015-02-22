@@ -125,6 +125,7 @@ class EcritureController extends BaseController {
 		if (!Input::get('is_double')) {
 
 			$ec1 = static::hydrateSimple($ec1);
+			$ec1->created_by = Auth::user()->id;
 
 			$validation = $this->validateur->valider( Input::all() );
 			if ($validation === true) {
@@ -142,8 +143,12 @@ class EcritureController extends BaseController {
 			/* Si écriture double */ 
 
 			$double = static::hydrateDouble($ec1, $ec2 = null);
+
 			$ec1 = $double[0];
 			$ec2 = $double[1];
+
+			$ec1->created_by = Auth::user()->id;
+			$ec2->created_by = Auth::user()->id;
 
 			$validation = $this->validateur->valider( Input::all() );
 			$validation2 = $this->validateur2->valider( Input::all() );
@@ -300,6 +305,7 @@ class EcritureController extends BaseController {
 				- - - - - - - - - - - - - - - - - - - - - - - - */
 				/* Hydrater ecriture 1 avec les nouvelles entrées*/
 				$ec1 = static::hydrateSimple($ec1);
+				$ec1->updated_by = Input::get('updated_by');
 
 				/* - - - - - - - - - - - - - - - - - - - - - -
 				… et était double avant…
@@ -361,6 +367,7 @@ class EcritureController extends BaseController {
 			$validation2 = $this->validateur2->valider( Input::all() );
 
 			if ($validation2 === true) {
+				$ec2->updated_by = Auth::user()->id;
 				$ec2->save();
 				$success .= '• L’écriture liée a été sauvegardée<br />';
 			}else{
@@ -382,6 +389,7 @@ class EcritureController extends BaseController {
 		$validation = $this->validateur->valider( Input::all() );
 
 		if ($validation === true) {
+			$ec1->updated_by = Auth::user()->id;
 			$ec1->save();
 			$success = "• L’écriture $this->nommage a été sauvegardée.<br />".$success;
 		}else{
@@ -407,9 +415,15 @@ class EcritureController extends BaseController {
 		if ($ecriture->ecriture2){
 			$deuze = Ecriture::whereSoeurId($ecriture->ecriture2->soeur_id)->get();
 			$deuze = $deuze[0];
+			$deuze->deleted_by = Auth::user()->id;
+			$deuze->save();
 			$deuze->delete();
 			$success = "• L’écriture liée à été supprimée.<br />";
 		}
+
+		$ecriture->deleted_by = Auth::user()->id;
+		$ecriture->save();
+
 		$ecriture->delete();
 		$success = "• L’écriture à été supprimée.<br />$success";
 
