@@ -71,7 +71,7 @@
 		<div class="row-fluid topcontent">
 
 			<!-- - - - - - - - - - - - - - TITREPAGE - - - - - - - - - - - - - - -->
-			<div class="span9 titrepage">
+			<div class="span8" id="titrepage">
 				@yield('titrepage')
 			</div>
 

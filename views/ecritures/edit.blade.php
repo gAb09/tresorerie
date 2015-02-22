@@ -14,10 +14,8 @@
 	@if(isset($ecriture->createur->login))
 	par {{ $ecriture->createur->login }}<br />
 	@endif
-</p>
-
-<p>
-	Modifiée le {{ DatesFr::longue($ecriture->updated_at) }} 
+ – 
+ Modifiée le {{ DatesFr::longue($ecriture->updated_at) }} 
 	@if(isset($ecriture->modificateur->login))
 	par {{ $ecriture->modificateur->login }}
 	@endif
