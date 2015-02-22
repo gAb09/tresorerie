@@ -11,7 +11,6 @@
 <h1 class="titrepage">{{$titre_page}}</h1>
 @stop
 
-
 @section('contenu')
 
 <hr />
@@ -33,4 +32,11 @@
 	{{ Form::open(array('url' => 'tresorerie/ecritures/'.$ecriture->id, 'method' => 'delete')) }}
 	{{ Form::submit('Supprimer cette écriture', ['class' => 'btn btn-danger btn-actions', 'onClick' => 'javascript:return(confirmation());']) }}
 	{{ Form::close() }}
-	@stop
+@stop
+
+@section('script')
+
+<script src="/assets/tresorerie/js/justificatif.js">
+</script>
+
+@stop

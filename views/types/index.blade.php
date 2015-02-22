@@ -20,7 +20,7 @@
 
 <p>• Description :<br />{{ $type->description }}</p>
 
-@if($type->req_justif)
+@if($type->statut_justif)
 <p>• La référence à un <strong>justificatif sera obligatoire</strong> lors de la saisie d'une écriture.
 	<br />Le séparateur est : “{{ $type->sep_justif }}”
 </p>

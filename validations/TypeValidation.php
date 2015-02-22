@@ -8,7 +8,7 @@ class TypeValidation extends ValidationBase
 	protected $rules = array(
 		'nom' => 'required|not_in:CREATE_FORM_DEFAUT_TXT_NOM',
 		'description' => 'required|not_in:CREATE_FORM_DEFAUT_TXT_DESCRIPTION',
-		'sep_justif' => 'required_with:req_justif|not_in:CREATE_FORM_DEFAUT_TXT_SEPARATEUR',
+		'sep_justif' => 'required_with:statut_justif|not_in:CREATE_FORM_DEFAUT_TXT_SEPARATEUR',
 		);
 
 	public $messages = array(

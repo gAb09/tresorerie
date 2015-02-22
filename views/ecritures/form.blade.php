@@ -5,7 +5,15 @@ onLoad="bascule_signe();banque();"
 <?php
 $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : "invisible";
 ?>
-<!-- Tableau pour actualisation du séparateur -->
+
+
+	<!-- Champs cachés ("créé par" et "modifié par") -->
+		{{ Form::label('createur', 'Créateur') }}
+		{{ Form::text('createur', $ecriture->createur) }}
+
+		{{ Form::label('modificateur', 'Modificateur') }}
+		{{ Form::text('modificateur', $ecriture->modificateur) }}
+
 
 <fieldset>
 	<!-- Écriture simple/double -->
@@ -83,28 +91,27 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 <fieldset>
 	<div class="input">
 		<!-- Type -->
-		{{ Form::label('type_id1', 'Type', array ('class' => '')) }}
-		{{Form::select('type_id1', $list['type'], $ecriture->type_id, array ('class' => 'input-long', 'onChange' => 'javascript:separateur(this);') ) }}
+		{{ Form::label('type_id1', 'Type', array ('name' => 'label')) }}
+		{{Form::select('type_id1', $list['type'], $ecriture->type_id, array ('class' => 'input-long', 'onChange' => 'javascript:toggleJustif(this);') ) }}
 	</div>
 
-@if(isset($ecriture->type->req_justif) and $ecriture->type->req_justif)
-		<div id="divjustificatif1" class="input">
-	@else
-		<div id="divjustificatif1" class="input hidden">
-	@endif
 		<!-- Type (justificatif) -->
-		{{ Form::label('justificatif', 'Justificatif', array ('class' => '')) }}
+	@if(isset($ecriture->type->statut_justif) and $ecriture->type->statut_justif == 1)
+		<div id="divjustificatif1" class="input">
+		{{ Form::label('justificatif1', 'Justificatif requis', array ('class' => '')) }}
+	@else
+		<div id="divjustificatif1" class="input locked">
+		{{ Form::label('justificatif1', 'Justificatif non requis', array ('class' => '')) }}
+	@endif
 		<span id="sep1">
 			{{ isset($ecriture->type->sep_justif) ? $ecriture->type->sep_justif : '' }}
 		</span>
-		{{ Form::text('justificatif', isset($ecriture->justificatif) ? $ecriture->justificatif : '',  array ('class' => 'input-long margright')) }}   <!-- aPo probleme de selected -->
-		<!-- Type (justificatif requis) -->
-		{{ Form::hidden('req_justif',  isset($ecriture->type->req_justif) ? $ecriture->justificatif : '', array ('class' => 'input-long margright', 'id' => 'req_justif1')) }}   <!-- aPo probleme de selected -->
+		{{ Form::text('justificatif1', isset($ecriture->justificatif) ? $ecriture->justificatif : '',  array ('class' => 'input-long margright')) }}
+
+		<!-- Type (justificatif requis) Utilisé pour la validation -->
+		{{ Form::hidden('statut_justif1',  isset($ecriture->type->statut_justif) ? $ecriture->type->statut_justif : '', array ('class' => 'input-long margright', 'id' => 'statut_justif1')) }}
 	</div>
 </fieldset>
-
-
-
 
 
 
@@ -141,31 +148,41 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 		Écriture liée
 	</legend>
 	<div class="input">
+<!-- Banque 2 -->
+<fieldset id="ecriture2" >
+	<legend class="input">
+		Écriture liée
+	</legend>
+	<div class="input">
 		<!-- Banque 2 -->
 		{{ Form::hidden('ecriture2_id', isset($ecriture->ecriture2->id) ? $ecriture->ecriture2->id : '') }}
 		{{ Form::label('banque2_id', 'Banque liée', array ('class' => '', 'id' => 'banque2_label')) }}
 		{{ Form::select('banque2_id', $list['banque'], isset($ecriture->ecriture2->banque_id) ? $ecriture->ecriture2->banque_id : 0, array ('target' => 'blank'))}}
 	</div>
+
+	
 	<div class="input">
 		<!-- Type 2 -->
 		{{ Form::label('type_id2', 'Type', array ('class' => '')) }}
-
-		{{Form::select('type_id2', $list['type'], isset($ecriture->ecriture2->type_id) ? $ecriture->ecriture2->type_id : 0, array ('class' => 'input-long', 'onChange' => 'javascript:separateur(this);') ) }}
+		{{Form::select('type_id2', $list['type'], isset($ecriture->ecriture2->type_id) ? $ecriture->ecriture2->type_id : 0, array ('class' => 'input-long', 'onChange' => 'javascript:toggleJustif(this);') ) }}
 	</div>
 
-@if(isset($ecriture->ecriture2->type->req_justif) and $ecriture->ecriture2->type->req_justif)
+		<!-- Type (justificatif) -->
+	@if(isset($ecriture->ecriture2->type->statut_justif) and $ecriture->ecriture2->type->statut_justif == 1)
 		<div id="divjustificatif2" class="input">
+		{{ Form::label('justificatif2', 'Justificatif requis', array ('class' => '')) }}
 	@else
-		<div id="divjustificatif2" class="input hidden">
+		<div id="divjustificatif2" class="input locked">
+		{{ Form::label('justificatif2', 'Justificatif non requis', array ('class' => '')) }}
 	@endif
 		<!-- Type (justificatif) -->
-		{{ Form::label('justif2', 'Justificatif', array ('class' => '')) }}
 		<span id="sep2">
 			{{isset($ecriture->ecriture2->type->sep_justif) ? $ecriture->ecriture2->type->sep_justif :  ''}}
 		</span>
-		{{ Form::text('justif2', isset($ecriture->ecriture2->justificatif) ? $ecriture->ecriture2->justificatif : '', array ('class' => 'input-long margright')) }} 
-		<!-- Type (justificatif requis) -->
-		{{ Form::hidden('req_justif2', isset($ecriture->ecriture2->type->req_justif) ? $ecriture->ecriture2->justificatif : '', array ('class' => 'input-long margright', 'id' => 'req_justif2')) }}   <!-- aPo probleme de selected -->
+		{{ Form::text('justificatif2', isset($ecriture->ecriture2->justificatif) ? $ecriture->ecriture2->justificatif : '', array ('class' => 'input-long margright')) }} 
+
+		<!-- Type (justificatif requis) Utilisé pour la validation -->
+		{{ Form::hidden('statut_justif2', isset($ecriture->ecriture2->type->statut_justif) ? $ecriture->ecriture2->justificatif : '', array ('class' => 'input-long margright', 'id' => 'statut_justif2')) }}
 	</div>
 </fieldset>
 
@@ -184,13 +201,13 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 <script type="text/javascript">
 
 <?php 
-echo "var seps = {};";
-echo "var req_justif = {};";
+echo "var separateurs = {};";
+echo "var statut_justif = {};";
 
 foreach($types as $i) {
 	echo "
-	seps['$i->id'] = '$i->sep_justif';
-	req_justif['$i->id'] = '$i->req_justif';
+	separateurs['$i->id'] = '$i->sep_justif';
+	statut_justif['$i->id'] = '$i->statut_justif';
 	";
 }
 ?>

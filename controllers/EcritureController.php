@@ -182,7 +182,7 @@ class EcritureController extends BaseController {
 		$ec1->libelle = Input::get('libelle');
 		$ec1->libelle_detail = Input::get('libelle_detail');
 		$ec1->type_id = Input::get('type_id1');
-		$ec1->justificatif = Input::get('justificatif');
+		$ec1->justificatif = Input::get('justificatif1');
 		$ec1->compte_id = Input::get('compte_id');
 		$ec1->is_double = Input::get('is_double');
 		$ec1->note = Input::get('note');
@@ -211,7 +211,7 @@ class EcritureController extends BaseController {
 		$ec2->libelle = Input::get('libelle');
 		$ec2->libelle_detail = Input::get('libelle_detail');
 		$ec2->type_id = Input::get('type_id2');
-		$ec2->justificatif = Input::get('justif2');
+		$ec2->justificatif = Input::get('justificatif2');
 		$ec2->compte_id = Input::get('compte_id');
 		$ec2->is_double = Input::get('is_double');
 		$ec1->note = Input::get('note');
@@ -391,7 +391,7 @@ class EcritureController extends BaseController {
 		/* Rediriger */
 		Session::flash('success', $success);
 		$mois = self::setMoisCourant($ec1);
-		return Redirect::to(Session::get('page_depart')."#".Session::get('Courant.mois'));
+		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_courant'));
 	}
 
 
@@ -416,7 +416,7 @@ class EcritureController extends BaseController {
 		Session::flash('success', $success);
 
 		$mois = self::setMoisCourant($ecriture);
-		return Redirect::to(Session::get('page_depart')."#".Session::get('Courant.mois'));
+		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_courant'));
 
 	}
 
@@ -425,7 +425,7 @@ class EcritureController extends BaseController {
 
 		$mois = DatesFr::classAnMois($ec->date_valeur);
 
-		Session::put('Courant.mois', $mois);
+		Session::put('ParamEnv.tresorerie.mois_courant', $mois);
 		return $mois;
 	}
 

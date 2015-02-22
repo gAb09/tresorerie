@@ -1,5 +1,5 @@
 @section('body')
-onLoad="justifToggle();"
+onLoad="toggleJustif();"
 @stop
 
 <!-- liste d'inputs commune au vues CREATE et EDIT -->
@@ -25,11 +25,11 @@ onLoad="justifToggle();"
 <h5>Champ “Justificatif”</h5>
 <div>
 	<!-- "Justificatif" requis -->
-		{{ Form::checkbox('req_justif', 1, $type->req_justif, array ('class' => 'nobr', 'id' => 'justif_check', 'onClick' => 'javascript:justifToggle()')) }}
+		{{ Form::checkbox('statut_justif', 1, $type->statut_justif, array ('class' => 'nobr', 'id' => 'justif_check', 'onClick' => 'javascript:toggleJustif()')) }}
 		{{ Form::label('justif_check', 'non requis', array ('class' => 'nobr', 'id' => 'justif_label')) }}
 </div>
 
-<div id="req_justif_div">
+<div id="statut_justif_div">
 	<!-- Separateur -->
 	{{ Form::label('sep_justif', 'Séparateur', array ('class' => 'nobr')) }}
 	{{ Form::text('sep_justif', trim($type->sep_justif), array ('class' => '')) }}
