@@ -71,10 +71,9 @@
 		<div class="row-fluid topcontent">
 
 			<!-- - - - - - - - - - - - - - TITREPAGE - - - - - - - - - - - - - - -->
-			<div class="span8" id="titrepage">
+			<div class="span8 titrepage">
 				@yield('titrepage')
 			</div>
-
 
 			<!-- - - - - - - - - - - - - - - - USER / DECONNEXION - - - - - - - - - - - - - - -->
 			<div class="span3 user_widget">

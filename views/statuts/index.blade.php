@@ -6,7 +6,7 @@
 
 
 @section('titrepage')
-		<h1 class="titrepage">{{$titre_page}}</h1>
+		<h1>{{$titre_page}}</h1>
 <p class="badge badge-locale iconesmall add"><a href="{{ URL::action('StatutController@create') }}">Ajouter un nouveau statut</a></p>
 @stop
 

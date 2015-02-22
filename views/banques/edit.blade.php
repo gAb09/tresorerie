@@ -6,7 +6,7 @@
 
 
 @section('titrepage')
-<h1 class="titrepage">{{$titre_page}} <small>(Id = {{$banque->id}})</small></h1>
+<h1>{{$titre_page}} <small>(Id = {{$banque->id}})</small></h1>
 @stop
 
 

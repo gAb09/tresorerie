@@ -8,7 +8,7 @@
 
 
 @section('titrepage')
-		<h1 class="titrepage">Édition du statut n° {{$statut->id}} : {{$statut->nom}}</h1>
+		<h1>Édition du statut n° {{$statut->id}} : {{$statut->nom}}</h1>
 @stop
 
 

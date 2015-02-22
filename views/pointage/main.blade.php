@@ -15,7 +15,7 @@ onLoad="initVolets();"
 
 
 @section('titrepage')
-<h1 class="titrepage">{{ $titre_page }}</h1>
+<h1>{{ $titre_page }}</h1>
 @stop
 
 
