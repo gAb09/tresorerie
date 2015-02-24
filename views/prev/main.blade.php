@@ -108,7 +108,7 @@ onLoad="initVolets();"
 
 
 @section('actions')
-@if(Auth::user()->role_id != 3)
+@if(Auth::user()->role_id == 1)
 {{link_to_action('EcritureController@create', 'Ajouter une écriture', null, ["class" => "btn btn-success btn-actions iconemedium add"])}}
 @else
 <table style="background-color:#EDDCC1">
