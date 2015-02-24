@@ -57,16 +57,35 @@ trait TraitDomaine {
 	/**
 	 * Assigne la classe de présence d'une note.
 	 *
-	 * @param $ligne. La ligne du tableau en cours de traitement.
+	 * @param object L'ecriture'.
 	 *
-	 * @return string le nom de la classe/la ligne sans modif.
+	 * @return object L'ecriture'.
 	 *
 	 */
-	private function setPresenceNote($ligne){
+	private function setPresenceNote($ecriture){
 
-			if ($ligne->note) {
-				return $ligne->presence_note = "info note";
+			if ($ecriture->note) {
+				$ecriture->presence_note = "info note";
 			}
+			return $ecriture;
+		}
+
+	/**
+	 * Assigne la classe du compte. Affichera celui-ci en css "indefini" si indéfini
+	 *
+	 * @param object L'ecriture'.
+	 *
+	 * @return object L'ecriture'.
+	 *
+	 */
+	private function setClassCompte($ligne){
+
+			if ($ligne->compte->id == 1) {
+				$ligne->class_compte = "compte indefini";
+			}else{
+				$ligne->class_compte = "compte";
+			}
+			return $ligne;
 		}
 
 }

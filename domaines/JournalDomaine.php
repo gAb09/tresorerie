@@ -31,8 +31,11 @@ class JournalDomaine {
 		/* Lancer la boucle sur la collection */
 		$ecritures->each(function($ecriture) use ($ecritures, $order, $last) {
 
-			/* Gérere l'existence d'une note */
-			$ecriture->presence_note = $this->setPresenceNote($ecriture);
+			/* Gérer l'existence d'une note */
+			$ecriture = $this->setPresenceNote($ecriture);
+
+			/* Gérer la classe CSS du compte */
+			$ecriture = $this->setClassCompte($ecriture);
 
 			/* Affecter la valeur de la propriété $this-rang initialisée à 0. */
 			$ecriture->rang = $this->rang;

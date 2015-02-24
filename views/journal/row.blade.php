@@ -92,11 +92,7 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 
 
 <!-- Compte -->
-@if($ecriture->compte->id == 1)
-<td class="compte indefini">
-	@else
-	<td class="compte">
-		@endif
+	<td class="{{ $ecriture->class_compte }}">
 		({{ $ecriture->compte->numero }}) 
 		{{ $ecriture->compte->libelle }}
 	</td>

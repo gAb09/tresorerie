@@ -102,7 +102,7 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 	</td>
 
 	<!-- Compte -->
-	<td class="compte">
+	<td class="{{ $ecriture->class_compte }}">
 		{{ $ecriture->compte->libelle }}
 	</td>
 
