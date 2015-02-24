@@ -35,7 +35,7 @@ class PointageDomaine {
 			$ecriture = $this->setPresenceNote($ecriture);
 
 			/* Gérer la classe CSS du compte */
-			$ecriture = $this->setClassCompte($ecriture);
+			$ecriture = $this->setStatutCompte($ecriture);
 
 			/* Affecter la valeur de la propriété $this-rang initialisée à 0. */
 			$ecriture->rang = $this->rang;

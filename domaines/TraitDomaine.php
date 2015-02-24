@@ -78,12 +78,10 @@ trait TraitDomaine {
 	 * @return object L'ecriture'.
 	 *
 	 */
-	private function setClassCompte($ligne){
+	private function setStatutCompte($ligne){
 
 			if ($ligne->compte->id == 1) {
-				$ligne->class_compte = "compte indefini";
-			}else{
-				$ligne->class_compte = "compte";
+				$ligne->statut_compte = "indefini";
 			}
 			return $ligne;
 		}
