@@ -93,6 +93,8 @@
 				@yield('contenu')
 			</div>
 		</div>
+		<div class="chassebaspage">
+		</div>
 	</div>
 
 	<!-- - - - - - - - - - - - - - - - FOOTER - - - - - - - - - - - - - - -->
