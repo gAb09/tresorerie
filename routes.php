@@ -56,6 +56,10 @@ Route::group(array('prefix' => 'tresorerie', 'before' => 'auth'), function()
 		/*----------------------  Banques  ----------------------------------*/
 		Route::resource('banques', 'BanqueController');
 
+		/*----------------------  Reports  ----------------------------------*/
+		Route::resource('reports', 'ReportController');
+		Route::get('reports/dupli/{report}', array('as' => 'duplireport', 'uses' => 'ReportController@duplicate'));
+
 		/*----------------------  Notes  ----------------------------------*/
 		Route::resource('notes', 'NoteController');
 

@@ -170,6 +170,11 @@ Pointée : écriture pointée par rapport aux relevés bancaires.
 		{{ (Session::get('ParamEnv.tresorerie.annee_courante') == '2015') ? 'badge-success' : ''}} " >
 		2015
 	</a>
+	<a href ="{{ URL::to("tresorerie/previsionnel/2016") }}" 
+		class="badge badge-locale badge-big 
+		{{ (Session::get('ParamEnv.tresorerie.annee_courante') == '2016') ? 'badge-success' : ''}} " >
+		2016
+	</a>
 </div>
 
 <div class="span6">

@@ -10,6 +10,24 @@ class PrevDomaine {
 
 	private $rang = 0;
 
+	private function CalculReport($annee, $bank){
+		$annee = $annee -1;
+		$solde = 0;
+
+			if ($annee == 2013) {
+				return 0;
+			}
+
+		$result = Report::with('signe')
+		->where('banque_id', '=', $bank)
+		->where('libelle_detail', $annee)
+		->orderBy("date_valeur")
+		->first(['montant', 'signe_id'])
+		;
+
+		return $result->montant * $result->signe->signe;
+	}
+
 	public function collectionPrev($banques, $annee)
 	{
 		$order = 'date_valeur';
@@ -30,12 +48,7 @@ class PrevDomaine {
 		->orderBy("ecritures.banque_id")
 		->select(['ecritures.*', 's.banque_id as banque_soeur_id'])
 		->get()
-		// ->toArray()
-		// ->toSql()
 		;
-
-		// dd($ecritures);
-
 
 		if ($ecritures->isEmpty())
 		{
@@ -74,7 +87,8 @@ class PrevDomaine {
 		});
 
 		/* ----- Traitement des soldes par banques ----- */
-		$ecritures->each(function($ecriture) use ($ecritures, $order, $banques) {
+		$ecritures->each(function($ecriture) use ($ecritures, $order, $banques) 
+		{
 
 			/* On intègre signe et montant, et réassigne $ecriture->montant */
 			$ecriture->montant = $ecriture->montant * $ecriture->signe->signe; // aFa factoriser dans helper
@@ -164,34 +178,12 @@ class PrevDomaine {
 						$ecriture->$show_ = ($this->solde[$i] == $$prev_solde_)? false : true;
 						$i++;
 					}
-
-
-
 				}
 			}
 		});
-
-
-	return $ecritures;
-
-	}
-
-	private function CalculReport($annee, $bank){
-		$annee = $annee -1;
-		$solde = 0;
-
-		$results = Ecriture::with('signe')
-		->where('banque_id', '=', $bank)
-		->where('date_valeur', 'like', $annee.'%')
-		->orderBy("date_valeur")
-		->get(['montant', 'signe_id'])
-		;
-
-		foreach ($results as $result) {
-			$solde += $result->montant * $result->signe->signe; // aFa factoriser dans helper
-		}
-
-		return $solde;
-	}
+return $ecritures;
 
 }
+
+}
+
