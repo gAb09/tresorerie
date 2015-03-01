@@ -93,35 +93,36 @@
 				@yield('contenu')
 			</div>
 		</div>
+	</div>
 
-		<!-- - - - - - - - - - - - - - - - FOOTER - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - FOOTER - - - - - - - - - - - - - - -->
 
-		<footer>
+	<footer>
 
-			<div class="span12 row-fluid topfooter">
+		<div class="span12 row-fluid topfooter">
 
 
 
-				<!-- - - - - - - - - - - - - - - - ACTIONS - - - - - - - - - - - - - - -->
-				<div class="span6 actions">
-					@yield('actions')
-				</div>
-
-				<!-- - - - - - - - - - - - - - - - AFFICHAGE - - - - - - - - - - - - - - -->
-				<div class="span6 affichage">
-					@yield('affichage')
-				</div>
+			<!-- - - - - - - - - - - - - - - - ACTIONS - - - - - - - - - - - - - - -->
+			<div class="span6 actions">
+				@yield('actions')
 			</div>
-			<div>
-				@section('tresorerie/footer')
-				© gAb – Tresorerie version 1.3
-				@show
+
+			<!-- - - - - - - - - - - - - - - - AFFICHAGE - - - - - - - - - - - - - - -->
+			<div class="span6 affichage">
+				@yield('affichage')
 			</div>
-		</footer>
+		</div>
+		<div>
+			@section('tresorerie/footer')
+			© gAb – Tresorerie version 1.3
+			@show
+		</div>
+	</footer>
 
 
-		@section('script')
+	@section('script')
 
-		@show
-	</body>
-	</html>
+	@show
+</body>
+</html>

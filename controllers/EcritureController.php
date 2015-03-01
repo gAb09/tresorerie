@@ -306,7 +306,7 @@ class EcritureController extends BaseController {
 				/* Hydrater ecriture 1 avec les nouvelles entrées*/
 				$ec1 = static::hydrateSimple($ec1);
 				$ec1->updated_by = Input::get('updated_by');
-
+				
 				/* - - - - - - - - - - - - - - - - - - - - - -
 				… et était double avant…
 				- - - - - - - - - - - - - - - - - - - - - - - - */
