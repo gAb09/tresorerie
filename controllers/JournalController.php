@@ -2,9 +2,6 @@
 
 class JournalController extends BaseController {
 
-	// Les statuts accessibles (séparés par un "-")
-	private $statuts_accessibles = '1-2';
-
 	public function __construct(){
 		$this->journalDom = new JournalDomaine;
 		$this->banqueDom = new BanqueDomaine;
@@ -43,14 +40,9 @@ class JournalController extends BaseController {
 		Session::put('ParamEnv.tresorerie.banque_nom', $ecritures[0]->banque->nom);
 		Session::put('ParamEnv.tresorerie.banque_id', $ecritures[0]->banque->id);
 
-		// Assigner le tableau de correspondance pour gestion js de l'affichage de l'incrémentation des statuts. 
-		$classe_statut = $this->statutDom->setClasseStatut();
-
 		/* Afficher la vue pointage pour la banque demandée. */ 
 		return View::make('tresorerie.views.journal.main')
 		->with(compact('ecritures'))
-		->with(compact('classe_statut'))
-		->with(array('statuts_accessibles' => $this->statuts_accessibles)) 
 		->with(array('titre_page' => "Journal de ".Session::get('ParamEnv.tresorerie.banque_nom')))
 		;
 	}

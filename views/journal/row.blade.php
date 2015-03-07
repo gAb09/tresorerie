@@ -7,21 +7,6 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 	<td 
 	id="statut_td_{{ $ecriture->id }}"
 	class="statut {{$ecriture->statut->classe}}">
-	
-		@if (strpos($statuts_accessibles, (string)$ecriture->statut->rang) !== false)
-		{{ Form::open(array('name' => 'pointage', 'action' => ['PointageController@incrementeStatut', $ecriture->id, $statuts_accessibles], 'method' => 'post', 'class' => 'pointage')) }}
-
-		{{ Form::hidden('input_id', $ecriture->statut->id, array('id' => "input_$ecriture->id", 'class' => '')) }}
-
-		{{ Form::button('', array(
-		'class' => 'btn btn-link iconemedium toggle', 
-		'id' => "btn_$ecriture->id", 
-		'style' => '', 
-		'OnClick' => 'bascule_statut(this);submit();' 
-		)) }}
-
-		{{ form::close() }}
-		@endif
 	</td>
 
 <!-- Dates -->

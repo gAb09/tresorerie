@@ -13,7 +13,7 @@ class StatutDomaine {
 		return new Statut($this->default_values_for_create);
 	}
 
-	public function setClasseStatut(){
+	public function getListeClasseStatut(){
 		$statuts = Statut::all(['id', 'classe']);
 		foreach ($statuts as $statut) {
 			$classe_statut[$statut->id] = $statut->classe;

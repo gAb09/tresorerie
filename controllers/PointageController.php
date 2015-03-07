@@ -45,7 +45,7 @@ class PointageController extends BaseController {
 		Session::put('ParamEnv.tresorerie.banque_id', $ecritures[0]->banque->id);
 
 		// Assigner le tableau de correspondance pour gestion js de l'affichage de l'incrémentation des statuts. 
-		$classe_statut = $this->statutDom->setClasseStatut();
+		$classe_statut = $this->statutDom->getListeClasseStatut();
 
 		// Afficher la vue pointage pour la banque demandée. 
 		return View::make('tresorerie.views.pointage.main')

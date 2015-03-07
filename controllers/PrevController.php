@@ -44,7 +44,7 @@ class PrevController extends BaseController {
 
 
 		// On peut assigner le tableau de correspondance pour gestion js de l'affichage de l'incrémentation des statuts. 
-		$classe_statut = $this->statutDom->setClasseStatut();
+		$classe_statut = $this->statutDom->getListeClasseStatut();
 
 		/* On calcule les reports de l'année précédente */
 
