@@ -5,9 +5,6 @@ class PrevController extends BaseController {
 	// Le critère de classement
 	private $order = 'date_valeur';
 
-	// Le tableau des statuts modifiables depuis cette page
-	private $statuts_accessibles = '1-2';
-
 	public function __construct(){
 		$this->prevDom = new PrevDomaine;
 		$this->banqueDom = new BanqueDomaine;
@@ -42,19 +39,12 @@ class PrevController extends BaseController {
 		/* On peut passer cette année en année courante */
 		Session::put('ParamEnv.tresorerie.annee_courante', $annee);
 
-
-		// On peut assigner le tableau de correspondance pour gestion js de l'affichage de l'incrémentation des statuts. 
-		$classe_statut = $this->statutDom->getListeClasseStatut();
-
 		/* On calcule les reports de l'année précédente */
 
-		
 		/* On peut afficher la vue "prévisionnel" */ 
 		return View::make('tresorerie.views.prev.main')
 		->with(compact('banques'))
 		->with(compact('ecritures'))
-		->with(compact('classe_statut'))
-		->with(array('statuts_accessibles' => $this->statuts_accessibles)) 
 		->with(array('titre_page' => "Prévisionnel"))
 		;
 	}

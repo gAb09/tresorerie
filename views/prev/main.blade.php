@@ -205,7 +205,4 @@ echo 'var mois = "'.Session::get('ParamEnv.tresorerie.mois_courant').'";';
 <script src="/assets/tresorerie/js/volets.js">
 </script>
 
-<script src="/assets/tresorerie/js/incrementeStatuts.js">
-</script>
-
 @stop
