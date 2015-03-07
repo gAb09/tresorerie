@@ -12,6 +12,14 @@ class PointageDomaine {
 
 	private $rang = 0;
 
+	// Les statuts accessibles (séparés par un "-")
+	private $statuts_accessibles = '1-2-3-4';
+
+	public function getStatutsAccessibles()
+	{
+		return $this->statuts_accessibles;
+	}
+
 	public function collectionPointage($id, $order)
 	{
 

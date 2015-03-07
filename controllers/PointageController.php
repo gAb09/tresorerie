@@ -2,9 +2,6 @@
 
 class PointageController extends BaseController {
 
-	// Les statuts accessibles (séparés par un "-")
-	private $statuts_accessibles = '2-3-4';
-
 	public function __construct(){
 		$this->ecritDom = new EcritureDomaine;
 		$this->pointageDom = new PointageDomaine;
@@ -51,7 +48,7 @@ class PointageController extends BaseController {
 		return View::make('tresorerie.views.pointage.main')
 		->with(compact('ecritures'))
 		->with(compact('classe_statut'))
-		->with(array('statuts_accessibles' => $this->statuts_accessibles))
+		->with(array('statuts_accessibles' => $this->pointageDom->getStatutsAccessibles()))
 		->with(array('titre_page' => "Pointage de ".Session::get('ParamEnv.tresorerie.banque_nom')))
 		;
 	}
