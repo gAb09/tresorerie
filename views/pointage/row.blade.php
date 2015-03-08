@@ -112,4 +112,9 @@ ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [
 			<a class="iconemedium edit" href ="{{ URL::action('EcritureController@edit', [$ecriture->id]) }}"></a>
 		</td>
 
+	<!-- Duplication -->
+		<td class="icone">
+			<a class="iconemedium dupli" href ="{{ URL::action('EcritureController@duplicate', [$ecriture->id]) }}"></a>
+		</td>
+
 </tr>

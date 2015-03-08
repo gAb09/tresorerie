@@ -61,8 +61,9 @@ onLoad="initVolets();"
 			Compte
 		</th>
 		<th class="icone iconemedium edit">
-			
 		</th>
+		</th>
+		<th class="icone iconemedium dupli">
 	</thead>
 
 
