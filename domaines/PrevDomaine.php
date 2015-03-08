@@ -10,6 +10,16 @@ class PrevDomaine {
 
 	private $rang = 0;
 
+	// Les statuts accessibles (séparés par un "-")
+	private $statuts_accessibles = '1-2';
+
+
+	public function getStatutsAccessibles()
+	{
+		return $this->statuts_accessibles;
+	}
+
+
 	private function CalculReport($annee, $bank){
 		$annee = $annee -1;
 		$solde = 0;

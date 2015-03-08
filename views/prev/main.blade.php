@@ -202,6 +202,11 @@ Pointée : écriture pointée par rapport aux relevés bancaires.
 <script type="text/javascript">	
 <?php
 
+/* Transmettre au javascript "incrementeStatuts()" 
+le tableau de correspondance classe/id pour les statuts */
+echo "var classe_statut = ".$classe_statut.";";
+echo "var statuts_accessibles = '".$statuts_accessibles."';";
+
 /* Transmettre au javascript "initVolets()"
 la variable du mois courant */
 echo 'var mois = "'.Session::get('ParamEnv.tresorerie.mois_courant').'";';
@@ -210,6 +215,9 @@ echo 'var mois = "'.Session::get('ParamEnv.tresorerie.mois_courant').'";';
 </script>
 
 <script src="/assets/tresorerie/js/volets.js">
+</script>
+
+<script src="/assets/tresorerie/js/incrementeStatuts.js">
 </script>
 
 @stop
