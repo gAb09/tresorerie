@@ -109,6 +109,13 @@ onLoad="initVolets();"
 @stop
 
 
+@section('actions')
+
+{{link_to_action('EcritureController@create', 'Ajouter une écriture', null, ["class" => "btn btn-success btn-actions iconemedium add"])}}
+
+@stop
+
+
 @section('affichage')
 <div class="banques">
 	@foreach(Banque::all() as $bank)

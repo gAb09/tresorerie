@@ -108,7 +108,6 @@ Le réglage par défaut est de {{NBRE_PAR_PAGE}} écritures par page.
 @stop
 
 @section('actions')
-{{link_to_action('EcritureController@create', 'Ajouter une écriture', null, ["class" => "btn btn-success btn-actions iconemedium add"])}}
 @stop
 
 @section('affichage')

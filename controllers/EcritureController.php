@@ -44,6 +44,7 @@ class EcritureController extends BaseController {
 	public function index($banque = null)
 	{	
 		Session::put('page_depart', Request::getUri());
+		Session::put('ParamEnv.tresorerie.mode_courant', 'ecritures');
 
 		$nbre_par_page = (Input::get('nbre_par_page')) ? Input::get('nbre_par_page') : NBRE_PAR_PAGE;
 
@@ -189,6 +190,7 @@ class EcritureController extends BaseController {
 		$ec1->type_id = Input::get('type_id1');
 		$ec1->justificatif = Input::get('justificatif1');
 		$ec1->compte_id = Input::get('compte_id');
+		$ec1->statut = self::saveStatutSelonModeCourant();
 		$ec1->is_double = Input::get('is_double');
 		$ec1->note = Input::get('note');
 
@@ -218,6 +220,7 @@ class EcritureController extends BaseController {
 		$ec2->type_id = Input::get('type_id2');
 		$ec2->justificatif = Input::get('justificatif2');
 		$ec2->compte_id = Input::get('compte_id');
+		$ec1->statut = self::saveStatutSelonModeCourant();
 		$ec2->is_double = Input::get('is_double');
 		$ec1->note = Input::get('note');
 
@@ -443,6 +446,27 @@ class EcritureController extends BaseController {
 		}
 
 		return Session::put('ParamEnv.tresorerie.mois_courant', $mois);
+	}
+
+	public static function saveStatutSelonModeCourant(){
+		$mode_courant = Session::get('ParamEnv.tresorerie.mode_courant');
+		switch ($mode_courant) {
+			case 'journal':
+				return 2;
+				break;
+			
+			case 'pointage':
+				return 3;
+				break;
+			
+			case 'previsionnel':
+				return 1;
+				break;
+			
+			default:
+				return 1;
+				break;
+		}
 	}
 
 	public static function recherche(){

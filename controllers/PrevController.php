@@ -13,6 +13,8 @@ class PrevController extends BaseController {
 
 	public function index($annee = null)
 	{
+		Session::put('ParamEnv.tresorerie.mode_courant', 'previsionnel');
+
 		/* Si l'année n'est pas spécifiée on utilise l'année courante */
 		$annee = (is_null($annee))? Session::get('ParamEnv.tresorerie.annee_courante') : $annee;
 

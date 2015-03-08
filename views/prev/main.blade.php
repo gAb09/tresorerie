@@ -153,6 +153,13 @@ Pointée : écriture pointée par rapport aux relevés bancaires.
 @stop
 
 
+@section('actions')
+
+{{link_to_action('EcritureController@create', 'Ajouter une écriture', null, ["class" => "btn btn-success btn-actions iconemedium add"])}}
+
+@stop
+
+
 @section('affichage')
 <div class="span6">
 	<a href ="{{ URL::to("tresorerie/previsionnel/2013") }}" 

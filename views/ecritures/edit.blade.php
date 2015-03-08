@@ -8,7 +8,7 @@
 
 
 @section('titrepage')
-<h1>{{$titre_page}}</h1>
+<h1>{{$titre_page}} </h1>
 <p>
 	Créée le {{ DatesFr::longue($ecriture->created_at) }}
 	@if(isset($ecriture->createur->login))

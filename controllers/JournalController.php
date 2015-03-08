@@ -10,6 +10,8 @@ class JournalController extends BaseController {
 
 	public function index($id = null) //
 	{
+		Session::put('ParamEnv.tresorerie.mode_courant', 'journal');
+
 		/* Si pas d'$id spécifié on utilise celui de la banque courante
 		(stocké en session). Si on est en début de session on initialise alors à 1
 		qui est l'Id de la banque principale */
