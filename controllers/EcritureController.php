@@ -17,6 +17,7 @@ class EcritureController extends BaseController {
 		EcritureDomaine $ecritureDom,
 		BanqueDomaine $banqueDom,
 		CompteDomaine $compteDom,
+		StatutDomaine $statutDom,
 		TypeDomaine $typeDom
 		)
 	{
@@ -25,6 +26,7 @@ class EcritureController extends BaseController {
 		$this->ecritureDom = $ecritureDom ;
 		$this->banqueDom = $banqueDom;
 		$this->compteDom = $compteDom ;
+		$this->statutDom = $statutDom ;
 		$this->typeDom = $typeDom ;
 	}
 
@@ -467,6 +469,17 @@ class EcritureController extends BaseController {
 				return 1;
 				break;
 		}
+	}
+
+	public function incrementeStatut($id, $statuts_accessibles)
+	{
+		$ecriture = $this->ecritureDom->find($id);
+
+		$ecriture->statut_id = $this->statutDom->incremente($statuts_accessibles, $ecriture);
+
+		$this->ecritureDom->save($ecriture);
+
+		return Response::make('', 204);
 	}
 
 	public static function recherche(){

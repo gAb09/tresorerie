@@ -28,7 +28,6 @@ Route::group(array('prefix' => 'tresorerie', 'before' => 'auth'), function()
 
 
 	// /*----------------------  Pointage  ----------------------------------*/
-		Route::post('pointage/{id?}-{statuts?}', 'PointageController@incrementeStatut');
 		Route::get('pointage/{banque_id?}', array('as' => 'pointage', 'uses' => 'PointageController@index'));
 
 	// /*----------------------  Recherche  ----------------------------------*/
@@ -64,6 +63,7 @@ Route::group(array('prefix' => 'tresorerie', 'before' => 'auth'), function()
 		Route::resource('notes', 'NoteController');
 
 		/*----------------------  Statuts  ----------------------------------*/
+		Route::post('statut/incremente/{id?}-{statuts?}', array('as' => 'incrementeStatut', 'uses' => 'EcritureController@incrementeStatut'));
 		Route::get('statutsvisu', 'StatutController@visu');
 		Route::get('statuts', 'StatutController@index');
 		Route::resource('statuts', 'StatutController');

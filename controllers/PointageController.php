@@ -55,22 +55,4 @@ class PointageController extends BaseController {
 		;
 	}
 
-
-	public function incrementeStatut($id, $statuts_accessibles)
-	{
-		// return 'pointage de l’écriture n° '.$id.'<br />Statut id : '.$statut_id;  // CTRL
-		// return var_dump(Input::all());  // CTRL
-
-		$ecriture = $this->ecritDom->find($id);
-
-		$ecriture->statut_id = $this->statutDom->incremente($statuts_accessibles, $ecriture);
-
-			// return var_dump($new_statut); // CTRL
-
-		$this->ecritDom->save($ecriture);
-
-		return Response::make('', 204);
-	}
-
-
 }
