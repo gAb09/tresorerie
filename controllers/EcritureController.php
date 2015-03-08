@@ -441,33 +441,37 @@ class EcritureController extends BaseController {
 
 
 	public static function setMoisCourant($ec){
-		if (strpos(Session::get('page_depart'), 'journal') !== false) {
-			$mois = DatesFr::classAnMois($ec->date_emission);
+		if (Session::has('ParamEnv.tresorerie.mois_courant.mode')) {
+			if (Session::get('ParamEnv.tresorerie.mode_courant') == 'journal') {
+				$mois = DatesFr::classAnMois($ec->date_emission);
+			}else{
+				$mois = DatesFr::classAnMois($ec->date_valeur);
+			}
+			Session::put('ParamEnv.tresorerie.mois_courant', $mois);
 		}else{
-			$mois = DatesFr::classAnMois($ec->date_valeur);
+			Session::put('ParamEnv.tresorerie.mois_courant', date('Y.m'));
 		}
 
-		return Session::put('ParamEnv.tresorerie.mois_courant', $mois);
 	}
 
 	public static function saveStatutSelonModeCourant(){
 		$mode_courant = Session::get('ParamEnv.tresorerie.mode_courant');
 		switch ($mode_courant) {
 			case 'journal':
-				return 2;
-				break;
+			return 2;
+			break;
 			
 			case 'pointage':
-				return 3;
-				break;
+			return 3;
+			break;
 			
 			case 'previsionnel':
-				return 1;
-				break;
+			return 1;
+			break;
 			
 			default:
-				return 1;
-				break;
+			return 1;
+			break;
 		}
 	}
 
