@@ -129,6 +129,7 @@ class EcritureController extends BaseController {
 
 			$ec1 = static::hydrateSimple($ec1);
 			$ec1->created_by = Auth::user()->id;
+			$ec1->statut_id = self::saveStatutSelonModeCourant();
 
 			$validation = $this->validateur->valider( Input::all() );
 			if ($validation === true) {
@@ -152,6 +153,9 @@ class EcritureController extends BaseController {
 
 			$ec1->created_by = Auth::user()->id;
 			$ec2->created_by = Auth::user()->id;
+
+			$ec1->statut_id = self::saveStatutSelonModeCourant();
+			$ec2->statut_id = self::saveStatutSelonModeCourant();
 
 			$validation = $this->validateur->valider( Input::all() );
 			$validation2 = $this->validateur2->valider( Input::all() );
@@ -192,7 +196,6 @@ class EcritureController extends BaseController {
 		$ec1->type_id = Input::get('type_id1');
 		$ec1->justificatif = Input::get('justificatif1');
 		$ec1->compte_id = Input::get('compte_id');
-		$ec1->statut_id = self::saveStatutSelonModeCourant();
 		$ec1->is_double = Input::get('is_double');
 		$ec1->note = Input::get('note');
 
@@ -222,9 +225,8 @@ class EcritureController extends BaseController {
 		$ec2->type_id = Input::get('type_id2');
 		$ec2->justificatif = Input::get('justificatif2');
 		$ec2->compte_id = Input::get('compte_id');
-		$ec1->statut_id = self::saveStatutSelonModeCourant();
 		$ec2->is_double = Input::get('is_double');
-		$ec1->note = Input::get('note');
+		$ec2->note = Input::get('note');
 
 		return array($ec1, $ec2);
 
