@@ -13,22 +13,31 @@ class PrevController extends BaseController {
 
 	public function index($annee = null)
 	{
-		Session::put('ParamEnv.tresorerie.mode_courant', 'previsionnel');
-
-		/* Si l'année n'est pas spécifiée on utilise l'année courante */
+		/* Traitement des arguments */
 		$annee = (is_null($annee))? Session::get('ParamEnv.tresorerie.annee_courante') : $annee;
 
-		/* Si l'édition d’une écriture est demandée depuis cette page, 
-		il faut passer (via la session) à EcritureController@update pour la redirection */
+
+		/* Rafraichissement en session de l'année courante */
+		Session::put('ParamEnv.tresorerie.annee_courante', $annee);
+
+
+		/* Mise en session du mode courant */
+		Session::put('ParamEnv.tresorerie.mode_courant', 'previsionnel');
+
+
+		/* Mise en session de la page de départ pour la redirection depuis EcritureController@update */
 		Session::put('page_depart', Request::getUri());
 
+
+		/* vueA - Récupérer les banques prises en compte dans le mode previsionnel */
 		$banques = $this->banqueDom->isPrevisionnel();
 
-		// Récupérer la collection d'écriture
+
+		/* vueB - Récupérer la collection d'écriture.
+		Rediriger (back) si pas d'écritures */
 		$ecritures = $this->prevDom->collectionPrev($banques, $annee);
 
-		/* S'il n'y a pas d'écriture pour la banque demandée : 
-		rediriger sur la page pointage par défaut avec un message d'erreur */
+
 		if (!$ecritures){
 			$message = 'Il n’y a aucune écriture pour l’année “';
 			$message .= $annee;
@@ -36,22 +45,29 @@ class PrevController extends BaseController {
 			return Redirect::back()->withErrors($message);
 		}
 
-		/* Puisqu'il y a des écritures */
 
-		/* On peut passer cette année en année courante */
-		Session::put('ParamEnv.tresorerie.annee_courante', $annee);
-
-		// Assigner le tableau de correspondance pour gestion js de l'affichage de l'incrémentation des statuts. 
+		/* vueC - Assigner le tableau de correspondance 
+		pour gestion js de l'affichage de l'incrémentation des statuts. */
 		$classe_statut = $this->statutDom->getListeClasseStatut();
 
-		/* On calcule les reports de l'année précédente */
 
-		/* On peut afficher la vue "prévisionnel" */ 
+		/* vueD/E - Obtenir les années, clôturées et non clôturées */
+		$annees_clotured = $this->prevDom->getAnneesClotured();
+		$annees_non_clotured = $this->prevDom->getAnneesNonClotured();
+
+
+		/* vueF - Obtenir les stauts autorisés pour ce mode */
+		$statuts_autorised = $this->prevDom->getStatutsAutorised();
+
+
+		/* On peut afficher la vue */ 
 		return View::make('tresorerie.views.prev.main')
-		->with(compact('banques'))
-		->with(compact('ecritures'))
-		->with(compact('classe_statut'))
-		->with(array('statuts_accessibles' => $this->prevDom->getStatutsAccessibles()))
+		->with(compact('banques')) // A
+		->with(compact('ecritures')) // B
+		->with(compact('classe_statut')) //C
+		->with(compact('annees_clotured')) // D
+		->with(compact('annees_non_clotured')) // E
+		->with(compact('statuts_autorised')) // F
 		->with(array('titre_page' => "Prévisionnel"))
 		;
 	}

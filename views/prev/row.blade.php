@@ -8,8 +8,8 @@
 		id="statut_td_{{ $ecriture->id }}"
 		class="statut {{$ecriture->statut->classe}}">
 		
-			@if (strpos($statuts_accessibles, (string)$ecriture->statut->rang) !== false)
-			{{ Form::open(array('name' => 'incrementeStatut', 'route' => ['incrementeStatut', $ecriture->id, $statuts_accessibles], 'method' => 'post', 'class' => 'pointage')) }}
+			@if (strpos($statuts_autorised, (string)$ecriture->statut->rang) !== false)
+			{{ Form::open(array('name' => 'incrementeStatut', 'route' => ['incrementeStatut', $ecriture->id, $statuts_autorised], 'method' => 'post', 'class' => 'pointage')) }}
 
 			{{ Form::hidden('input_id', $ecriture->statut->id, array('id' => "input_$ecriture->id", 'class' => '')) }}
 

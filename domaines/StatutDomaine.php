@@ -22,12 +22,12 @@ class StatutDomaine {
 	}
 
 
-	public function incremente($statuts_accessibles, $ecriture)
+	public function incremente($statuts_autorised, $ecriture)
 	{
-		$last_statut_accessible = substr($statuts_accessibles, -1);
+		$last_statut_accessible = substr($statuts_autorised, -1);
 		$statut_actuel = ($ecriture->statut_id);
 
-		$new_statut = ($statut_actuel < $last_statut_accessible) ? ++$statut_actuel : $statuts_accessibles[0] ;
+		$new_statut = ($statut_actuel < $last_statut_accessible) ? ++$statut_actuel : $statuts_autorised[0] ;
 
 		return $new_statut;
 	}

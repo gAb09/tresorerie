@@ -153,38 +153,24 @@ Pointée : écriture pointée par rapport aux relevés bancaires.
 @stop
 
 
-@section('actions')
-
-{{link_to_action('EcritureController@create', 'Ajouter une écriture', null, ["class" => "btn btn-success btn-actions iconemedium add"])}}
-
-@stop
-
-
 @section('affichage')
-<div class="span6">
-	<a href ="{{ URL::to("tresorerie/previsionnel/2013") }}" 
+<div class="span12">
+@foreach($annees_clotured as $annee)
+	<a href ="{{ URL::to("tresorerie/previsionnel/".$annee) }}" 
 		class="badge badge-locale badge-big 
-		{{ (Session::get('ParamEnv.tresorerie.annee_courante') == '2013') ? 'badge-success' : ''}} " >
-		2013
+		{{ (Session::get('ParamEnv.tresorerie.annee_courante') == $annee) ? 'badge-success' : ''}} " >
+		{{$annee}}
 	</a>
-	<a href ="{{ URL::to("tresorerie/previsionnel/2014") }}" 
+@endforeach
+	<a href ="{{ URL::to("tresorerie/previsionnel/en_cours") }}" 
 		class="badge badge-locale badge-big 
-		{{ (Session::get('ParamEnv.tresorerie.annee_courante') == '2014') ? 'badge-success' : ''}} " >
-		2014
-	</a>
-	<a href ="{{ URL::to("tresorerie/previsionnel/2015") }}" 
-		class="badge badge-locale badge-big 
-		{{ (Session::get('ParamEnv.tresorerie.annee_courante') == '2015') ? 'badge-success' : ''}} " >
-		2015
-	</a>
-	<a href ="{{ URL::to("tresorerie/previsionnel/2016") }}" 
-		class="badge badge-locale badge-big 
-		{{ (Session::get('ParamEnv.tresorerie.annee_courante') == '2016') ? 'badge-success' : ''}} " >
-		2016
+		{{ (Session::get('ParamEnv.tresorerie.annee_courante') == $annees_non_clotured) ? 'badge-success' : ''}} " >
+		{{ $annees_non_clotured }} et suivantes
 	</a>
 </div>
 
-<div class="span6">
+<!--
+<div class="span12">
 	<span>Banque de référence</span>
 	@foreach(Banque::all() as $bank)
 	<p class="label label-locale label-medium {{ ($bank->rang == 1) ? 'btn-success' : ''}}"
@@ -193,6 +179,7 @@ Pointée : écriture pointée par rapport aux relevés bancaires.
 	</p>
 	@endforeach
 </div>
+-->
 
 @stop
 
@@ -205,7 +192,7 @@ Pointée : écriture pointée par rapport aux relevés bancaires.
 /* Transmettre au javascript "incrementeStatuts()" 
 le tableau de correspondance classe/id pour les statuts */
 echo "var classe_statut = ".$classe_statut.";";
-echo "var statuts_accessibles = '".$statuts_accessibles."';";
+echo "var statuts_autorised = '".$statuts_autorised."';";
 
 /* Transmettre au javascript "initVolets()"
 la variable du mois courant */

@@ -1,8 +1,8 @@
 <?php
-use \Tresorerie\Domaines\TraitDomaine as TraitDomaine;
+use \Tresorerie\Domaines\ModesTraitDomaine as ModesTraitDomaine;
 
 class PointageDomaine {
-	use TraitDomaine;
+	use ModesTraitDomaine;
 
 	private $somme_dep_mois = 0.0;
 
@@ -12,12 +12,12 @@ class PointageDomaine {
 
 	private $rang = 0;
 
-	// Les statuts accessibles (séparés par un "-")
-	private $statuts_accessibles = '1-2-3-4';
+	// Les statuts autorisés (séparés par un "-")
+	private $statuts_autorised = '1-2-3-4';
 
-	public function getStatutsAccessibles()
+	public function getStatutsAutorised()
 	{
-		return $this->statuts_accessibles;
+		return $this->statuts_autorised;
 	}
 
 	public function collectionPointage($id, $order)

@@ -1,10 +1,15 @@
 <?php
 namespace Tresorerie\Domaines;
 
-trait TraitDomaine {
+trait ModesTraitDomaine {
 
-	private $prev_mois = 'premier';
+	private $prev_mois = '';
 
+
+	public function getStatutsAutorised()
+	{
+		return $this->statuts_autorised;
+	}
 
 	/**
 	 * Prépare l'affichage des lignes en tableaux d'un même mois/année.
@@ -28,7 +33,7 @@ trait TraitDomaine {
 
 			/* Il s'agit du premier mois de la page ?
 			Assigner $mois_nouveau de cette ligne à "premier"*/
-			if ($this->prev_mois == 'premier')
+			if ($this->prev_mois == '')
 			{
 				$ligne->mois_nouveau = 'premier';
 
@@ -64,11 +69,11 @@ trait TraitDomaine {
 	 */
 	private function setPresenceNote($ecriture){
 
-			if ($ecriture->note) {
-				$ecriture->presence_note = "info note";
-			}
-			return $ecriture;
+		if ($ecriture->note) {
+			$ecriture->presence_note = "info note";
 		}
+		return $ecriture;
+	}
 
 	/**
 	 * Assigne la classe du compte. Affichera celui-ci en css "indefini" si indéfini
@@ -78,12 +83,40 @@ trait TraitDomaine {
 	 * @return object L'ecriture'.
 	 *
 	 */
-	private function setStatutCompte($ligne){
+	private function setStatutCompte($ecriture){
 
-			if ($ligne->compte->id == 1) {
-				$ligne->statut_compte = "indefini";
-			}
-			return $ligne;
+		if ($ecriture->compte->id == 1) {
+			$ecriture->statut_compte = "indefini";
 		}
+		return $ecriture;
+	}
+
+	/**
+	 * Mettre en session les années cloturées d'une part et la première non cloturée d'autre part
+	 *
+	 */
+	public function setAnneesClotured(){
+
+	}
+
+	/**
+	 * Retourne les années clôturées
+	 *
+	 * @return array .
+	 *
+	 */
+	public function getAnneesClotured(){
+		return \Session::get('ParamEnv.tresorerie.annees.clotured');
+	}
+
+	/**
+	 * Retourne la première année non clôturée
+	 *
+	 * @return array .
+	 *
+	 */
+	public function getAnneesNonClotured(){
+		return \Session::get('ParamEnv.tresorerie.annees.nonClotured');
+	}
 
 }

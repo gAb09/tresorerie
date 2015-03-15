@@ -477,11 +477,11 @@ class EcritureController extends BaseController {
 		}
 	}
 
-	public function incrementeStatut($id, $statuts_accessibles)
+	public function incrementeStatut($id, $statuts_autorised)
 	{
 		$ecriture = $this->ecritureDom->find($id);
 
-		$ecriture->statut_id = $this->statutDom->incremente($statuts_accessibles, $ecriture);
+		$ecriture->statut_id = $this->statutDom->incremente($statuts_autorised, $ecriture);
 
 		$this->ecritureDom->save($ecriture);
 

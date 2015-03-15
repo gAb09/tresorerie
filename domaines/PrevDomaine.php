@@ -1,8 +1,8 @@
 <?php
-use \Tresorerie\Domaines\TraitDomaine as TraitDomaine;
+use \Tresorerie\Domaines\ModesTraitDomaine as ModesTraitDomaine;
 
 class PrevDomaine {
-	use TraitDomaine;
+	use ModesTraitDomaine;
 
 	private $skip = array();
 
@@ -10,53 +10,48 @@ class PrevDomaine {
 
 	private $rang = 0;
 
-	// Les statuts accessibles (séparés par un "-")
-	private $statuts_accessibles = '1-2';
+	/* Les statuts autorisés (séparés par un "-") */
+	private $statuts_autorised = '1-2';
+
+	/* Les statuts autorisés (séparés par un "-") */
+	private $order = 'date_valeur';
 
 
-	public function getStatutsAccessibles()
+
+	public function collectionPrev($banques, $annee, $banque_ref = 1)
 	{
-		return $this->statuts_accessibles;
-	}
-
-
-	private function CalculReport($annee, $bank){
-		$annee = $annee -1;
-		$solde = 0;
-
-			if ($annee == 2013) {
-				return 0;
-			}
-
-		$result = Report::with('signe')
-		->where('banque_id', '=', $bank)
-		->where('libelle_detail', $annee)
-		->orderBy("date_valeur")
-		->first(['montant', 'signe_id'])
-		;
-
-		return $result->montant * $result->signe->signe;
-	}
-
-	public function collectionPrev($banques, $annee)
-	{
-		$order = 'date_valeur';
-
 		$ecritures = Ecriture::with('signe', 'type', 'banque', 'statut', 'compte', 'ecriture2')
-		->leftJoin('ecritures as s', function($join)
+		->leftJoin('ecritures as soeur', function($join)
 		{
-			$join->on('s.id', '=', 'ecritures.soeur_id')
+			$join->on('soeur.id', '=', 'ecritures.soeur_id')
 			;
 
 		})
-		->where('ecritures.date_valeur', 'like', $annee.'%')
-		->where(function($query){
-			$query->whereNull('ecritures.is_double')
-			->orWhere('s.banque_id', '!=', 1);
+		->where("ecritures.$this->order", 'like', $annee.'%')
+		->where(function($query) use ($banque_ref){
+			$query->whereNull('ecritures.is_double') // Toutes les écritures simples
+
+			/* Pour les écritures doubles :
+
+			Si on faisait  banque_id = ref  ou  soeur.banque_id = ref
+			on n'aurait pas les écritures doubles n'impliquant pas la banque de référence
+			(entre 2 autres banques donc).
+
+			Si on faisait banque_id != ref, 
+			on n'aurait pas les écritures doubles impliquant la banque de référence.
+
+			En faisant soeur.banque_id != ref, on a toutes les écritures doubles.
+			Mais attention pour la banque de référence nous n'auront qu'une seule écriture,
+			(ce qui nous convient)
+			alors que pour les autres banques les 2 écritures soeurs seront présentes.
+			Il va donc falloir faire un tri plus loin dans le script
+
+			*/
+			->orWhere('soeur.banque_id', '!=', $banque_ref); 
 		})
-		->orderBy("ecritures.$order")
+		->orderBy("ecritures.$this->order")
 		->orderBy("ecritures.banque_id")
-		->select(['ecritures.*', 's.banque_id as banque_soeur_id'])
+		->select(['ecritures.*', 'soeur.banque_id as banque_soeur_id'])
 		->get()
 		;
 
@@ -65,7 +60,7 @@ class PrevDomaine {
 
 			return false;
 		}
-
+// dd($ecritures);
 
 		/* La collection $ecritures n'est pas vide, on peut lancer le traitement */
 
@@ -82,6 +77,7 @@ class PrevDomaine {
 		/* Déterminer le rang de la dernière écriture de la page. */
 		$last = $ecritures->count() -1;
 
+		$order = $this->order;
 		$ecritures->each(function($ecriture) use ($ecritures, $order, $banques, $last) {
 
 			/* Affecter la valeur de la propriété $this-rang initialisée à 0. */
@@ -191,9 +187,28 @@ class PrevDomaine {
 				}
 			}
 		});
-return $ecritures;
+	return $ecritures;
+	}
 
-}
+
+	private function CalculReport($annee, $bank){
+		$annee = $annee -1;
+		$solde = 0;
+
+		if ($annee == 2013) {
+			return 0;
+		}
+
+		$result = Report::with('signe')
+		->where('banque_id', '=', $bank)
+		->where('libelle_detail', $annee)
+		->orderBy("date_valeur")
+		->first(['montant', 'signe_id'])
+		;
+
+		return $result->montant * $result->signe->signe;
+	}
+
 
 }
 

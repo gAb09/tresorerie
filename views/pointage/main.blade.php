@@ -30,6 +30,10 @@ onLoad="initVolets();"
 <table class="modes">
 	<caption class="ligne_mois" id="{{$ecriture->mois_classement}}" onclick="javascript:volet(this);">
 		{{ ucfirst(DatesFr::MoisAnneeInsec($ecriture->date_valeur)) }}
+
+	<div class="ligne_mois" id="" onclick="javascript:volet(this);">
+		{{ ucfirst(DatesFr::MoisAnneeInsec($ecriture->date_valeur)) }}
+	</div>
 	</caption>
 
 	<thead class="replie" id="tetiere{{$ecriture->mois_classement}}" >
@@ -141,7 +145,7 @@ onLoad="initVolets();"
 /* Transmettre au javascript "incrementeStatuts()" 
 le tableau de correspondance classe/id pour les statuts */
 echo "var classe_statut = ".$classe_statut.";";
-echo "var statuts_accessibles = '".$statuts_accessibles."';";
+echo "var statuts_autorised = '".$statuts_autorised."';";
 
 /* Transmettre au javascript "initVolets()"
 la variable du mois courant */

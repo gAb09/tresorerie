@@ -1,8 +1,8 @@
 <?php
-use \Tresorerie\Domaines\TraitDomaine as TraitDomaine;
+use \Tresorerie\Domaines\ModesTraitDomaine as ModesTraitDomaine;
 
 class JournalDomaine {
-	use TraitDomaine;
+	use ModesTraitDomaine;
 
 	private $somme_dep_mois = 0.0;
 
