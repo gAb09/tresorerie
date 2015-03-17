@@ -102,7 +102,7 @@ class ReportController extends BaseController {
 
 		Session::flash('success',"L’écriture a été créée");
 
-		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.exercice_travail'));
+		return Redirect::to(Session::get('page_depart')."#".Session::get('tresorerie.exercice_travail'));
 
 	}
 
@@ -156,7 +156,7 @@ class ReportController extends BaseController {
 
 		/* Rediriger */
 		Session::flash('success', $success);
-		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_travail'));
+		return Redirect::to(Session::get('page_depart')."#".Session::get('tresorerie.mois_travail'));
 	}
 
 
@@ -178,7 +178,7 @@ class ReportController extends BaseController {
 		Session::flash('success', $success);
 
 		self::setMoisTravail($report);
-		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_travail'));
+		return Redirect::to(Session::get('page_depart')."#".Session::get('tresorerie.mois_travail'));
 
 	}
 
@@ -190,7 +190,7 @@ class ReportController extends BaseController {
 			$mois = DatesFr::classAnMois($ec->date_valeur);
 		}
 
-		return Session::put('ParamEnv.tresorerie.mois_travail', $mois);
+		return Session::put('tresorerie.mois_travail', $mois);
 	}
 
 

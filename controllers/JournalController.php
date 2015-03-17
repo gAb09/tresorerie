@@ -10,14 +10,14 @@ class JournalController extends BaseController {
 
 	public function index($id = null) //
 	{
-		Session::put('ParamEnv.tresorerie.mode_courant', 'journal');
+		Session::put('tresorerie.mode_courant', 'journal');
 
 		/* Si pas d'$id spécifié on utilise celui de la banque courante
 		(stocké en session). Si on est en début de session on initialise alors à 1
 		qui est l'Id de la banque principale */
 		if (is_null($id))
 		{
-			$id = (Session::get('ParamEnv.tresorerie.banque_id'))? Session::get('ParamEnv.tresorerie.banque_id') : 1;
+			$id = (Session::get('tresorerie.banque_id'))? Session::get('tresorerie.banque_id') : 1;
 		}
 
 		/* Si l'édition d’une écriture est demandée depuis cette page, 
@@ -39,13 +39,13 @@ class JournalController extends BaseController {
 
 		/* Passer le nom et l’id de la banque à la session 
 		pour mémorisation de la banque en cours de traitement. */
-		Session::put('ParamEnv.tresorerie.banque_nom', $ecritures[0]->banque->nom);
-		Session::put('ParamEnv.tresorerie.banque_id', $ecritures[0]->banque->id);
+		Session::put('tresorerie.banque_nom', $ecritures[0]->banque->nom);
+		Session::put('tresorerie.banque_id', $ecritures[0]->banque->id);
 
 		/* Afficher la vue pointage pour la banque demandée. */ 
 		return View::make('tresorerie.views.journal.main')
 		->with(compact('ecritures'))
-		->with(array('titre_page' => "Journal de ".Session::get('ParamEnv.tresorerie.banque_nom')))
+		->with(array('titre_page' => "Journal de ".Session::get('tresorerie.banque_nom')))
 		;
 	}
 

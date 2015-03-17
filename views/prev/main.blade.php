@@ -157,13 +157,13 @@ Pointée : écriture pointée par rapport aux relevés bancaires.
 @foreach($annees_clotured as $annee)
 	<a href ="{{ URL::to("tresorerie/previsionnel/".$annee) }}" 
 		class="badge badge-locale badge-big 
-		{{ (Session::get('ParamEnv.tresorerie.exercice_travail') == $annee) ? 'badge-success' : ''}} " >
+		{{ (Session::get('tresorerie.exercice_travail') == $annee) ? 'badge-success' : ''}} " >
 		{{$annee}}
 	</a>
 @endforeach
 	<a href ="{{ URL::to("tresorerie/previsionnel/$annees_non_clotured") }}" 
 		class="badge badge-locale badge-big 
-		{{ (Session::get('ParamEnv.tresorerie.exercice_travail') == $annees_non_clotured) ? 'badge-success' : ''}} " >
+		{{ (Session::get('tresorerie.exercice_travail') == $annees_non_clotured) ? 'badge-success' : ''}} " >
 		{{ $annees_non_clotured }} et suivantes
 	</a>
 </div>
@@ -195,7 +195,7 @@ echo "var statuts_autorised = '".$statuts_autorised."';";
 
 /* Transmettre au javascript "initVolets()"
 la variable du mois de travail */
-echo 'var mois = "'.Session::get('ParamEnv.tresorerie.mois_travail').'";';
+echo 'var mois = "'.Session::get('tresorerie.mois_travail').'";';
 
 ?>
 </script>

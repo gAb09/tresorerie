@@ -101,12 +101,12 @@ trait ModesTraitDomaine {
 	public function getAnneesClotured(){
 		$first_annee = \Ecriture::orderBy('date_valeur')->first(['date_valeur'])->date_valeur->formatlocalized('%Y');
 		$first_annee_non_clotured = $this->getAnneesNonClotured();
-		\Session::forget('ParamEnv.tresorerie.exercice.clotured');
+		\Session::forget('tresorerie.exercice.clotured');
 
 		for ($i=$first_annee; $i < $first_annee_non_clotured ; $i++) { 
-			\Session::push('ParamEnv.tresorerie.exercice.clotured', (string)$i);
+			\Session::push('tresorerie.exercice.clotured', (string)$i);
 		}
-		return \Session::get('ParamEnv.tresorerie.exercice.clotured');
+		return \Session::get('tresorerie.exercice.clotured');
 	}
 
 
@@ -116,7 +116,7 @@ trait ModesTraitDomaine {
 	 *
 	 */
 	public function getAnneesNonClotured(){
-		return \Session::get('ParamEnv.tresorerie.annee_reelle');
+		return \Session::get('tresorerie.annee_reelle');
 	}
 
 }

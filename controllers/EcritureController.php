@@ -46,7 +46,7 @@ class EcritureController extends BaseController {
 	public function index($banque = null)
 	{	
 		Session::put('page_depart', Request::getUri());
-		Session::put('ParamEnv.tresorerie.mode_courant', 'ecritures');
+		Session::put('tresorerie.mode_courant', 'ecritures');
 
 		$nbre_par_page = (Input::get('nbre_par_page')) ? Input::get('nbre_par_page') : NBRE_PAR_PAGE;
 
@@ -61,7 +61,7 @@ class EcritureController extends BaseController {
 		$critere_tri = ($critere_tri == 'ids')? 'id' : $critere_tri;
 
 		if ($banque !== null) {
-			Session::put('ParamEnv.tresorerie.banque_id', $banque);
+			Session::put('tresorerie.banque_id', $banque);
 			$bank_nom = $this->banqueDom->nomBanque($banque);
 			$titre_page = 'Écritures de “'.$bank_nom.'”';
 			$ecritures = $this->ecritureDom->tri($critere_tri, $sens_tri, $nbre_par_page, $banque);
@@ -180,7 +180,7 @@ class EcritureController extends BaseController {
 			$ec1->save();
 		}
 		self::setMoisTravail($ec1);
-		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.exercice_travail'));
+		return Redirect::to(Session::get('page_depart')."#".Session::get('tresorerie.exercice_travail'));
 
 	}
 
@@ -406,7 +406,7 @@ class EcritureController extends BaseController {
 		/* Rediriger */
 		Session::flash('success', $success);
 		self::setMoisTravail($ec1);
-		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_travail'));
+		return Redirect::to(Session::get('page_depart')."#".Session::get('tresorerie.mois_travail'));
 	}
 
 
@@ -437,27 +437,27 @@ class EcritureController extends BaseController {
 		Session::flash('success', $success);
 
 		self::setMoisTravail($ecriture);
-		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_travail'));
+		return Redirect::to(Session::get('page_depart')."#".Session::get('tresorerie.mois_travail'));
 
 	}
 
 
 	public static function setMoisTravail($ec){
-		if (Session::has('ParamEnv.tresorerie.mode_courant')) {
-			if (Session::get('ParamEnv.tresorerie.mode_courant') == 'journal') {
+		if (Session::has('tresorerie.mode_courant')) {
+			if (Session::get('tresorerie.mode_courant') == 'journal') {
 				$mois = DatesFr::classAnMois($ec->date_emission);
 			}else{
 				$mois = DatesFr::classAnMois($ec->date_valeur);
 			}
-			Session::put('ParamEnv.tresorerie.mois_travail', $mois);
+			Session::put('tresorerie.mois_travail', $mois);
 		}else{
-			Session::put('ParamEnv.tresorerie.mois_travail', date('Y.m'));
+			Session::put('tresorerie.mois_travail', date('Y.m'));
 		}
 
 	}
 
 	public static function saveStatutSelonModeCourant(){
-		$mode_courant = Session::get('ParamEnv.tresorerie.mode_courant');
+		$mode_courant = Session::get('tresorerie.mode_courant');
 		switch ($mode_courant) {
 			case 'journal':
 			return 2;

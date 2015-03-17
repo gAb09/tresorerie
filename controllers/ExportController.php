@@ -14,13 +14,13 @@ class ExportController extends BaseController {
 		qui est l'Id de la banque principale. */
 		if (is_null($id))
 		{
-			$id = (Session::get('ParamEnv.tresorerie.banque_id'))? Session::get('ParamEnv.tresorerie.banque_id') : 1;
+			$id = (Session::get('tresorerie.banque_id'))? Session::get('tresorerie.banque_id') : 1;
 			
 		}
 
 		/* Obtenir le nom en clair de la banque courante et le mettre en session */
 		$banque_nom = $this->banqueDom->nomBanque($id);
-		Session::put('ParamEnv.tresorerie.banque_nom', $banque_nom);
+		Session::put('tresorerie.banque_nom', $banque_nom);
 		// Récupérer la collection d'écriture pour la banque demandée
 		$ecritures = $this->exportDom->collectionExport($id, 'date_emission');
 

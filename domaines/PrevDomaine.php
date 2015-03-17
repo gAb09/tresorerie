@@ -19,7 +19,7 @@ class PrevDomaine {
 
 	public function collectionPrev($banques, $annee, $banque_ref = 1)
 	{
-		if ($annee == \Session::get('ParamEnv.tresorerie.annee_reelle')) {
+		if ($annee == \Session::get('tresorerie.annee_reelle')) {
 			$operateur = '>=';
 		}else{
 			$operateur = 'like';

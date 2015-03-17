@@ -11,14 +11,14 @@ class PointageController extends BaseController {
 
 	public function index($id = null) //
 	{
-		Session::put('ParamEnv.tresorerie.mode_courant', 'pointage');
+		Session::put('tresorerie.mode_courant', 'pointage');
 
 		/* Si pas d'$id spécifié on utilise celui de la banque courante
 		(stocké en session). Si on est en début de session on initialise alors à 1
 		qui est l'Id de la banque principale */
 		if (is_null($id))
 		{
-			$id = (Session::get('ParamEnv.tresorerie.banque_id'))? Session::get('ParamEnv.tresorerie.banque_id') : 1;
+			$id = (Session::get('tresorerie.banque_id'))? Session::get('tresorerie.banque_id') : 1;
 		}
 
 		/* Si l'édition d’une écriture est demandée depuis cette page, 
@@ -40,8 +40,8 @@ class PointageController extends BaseController {
 
 		/* Passer le nom et l’id de la banque à la session 
 		pour mémorisation de la banque en cours de traitement. */
-		Session::put('ParamEnv.tresorerie.banque_nom', $ecritures[0]->banque->nom);
-		Session::put('ParamEnv.tresorerie.banque_id', $ecritures[0]->banque->id);
+		Session::put('tresorerie.banque_nom', $ecritures[0]->banque->nom);
+		Session::put('tresorerie.banque_id', $ecritures[0]->banque->id);
 
 		// Assigner le tableau de correspondance pour gestion js de l'affichage de l'incrémentation des statuts. 
 		$classe_statut = $this->statutDom->getListeClasseStatut();
@@ -51,7 +51,7 @@ class PointageController extends BaseController {
 		->with(compact('ecritures'))
 		->with(compact('classe_statut'))
 		->with(array('statuts_autorised' => $this->pointageDom->getStatutsAutorised()))
-		->with(array('titre_page' => "Pointage de ".Session::get('ParamEnv.tresorerie.banque_nom')))
+		->with(array('titre_page' => "Pointage de ".Session::get('tresorerie.banque_nom')))
 		;
 	}
 
