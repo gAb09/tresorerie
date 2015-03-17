@@ -19,6 +19,12 @@ class PrevDomaine {
 
 	public function collectionPrev($banques, $annee, $banque_ref = 1)
 	{
+		if ($annee == \Session::get('ParamEnv.tresorerie.annee_reelle')) {
+			$operateur = '>=';
+		}else{
+			$operateur = 'like';
+		}
+
 		$ecritures = Ecriture::with('signe', 'type', 'banque', 'statut', 'compte', 'ecriture2')
 		->leftJoin("ecritures as soeur", function($join)
 		{
@@ -26,7 +32,7 @@ class PrevDomaine {
 			;
 
 		})
-		->where("ecritures.$this->order", 'like', $annee.'%')
+		->where("ecritures.$this->order", $operateur, $annee.'%')
 		->where(function($query) use ($banque_ref){
 			$query->whereNull("ecritures.is_double") // Toutes les écritures simples
 
