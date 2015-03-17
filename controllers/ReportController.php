@@ -102,7 +102,7 @@ class ReportController extends BaseController {
 
 		Session::flash('success',"L’écriture a été créée");
 
-		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.annee_courante'));
+		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.exercice_travail'));
 
 	}
 
@@ -156,7 +156,7 @@ class ReportController extends BaseController {
 
 		/* Rediriger */
 		Session::flash('success', $success);
-		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_courant'));
+		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_travail'));
 	}
 
 
@@ -177,20 +177,20 @@ class ReportController extends BaseController {
 
 		Session::flash('success', $success);
 
-		self::setMoisCourant($report);
-		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_courant'));
+		self::setMoisTravail($report);
+		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_travail'));
 
 	}
 
 
-	public static function setMoisCourant($ec){
+	public static function setMoisTravail($ec){
 		if (strpos(Session::get('page_depart'), 'journal') !== false) {
 			$mois = DatesFr::classAnMois($ec->date_emission);
 		}else{
 			$mois = DatesFr::classAnMois($ec->date_valeur);
 		}
 
-		return Session::put('ParamEnv.tresorerie.mois_courant', $mois);
+		return Session::put('ParamEnv.tresorerie.mois_travail', $mois);
 	}
 
 

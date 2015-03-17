@@ -179,8 +179,8 @@ class EcritureController extends BaseController {
 			$ec1->soeur_id = $ec2->id;
 			$ec1->save();
 		}
-		self::setMoisCourant($ec1);
-		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.annee_courante'));
+		self::setMoisTravail($ec1);
+		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.exercice_travail'));
 
 	}
 
@@ -405,8 +405,8 @@ class EcritureController extends BaseController {
 
 		/* Rediriger */
 		Session::flash('success', $success);
-		self::setMoisCourant($ec1);
-		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_courant'));
+		self::setMoisTravail($ec1);
+		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_travail'));
 	}
 
 
@@ -436,22 +436,22 @@ class EcritureController extends BaseController {
 
 		Session::flash('success', $success);
 
-		self::setMoisCourant($ecriture);
-		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_courant'));
+		self::setMoisTravail($ecriture);
+		return Redirect::to(Session::get('page_depart')."#".Session::get('ParamEnv.tresorerie.mois_travail'));
 
 	}
 
 
-	public static function setMoisCourant($ec){
-		if (Session::has('ParamEnv.tresorerie.mois_courant.mode')) {
+	public static function setMoisTravail($ec){
+		if (Session::has('ParamEnv.tresorerie.mode_courant')) {
 			if (Session::get('ParamEnv.tresorerie.mode_courant') == 'journal') {
 				$mois = DatesFr::classAnMois($ec->date_emission);
 			}else{
 				$mois = DatesFr::classAnMois($ec->date_valeur);
 			}
-			Session::put('ParamEnv.tresorerie.mois_courant', $mois);
+			Session::put('ParamEnv.tresorerie.mois_travail', $mois);
 		}else{
-			Session::put('ParamEnv.tresorerie.mois_courant', date('Y.m'));
+			Session::put('ParamEnv.tresorerie.mois_travail', date('Y.m'));
 		}
 
 	}

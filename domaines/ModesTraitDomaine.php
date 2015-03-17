@@ -91,32 +91,32 @@ trait ModesTraitDomaine {
 		return $ecriture;
 	}
 
-	/**
-	 * Mettre en session les années cloturées d'une part et la première non cloturée d'autre part
-	 *
-	 */
-	public function setAnneesClotured(){
-
-	}
 
 	/**
-	 * Retourne les années clôturées
+	 * Passe les années clôturées en session
 	 *
-	 * @return array .
+	 * @return array 
 	 *
 	 */
 	public function getAnneesClotured(){
-		return \Session::get('ParamEnv.tresorerie.annees.clotured');
+		$first_annee = \Ecriture::orderBy('date_valeur')->first(['date_valeur'])->date_valeur->formatlocalized('%Y');
+		$first_annee_non_clotured = $this->getAnneesNonClotured();
+		\Session::forget('ParamEnv.tresorerie.exercice.clotured');
+
+		for ($i=$first_annee; $i < $first_annee_non_clotured ; $i++) { 
+			\Session::push('ParamEnv.tresorerie.exercice.clotured', (string)$i);
+		}
+		return \Session::get('ParamEnv.tresorerie.exercice.clotured');
 	}
 
+
 	/**
-	 * Retourne la première année non clôturée
-	 *
-	 * @return array .
+	 * retourne la première année non clôturée
+	 * Actuellement il s'agit de l'année réelle
 	 *
 	 */
 	public function getAnneesNonClotured(){
-		return \Session::get('ParamEnv.tresorerie.annees.nonClotured');
+		return \Session::get('ParamEnv.tresorerie.annee_reelle');
 	}
 
 }

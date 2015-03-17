@@ -148,8 +148,8 @@ echo "var classe_statut = ".$classe_statut.";";
 echo "var statuts_autorised = '".$statuts_autorised."';";
 
 /* Transmettre au javascript "initVolets()"
-la variable du mois courant */
-echo 'var mois = "'.Session::get('ParamEnv.tresorerie.mois_courant').'";';
+la variable du mois de travail */
+echo 'var mois = "'.Session::get('ParamEnv.tresorerie.mois_travail').'";';
 
 ?>
 </script>

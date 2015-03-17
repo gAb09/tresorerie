@@ -14,11 +14,14 @@ class PrevController extends BaseController {
 	public function index($annee = null)
 	{
 		/* Traitement des arguments */
-		$annee = (is_null($annee))? Session::get('ParamEnv.tresorerie.annee_courante') : $annee;
+		$annee = (is_null($annee))? Session::get('ParamEnv.tresorerie.exercice_travail') : $annee;
+		if ($annee == 'en_cours') {
+			$annee = Session::get('ParamEnv.tresorerie.exercice_travail');
+		}
 
 
-		/* Rafraichissement en session de l'année courante */
-		Session::put('ParamEnv.tresorerie.annee_courante', $annee);
+		/* Rafraichissement en session de l'exercice en cours de travail */
+		Session::put('ParamEnv.tresorerie.exercice_travail', $annee);
 
 
 		/* Mise en session du mode courant */

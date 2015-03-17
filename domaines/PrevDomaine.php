@@ -17,19 +17,18 @@ class PrevDomaine {
 	private $order = 'date_valeur';
 
 
-
 	public function collectionPrev($banques, $annee, $banque_ref = 1)
 	{
 		$ecritures = Ecriture::with('signe', 'type', 'banque', 'statut', 'compte', 'ecriture2')
-		->leftJoin('ecritures as soeur', function($join)
+		->leftJoin("ecritures as soeur", function($join)
 		{
-			$join->on('soeur.id', '=', 'ecritures.soeur_id')
+			$join->on('soeur.id', '=', "ecritures.soeur_id")
 			;
 
 		})
 		->where("ecritures.$this->order", 'like', $annee.'%')
 		->where(function($query) use ($banque_ref){
-			$query->whereNull('ecritures.is_double') // Toutes les écritures simples
+			$query->whereNull("ecritures.is_double") // Toutes les écritures simples
 
 			/* Pour les écritures doubles :
 
@@ -51,7 +50,7 @@ class PrevDomaine {
 		})
 		->orderBy("ecritures.$this->order")
 		->orderBy("ecritures.banque_id")
-		->select(['ecritures.*', 'soeur.banque_id as banque_soeur_id'])
+		->select(["ecritures.*", 'soeur.banque_id as banque_soeur_id'])
 		->get()
 		;
 
@@ -70,8 +69,7 @@ class PrevDomaine {
 		$this->solde['total'] = 0;
 
 		foreach ($banques as $bank) {
-			$this->solde[$bank->id] = $this->CalculReport($annee, $bank->id);
-			$this->solde['total'] += $this->solde[$bank->id];
+			$this->solde[$bank->id] = 0;
 		}
 
 		/* Déterminer le rang de la dernière écriture de la page. */
@@ -189,26 +187,6 @@ class PrevDomaine {
 		});
 	return $ecritures;
 	}
-
-
-	private function CalculReport($annee, $bank){
-		$annee = $annee -1;
-		$solde = 0;
-
-		if ($annee == 2013) {
-			return 0;
-		}
-
-		$result = Report::with('signe')
-		->where('banque_id', '=', $bank)
-		->where('libelle_detail', $annee)
-		->orderBy("date_valeur")
-		->first(['montant', 'signe_id'])
-		;
-
-		return $result->montant * $result->signe->signe;
-	}
-
 
 }
 
