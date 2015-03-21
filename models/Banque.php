@@ -21,6 +21,6 @@ class Banque extends Eloquent {
 
 	public function scopeIsPrevisionnel($query)
 	{
-		return $query->where('id', '!=', 0)->get();
+		return $query->where('id', '!=', 0)->orderBy('priorite')->get();
 	}
 }

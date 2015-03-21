@@ -6,10 +6,13 @@ trait ModesTraitDomaine {
 	private $prev_mois = '';
 
 
+
 	public function getStatutsAutorised()
 	{
 		return $this->statuts_autorised;
 	}
+
+
 
 	/**
 	 * Prépare l'affichage des lignes en tableaux d'un même mois/année.
@@ -22,42 +25,40 @@ trait ModesTraitDomaine {
 	 * @return Rien puisque appellée depuis une boucle each sur une collection
 	 *
 	 */
-	private function classementParMois($ligne, $collection, $order, $last){
+	private function affichageParMois($ligne, $collection, $order){
 
-			/* Pour pouvoir accéder depuis une ligne à la ligne précédente :
-			Ajouter un attribut rang à chaque ligne.
-
-
-			/* Extraire le mois et l’année du critère de classement */
-			$ligne->mois_classement = \DatesFr::classAnMois($ligne->{$order});
+		/* Relever le mois et l’année du critère de classement */
+		$ligne->mois_classement = \DatesFr::classAnMois($ligne->{$order});
 
 			/* Il s'agit du premier mois de la page ?
-			Assigner $mois_nouveau de cette ligne à "premier"*/
+			Assigner $index_ligne de cette ligne à "premier_mois"*/
 			if ($this->prev_mois == '')
 			{
-				$ligne->mois_nouveau = 'premier';
+				$ligne->index_ligne = 'premier_mois';
 
 				/* Il y a changement de mois ? */
-			}elseif($ligne->mois_classement != $this->prev_mois)
+			}elseif ($ligne->mois_classement != $this->prev_mois)
 			{
-				/* Assigner $mois_nouveau de cette ligne à "nouveau" */
-				$ligne->mois_nouveau = 'nouveau';
+				/* Assigner $index_ligne de cette ligne à "nouveau_mois" */
+				$ligne->index_ligne = 'nouveau_mois';
+
+				/* Assigner $index_ligne de la ligne précédente à "der_du_mois" */
 				$prev_rang = $ligne->rang -1;
-				/* Assigner $last de la ligne précédente à "true" */
-				$collection[$prev_rang]->last = true;
+				$collection[$prev_rang]->index_ligne = "der_du_mois";
+				
 			}
 
-			/* On n'oublie pas la toute dernière ligne de la page.*/
-			if ($ligne->rang == $last) {
-				$ligne->last = true;
-			}
-
-			/* E  Enfin, on passe le mois de classement de cette ligne 
-			dans $prev_mois pour comparaison avec la ligne suivante */
+			/* Conserver le mois classement pour comparaison avec la prochaine ligne.*/
 			$this->prev_mois = $ligne->mois_classement;
 
+			/* On n'oublie pas la toute dernière ligne de la page.*/
+			if ($ligne->rang == $this->last) {
+				$ligne->index_ligne = "fin_page";
+			}
 
 		}
+
+
 
 	/**
 	 * Assigne la classe de présence d'une note.
@@ -74,6 +75,8 @@ trait ModesTraitDomaine {
 		}
 		return $ecriture;
 	}
+
+
 
 	/**
 	 * Assigne la classe du compte. Affichera celui-ci en css "indefini" si indéfini
@@ -92,6 +95,7 @@ trait ModesTraitDomaine {
 	}
 
 
+
 	/**
 	 * Passe les années clôturées en session
 	 *
@@ -108,6 +112,7 @@ trait ModesTraitDomaine {
 		}
 		return \Session::get('tresorerie.exercice.clotured');
 	}
+
 
 
 	/**

@@ -1,6 +1,6 @@
 		<tr 
 		id="row_{{ $ecriture->id }}" 
-		class="{{$ecriture->statut->classe}}" 
+		class="{{$ecriture->statut->classe.' '.$ecriture->index_ligne}}" 
 		ondblclick = document.location.href="{{ URL::action('EcritureController@edit', [$ecriture->id]) }}">
 
 		<!-- Statut -->
@@ -49,24 +49,25 @@
 			@endif
 		</td>
 
+<!-- Montants -->
 		<td class="montant {{$ecriture->signe->nom_sys}}">
 			{{ NombresFr::francais_insec($ecriture->montant) }}
 		</td>
 
 		@foreach($banques as $banque)
-		<?php $id = 'solde_'.$banque->id; ?>
+		<?php $banque_cumul =  $banque->id; ?>
 		<?php $show = 'show_'.$banque->id; ?>
 
-		<td class="{{($ecriture->{$id} >=0) ? 'montant recette' : 'montant depense' }}">
-			@if($ecriture->{$show})
-			{{ NombresFr::francais_insec($ecriture->{$id}) }}
+		<td class="{{($ecriture->{$banque_cumul} >=0) ? 'montant recette' : 'montant depense' }}">
+			@if($ecriture->$show)
+			{{ NombresFr::francais_insec($ecriture->{$banque_cumul}) }}
 			@endif
 		</td>
 
 		@endforeach
 
-		<td class=" montant {{($ecriture->solde_total >=0) ? 'recette' : 'depense' }}">
-			{{NombresFr::francais_insec($ecriture->solde_total)}}
+		<td class=" montant {{($ecriture->global >=0) ? 'recette' : 'depense' }}">
+			{{NombresFr::francais_insec($ecriture->global)}}
 		</td>
 
 		<td class="icone">

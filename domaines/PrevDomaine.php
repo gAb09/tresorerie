@@ -1,5 +1,6 @@
 <?php
 use \Tresorerie\Domaines\ModesTraitDomaine as ModesTraitDomaine;
+use \Illuminate\Database\Eloquent\Collection as Collection;
 
 class PrevDomaine {
 	use ModesTraitDomaine;
@@ -10,6 +11,9 @@ class PrevDomaine {
 
 	private $rang = 0;
 
+	private $cumul = array();
+
+
 	/* Les statuts autorisés (séparés par un "-") */
 	private $statuts_autorised = '1-2';
 
@@ -19,6 +23,7 @@ class PrevDomaine {
 
 	public function collectionPrev($banques, $annee, $banque_ref = 1)
 	{
+		/* Déterminer l'opérateur selon que la sélection doit être faite sur une ou plusieurs années */
 		if ($annee == \Session::get('tresorerie.annee_reelle')) {
 			$operateur = '>=';
 		}else{
@@ -33,27 +38,6 @@ class PrevDomaine {
 
 		})
 		->where("ecritures.$this->order", $operateur, $annee.'%')
-		->where(function($query) use ($banque_ref){
-			$query->whereNull("ecritures.is_double") // Toutes les écritures simples
-
-			/* Pour les écritures doubles :
-
-			Si on faisait  banque_id = ref  ou  soeur.banque_id = ref
-			on n'aurait pas les écritures doubles n'impliquant pas la banque de référence
-			(entre 2 autres banques donc).
-
-			Si on faisait banque_id != ref, 
-			on n'aurait pas les écritures doubles impliquant la banque de référence.
-
-			En faisant soeur.banque_id != ref, on a toutes les écritures doubles.
-			Mais attention pour la banque de référence nous n'auront qu'une seule écriture,
-			(ce qui nous convient)
-			alors que pour les autres banques les 2 écritures soeurs seront présentes.
-			Il va donc falloir faire un tri plus loin dans le script
-
-			*/
-			->orWhere('soeur.banque_id', '!=', $banque_ref); 
-		})
 		->orderBy("ecritures.$this->order")
 		->orderBy("ecritures.banque_id")
 		->select(["ecritures.*", 'soeur.banque_id as banque_soeur_id'])
@@ -65,134 +49,151 @@ class PrevDomaine {
 
 			return false;
 		}
-// dd($ecritures);
 
 		/* La collection $ecritures n'est pas vide, on peut lancer le traitement */
 
-		/* Initialiser les soldes (faire le report de l'année précédente) */
+		/* Ne garder qu'une seule des 2 écriture liées, en tenant compte des priorités des banques */
+		$ecritures = $ecritures->filter(function($ecriture){
+			return $this->filtrerEcrituresLiees($ecriture);
+		});
 
-		$this->solde = array();
-		$this->solde['total'] = 0;
 
+		/* Réindexer la collection pour éviter les “trous” et les n-1 qui déclencheront une erreur*/
+		$ecritures = $ecritures->flatten();
+
+
+		/* Initialiser les tableaux pour les cumuls */
+		$this->cumul['global'] = 0;
 		foreach ($banques as $bank) {
-			$this->solde[$bank->id] = 0;
+			$i = $bank->id;
+			$this->cumul[$i] = 0;
+			$this->cumul['prev'][$i] = 0;
 		}
 
-		/* Déterminer le rang de la dernière écriture de la page. */
-		$last = $ecritures->count() -1;
 
-		$order = $this->order;
-		$ecritures->each(function($ecriture) use ($ecritures, $order, $banques, $last) {
+		/* Rangs, calculs et affichage */
+		$ecritures = $ecritures->each(function($ecriture) use($ecritures, $banques){
 
-			/* Affecter la valeur de la propriété $this-rang initialisée à 0. */
-			$ecriture->rang = $this->rang;
+			/* Affecter les rangs */
+			$this->affecterRangs($ecriture, $ecritures);
 
-			/* Incrémenter pour la ligne suivante */
-			$this->rang++;
+			/* Préparer l'affichage par mois dans la vue */
+			$order = $this->order;
+			$this->affichageParMois($ecriture, $ecritures, $order);
 
+			/* Signer les montants */
+			$this->signerMontants($ecriture);
 
-			/* ----  Traitement du regroupement par mois ----- */
-			$this->classementParMois($ecriture, $ecritures, $order, $last);
+			/* Gérer les cumuls */
+			$this->gererCumulsBanques($ecriture, $banques);
 
 		});
-
-		/* ----- Traitement des soldes par banques ----- */
-		$ecritures->each(function($ecriture) use ($ecritures, $order, $banques) 
-		{
-
-			/* On intègre signe et montant, et réassigne $ecriture->montant */
-			$ecriture->montant = $ecriture->montant * $ecriture->signe->signe; // aFa factoriser dans helper
-
-			foreach ($banques as $bank) {
-
-				/* On calcule les soldes de chaque banque à chaque ligne
-				Attention le calcul est différent s'il s'agit d'une écriture double ou simple */
-
-				/* On conserve les soldes de l'écriture précédente 
-				pour déterminer s'ils seront affichés ou non. */
-				$nbre_banques = $banques->count();
-				$i = 1;
-
-				while ($i <= $nbre_banques) {
-					$prev_solde_ = 'prev_solde_'.$i;
-					$$prev_solde_ = $this->solde[$i];
-					$i++;
-				}
-
-				/* Si l'écriture concerne cette banque */
-				if($ecriture->banque_id == $bank->id){
-
-					/* Si l'écriture est simple */
-					if (!$ecriture->is_double){
-						$this->solde[$bank->id] +=  $ecriture->montant;
-						$this->solde['total'] += $ecriture->montant;
-					}
-
-					/* Si l'écriture est double et concerne la banque principale (1) */
-					if (!is_null($ecriture->is_double) and $ecriture->banque_id == 1) {
-						$this->solde[1] +=  $ecriture->montant;
-						$this->solde[$ecriture->banque_soeur_id] -=  $ecriture->montant;
-					}
-
-					/* Si l'écriture est double, 
-					ne concerne pas la banque principale (1)
-					et dont la soeur n'a pas été encore traitée */
-					if (!is_null($ecriture->is_double) 
-						and $ecriture->banque_id != 1) 
-					{
-						if (!in_array($ecriture->id, $this->skip)) 
-						{
-
-							/* Considérant un ordre de priorité en faveur des banques 
-							ayant l'id le plus faible, on compare les 2 id.
-							S'il est plus faible on traite cette écriture et on "skip" sa soeur.
-							Sinon on fait l'inverse */
-							if($ecriture->banque_id < $ecriture->banque_soeur_id)
-							{
-								$this->solde[$ecriture->banque_id] +=  $ecriture->montant;
-								$this->solde[$ecriture->banque_soeur_id] -=  $ecriture->montant;
-
-								// On ajoute l'écriture soeur à la liste des skip
-								$this->skip[] = $ecriture->soeur_id;
-							}else{
-
-								// On ne tient pas compte de cette écriture
-								unset($ecritures[$ecriture->rang]);
-							}
-						}else{
-							// Si elle est dans ce tableau elle saute !
-							unset($ecritures[$ecriture->rang]);
-						}
-
-					}
-
-					/*  On affecte les soldes à l'écriture */
-
-					$i = 1;
-
-					while ($i <= $nbre_banques) {
-						$solde_ = 'solde_'.$i;
-
-						$ecriture->$solde_ = $this->solde[$i];
-						$i++;
-					}
-					$ecriture->solde_total = $this->solde['total'];
-
-					/*  On affiche ou non chaque solde selon qu'il a changé ou non */
-					$i = 1;
-
-					while ($i <= $nbre_banques) {
-						$show_ = 'show_'.$i;
-						$prev_solde_ = 'prev_solde_'.$i;
-
-						$ecriture->$show_ = ($this->solde[$i] == $$prev_solde_)? false : true;
-						$i++;
-					}
-				}
-			}
-		});
-	return $ecritures;
+		return $ecritures;
 	}
 
+	/**
+	 * Conserver toutes les écritures simples
+	 * et retirer les écritures liées doublonnant
+	 * en tenant compte de la priorité des banques.
+	 * 
+	 */
+	public function filtrerEcrituresLiees($ecriture){
+		if (!$ecriture->is_double)
+		{
+			return true;
+		}
+
+		if ($ecriture->banque->priorite < $ecriture->ecriture2->banque->priorite)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Affecter à chaque ligne un rang,
+	 * qui sera répercuté en id dansla vue.
+	 * 
+	 */
+	public function affecterRangs($ecriture, $collection){
+
+		/* Déterminer le rang de la dernière écriture de la page. */
+		$this->last = $collection->count() -1;
+
+		/* Affecter son rang à l'écriture. */
+		$ecriture->rang = $this->rang;
+
+		/* Incrémenter pour la ligne suivante */
+		$this->rang++;
+	}
+
+	/**
+	 * Signer les montants.
+	 * 
+	 */
+	public function signerMontants($ecriture){
+
+		$ecriture->montant_signed = $ecriture->montant * $ecriture->signe->signe;
+
+		if($ecriture->is_double)
+		{
+			$ecriture->montant2_signed = 
+			$ecriture->ecriture2->montant * $ecriture->ecriture2->signe->signe;
+		}
+	}
+
+
+	/**
+	 * Gérer les cumuls de chaque banque.
+	 * 
+	 */
+	public function gererCumulsBanques($ecriture, $banques){
+
+		foreach ($banques as $bank) {
+			/* Si cette banque concerne l'écriture */
+
+			if($ecriture->banque_id == $i){
+				$bank = $bank->id;
+				$this->gererCumulsBank($bank, $ecriture->montant_signed)
+			}
+
+			/* Si il s'agit d'une écriture liée */
+			if($ecriture->is_double == 1)
+			{
+				$bank2 = $ecriture->ecriture2->banque_id;
+				$this->gererCumulsBank($bank2, $ecriture->montant2_signed)
+			}
+
+		}
+
+		/*  Affecter à la ligne */
+		$ecriture->global = $this->cumul['global'];
+		$ecriture->$i = $this->cumul[$i];
+
+	}
+
+
+	/**
+	 * Gérer les cumuls d'une banque.
+	 * 
+	 */
+	public function gererCumulsBank($bank, $montant){
+
+		/* calculer le cumul de cette banque pour cette ligne */
+		$this->cumul[$bank] += $montant;
+
+		/* Conserver sa valeur pour attester si changement en ligne suivante */
+		$this->cumul['prev'][$bank] = $this->cumul[$bank];
+
+		/* Calculer le cumul global */
+		$this->cumul['global'] += $montant;
+
+		/*  Afficher ou non chaque cumul selon qu'il a changé ou non */
+		if ($this->cumul[$bank] == $this->cumul['prev'][$bank]) {
+			$ecriture->{'show_'.$bank} = true;
+		}
+
+	}
 }
 

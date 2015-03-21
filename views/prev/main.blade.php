@@ -23,7 +23,7 @@ onLoad="initVolets();"
 
 @foreach($ecritures as $ecriture)
 
-@if($ecriture->mois_nouveau)
+@if($ecriture->index_ligne == 'nouveau_mois' or $ecriture->index_ligne == 'premier_mois')
 
 <table class="modes">
 	<caption class="ligne_mois" id="{{$ecriture->mois_classement}}" onclick="javascript:volet(this);">
@@ -71,19 +71,19 @@ onLoad="initVolets();"
 
 		@include('tresorerie/views/prev/row')
 
-		@if($ecriture->last)
-		<tr class="soldes">
+		@if($ecriture->index_ligne == 'fin_page' or $ecriture->index_ligne == 'der_du_mois')
+		<tr class="cumuls">
 			<td colspan="5" style="text-align:right">
 				Situation à fin {{mb_strtolower(DatesFr::MoisAnneeInsec($ecriture->date_valeur))}}
 			</td>
 			@foreach($banques as $banque)
-			<?php $id = 'solde_'.$banque->id; ?>
-				<td class="{{($ecriture->{$id} >=0) ? 'recette' : 'depense' }}">
-					{{ NombresFr::francais_insec($ecriture->{$id}) }}
+		<?php $banque_cumul =  $banque->id; ?>
+				<td class="{{($ecriture->{$banque_cumul} >=0) ? 'recette' : 'depense' }}">
+					{{ NombresFr::francais_insec($ecriture->{$banque_cumul}) }}
 				</td>
 			@endforeach
-				<td class="{{($ecriture->solde_total >=0) ? 'recette' : 'depense' }}">
-					{{ NombresFr::francais_insec($ecriture->solde_total) }}
+				<td class="{{($ecriture->global >=0) ? 'recette' : 'depense' }}">
+					{{ NombresFr::francais_insec($ecriture->global) }}
 				</td>
 		</tr>
 		@endif

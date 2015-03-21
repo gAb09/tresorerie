@@ -26,6 +26,6 @@ class BanqueDomaine {
 
 	public function isPrevisionnel()
 	{
-		return Banque::all();
+		return Banque::isPrevisionnel();
 	}
 }
