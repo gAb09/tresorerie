@@ -151,25 +151,25 @@ class PrevDomaine {
 	public function gererCumulsBanques($ecriture, $banques){
 
 		foreach ($banques as $bank) {
+				$i = $bank->id;
+
 			/* Si cette banque concerne l'écriture */
+			if($ecriture->banque_id == $bank->id){
+				$this->gererCumulsBank($i, $ecriture->montant_signed, $ecriture);
 
-			if($ecriture->banque_id == $i){
-				$bank = $bank->id;
-				$this->gererCumulsBank($bank, $ecriture->montant_signed)
+				/* Si il s'agit d'une écriture liée */
+				if($ecriture->is_double == 1)
+				{
+					$i2 = $ecriture->ecriture2->banque_id;
+					$this->gererCumulsBank($i2, $ecriture->montant2_signed, $ecriture);
+				}
 			}
-
-			/* Si il s'agit d'une écriture liée */
-			if($ecriture->is_double == 1)
-			{
-				$bank2 = $ecriture->ecriture2->banque_id;
-				$this->gererCumulsBank($bank2, $ecriture->montant2_signed)
-			}
-
+		/*  Affecter à la ligne le cumul de la banque $i */
+		$ecriture->$i = $this->cumul[$i];
 		}
 
-		/*  Affecter à la ligne */
+		/*  Affecter à la ligne le cumul global */
 		$ecriture->global = $this->cumul['global'];
-		$ecriture->$i = $this->cumul[$i];
 
 	}
 
@@ -178,19 +178,19 @@ class PrevDomaine {
 	 * Gérer les cumuls d'une banque.
 	 * 
 	 */
-	public function gererCumulsBank($bank, $montant){
+	public function gererCumulsBank($bank, $montant, $ecriture){
 
-		/* calculer le cumul de cette banque pour cette ligne */
-		$this->cumul[$bank] += $montant;
-
-		/* Conserver sa valeur pour attester si changement en ligne suivante */
+		/* Conserver la valeur du cumul à la ligne précédente */
 		$this->cumul['prev'][$bank] = $this->cumul[$bank];
+
+		/* calculer le nouveau cumul pour cette banque */
+		$this->cumul[$bank] += $montant;
 
 		/* Calculer le cumul global */
 		$this->cumul['global'] += $montant;
 
 		/*  Afficher ou non chaque cumul selon qu'il a changé ou non */
-		if ($this->cumul[$bank] == $this->cumul['prev'][$bank]) {
+		if ($this->cumul[$bank] != $this->cumul['prev'][$bank]) {
 			$ecriture->{'show_'.$bank} = true;
 		}
 

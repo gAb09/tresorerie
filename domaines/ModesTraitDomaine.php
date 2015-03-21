@@ -55,7 +55,6 @@ trait ModesTraitDomaine {
 			if ($ligne->rang == $this->last) {
 				$ligne->index_ligne = "fin_page";
 			}
-
 		}
 
 
