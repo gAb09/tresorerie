@@ -10,6 +10,7 @@ class JournalController extends BaseController {
 
 	public function index($id = null) //
 	{
+		/* Mise en session du mode courant */
 		Session::put('tresorerie.mode_courant', 'journal');
 
 		/* Si pas d'$id spécifié on utilise celui de la banque courante
@@ -20,11 +21,10 @@ class JournalController extends BaseController {
 			$id = (Session::get('tresorerie.banque_id'))? Session::get('tresorerie.banque_id') : 1;
 		}
 
-		/* Si l'édition d’une écriture est demandée depuis cette page, 
-		il faut passer (via la session) à EcritureController@update pour la redirection */
+		/* Mise en session de la page de départ pour la redirection depuis EcritureController@update */
 		Session::put('page_depart', Request::getUri());
 
-		// Récupérer la collection d'écriture pour la banque demandée
+		// vueA - Récupérer la collection d'écriture pour la banque demandée
 		$ecritures = $this->journalDom->collectionJournal($id, 'date_emission');
 
 
@@ -44,7 +44,7 @@ class JournalController extends BaseController {
 
 		/* Afficher la vue pointage pour la banque demandée. */ 
 		return View::make('tresorerie.views.journal.main')
-		->with(compact('ecritures'))
+		->with(compact('ecritures')) // A
 		->with(array('titre_page' => "Journal de ".Session::get('tresorerie.banque_nom')))
 		;
 	}

@@ -38,11 +38,8 @@ class PointageDomaine {
 			return false;
 		}
 
-		/* Déterminer le rang de la dernière écriture de la page. */
-		$last = $ecritures->count() -1;
-
 		/* Lancer la boucle sur la collection */
-		$ecritures->each(function($ecriture) use ($ecritures, $order, $last) {
+		$ecritures->each(function($ecriture) use ($ecritures, $order) {
 
 			/* Gérer l'existence d'une note */
 			$ecriture = $this->setPresenceNote($ecriture);
@@ -62,7 +59,7 @@ class PointageDomaine {
 			/* ----- Traitement des cumuls ----- */
 
 			/* Réinitialiser les cumuls pour la première ecriture de chaque mois */
-				if($ecriture->mois_nouveau == 'nouveau')
+				if($ecriture->nouveau_mois)
 				{
 						$this->somme_dep_mois = 0;
 						$this->somme_rec_mois = 0;

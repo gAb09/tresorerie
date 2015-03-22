@@ -12,6 +12,11 @@ class JournalDomaine {
 
 	private $rang = 0;
 
+	/* Le critère de classement */
+	private $order = 'date_emission';
+
+
+
 	public function collectionJournal($id, $order)
 	{
 
@@ -25,11 +30,8 @@ class JournalDomaine {
 			return false;
 		}
 
-		/* Déterminer le rang de la dernière écriture de la page. */
-		$last = $ecritures->count() -1;
-
 		/* Lancer la boucle sur la collection */
-		$ecritures->each(function($ecriture) use ($ecritures, $order, $last) {
+		$ecritures->each(function($ecriture) use ($ecritures, $order) {
 
 			/* Gérer l'existence d'une note */
 			$ecriture = $this->setPresenceNote($ecriture);
@@ -37,20 +39,19 @@ class JournalDomaine {
 			/* Gérer la classe CSS du compte */
 			$ecriture = $this->setStatutCompte($ecriture);
 
-			/* Affecter la valeur de la propriété $this-rang initialisée à 0. */
-			$ecriture->rang = $this->rang;
-
-			/* Incrémenter pour la ligne suivante */
-			$this->rang++;
-
-			/* ----- Traitement du classement par mois ----- */
-			$this->classementParMois($ecriture, $ecritures, $order, $last);
+			/* Affecter les rangs */
+			$this->affecterRangs($ecriture, $ecritures);
 
 
-			/* ----- Traitement des soldes ----- */
+			/* Préparer l'affichage par mois dans la vue */
+			$order = $this->order;
+			$this->affichageParMois($ecriture, $ecritures, $order);
+
+
+			/* ----- Traitement des cumuls ----- */
 
 			/* Réinitialiser les cumuls pour la première ecriture de chaque mois */
-				if($ecriture->mois_nouveau == 'nouveau')
+				if($ecriture->nouveau_mois)
 				{
 					$this->somme_dep_mois = 0;
 					$this->somme_rec_mois = 0;
@@ -77,5 +78,14 @@ class JournalDomaine {
 		return $ecritures;
 
 	}
+
+	/**
+	 * Affecter à chaque ligne un rang,
+	 * qui sera répercuté en id dansla vue.
+	 * 
+	 */
+	/* Fonction affecterRangs() dans ModesTraitDomaine */
+
+
 
 }
