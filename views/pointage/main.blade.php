@@ -25,7 +25,7 @@ onLoad="initVolets();"
 
 @foreach($ecritures as $ecriture)
 
-@if($ecriture->mois_nouveau)
+@if($ecriture->nouveau_mois or $ecriture->premier_mois)
 
 <table class="modes">
 	<caption class="ligne_mois" id="{{$ecriture->mois_classement}}" onclick="javascript:volet(this);">
@@ -73,9 +73,9 @@ onLoad="initVolets();"
 
 		@include('tresorerie/views/pointage/row')
 
-		@if($ecriture->last)
-		<tr class="soldes">
-			<td colspan="3">
+		@if($ecriture->fin_page or $ecriture->der_du_mois)
+		<tr class="cumuls">
+			<td colspan="3">{{$ecriture->index_ligne}}
 			</td>
 			<td class ='depense'>
 				{{NombresFr::francais_insec($ecriture->somme_dep_mois)}}

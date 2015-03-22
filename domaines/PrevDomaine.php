@@ -17,7 +17,7 @@ class PrevDomaine {
 	/* Les statuts autorisés (séparés par un "-") */
 	private $statuts_autorised = '1-2';
 
-	/* Les statuts autorisés (séparés par un "-") */
+	/* Le critère de classement */
 	private $order = 'date_valeur';
 
 
@@ -111,22 +111,15 @@ class PrevDomaine {
 		return false;
 	}
 
+
 	/**
 	 * Affecter à chaque ligne un rang,
 	 * qui sera répercuté en id dansla vue.
 	 * 
 	 */
-	public function affecterRangs($ecriture, $collection){
+	/* Fonction affecterRangs() dans ModesTraitDomaine */
 
-		/* Déterminer le rang de la dernière écriture de la page. */
-		$this->last = $collection->count() -1;
 
-		/* Affecter son rang à l'écriture. */
-		$ecriture->rang = $this->rang;
-
-		/* Incrémenter pour la ligne suivante */
-		$this->rang++;
-	}
 
 	/**
 	 * Signer les montants.

@@ -15,6 +15,11 @@ class PointageDomaine {
 	// Les statuts autorisés (séparés par un "-")
 	private $statuts_autorised = '1-2-3-4';
 
+	/* Le critère de classement */
+	private $order = 'date_valeur';
+
+
+
 	public function getStatutsAutorised()
 	{
 		return $this->statuts_autorised;
@@ -45,15 +50,13 @@ class PointageDomaine {
 			/* Gérer la classe CSS du compte */
 			$ecriture = $this->setStatutCompte($ecriture);
 
-			/* Affecter la valeur de la propriété $this-rang initialisée à 0. */
-			$ecriture->rang = $this->rang;
-
-			/* Incrémenter pour la ligne suivante */
-			$this->rang++;
+			/* Affecter les rangs */
+			$this->affecterRangs($ecriture, $ecritures);
 
 
-			/* ----- Traitement du classement par mois ----- */
-			$this->classementParMois($ecriture, $ecritures, $order, $last);
+			/* Préparer l'affichage par mois dans la vue */
+			$order = $this->order;
+			$this->affichageParMois($ecriture, $ecritures, $order);
 
 
 			/* ----- Traitement des cumuls ----- */
@@ -87,5 +90,14 @@ class PointageDomaine {
 	return $ecritures;
 
 	}
+
+	/**
+	 * Affecter à chaque ligne un rang,
+	 * qui sera répercuté en id dansla vue.
+	 * 
+	 */
+	/* Fonction affecterRangs() dans ModesTraitDomaine */
+
+
 
 }

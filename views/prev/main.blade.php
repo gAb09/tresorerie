@@ -23,7 +23,7 @@ onLoad="initVolets();"
 
 @foreach($ecritures as $ecriture)
 
-@if($ecriture->index_ligne == 'nouveau_mois' or $ecriture->index_ligne == 'premier_mois')
+@if($ecriture->nouveau_mois or $ecriture->premier_mois)
 
 <table class="modes">
 	<caption class="ligne_mois" id="{{$ecriture->mois_classement}}" onclick="javascript:volet(this);">
@@ -71,7 +71,7 @@ onLoad="initVolets();"
 
 		@include('tresorerie/views/prev/row')
 
-		@if($ecriture->index_ligne == 'fin_page' or $ecriture->index_ligne == 'der_du_mois')
+		@if($ecriture->fin_page or $ecriture->der_du_mois)
 		<tr class="cumuls">
 			<td colspan="5" style="text-align:right">
 				Situation à fin {{mb_strtolower(DatesFr::MoisAnneeInsec($ecriture->date_valeur))}}

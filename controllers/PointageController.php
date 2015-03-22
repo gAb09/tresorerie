@@ -11,6 +11,7 @@ class PointageController extends BaseController {
 
 	public function index($id = null) //
 	{
+		/* Mise en session du mode courant */
 		Session::put('tresorerie.mode_courant', 'pointage');
 
 		/* Si pas d'$id spécifié on utilise celui de la banque courante
@@ -21,11 +22,11 @@ class PointageController extends BaseController {
 			$id = (Session::get('tresorerie.banque_id'))? Session::get('tresorerie.banque_id') : 1;
 		}
 
-		/* Si l'édition d’une écriture est demandée depuis cette page, 
-		il faut passer (via la session) à EcritureController@update pour la redirection */
+		/* Mise en session de la page de départ pour la redirection depuis EcritureController@update */
 		Session::put('page_depart', Request::getUri());
 
-		// Récupérer la collection d'écriture pour la banque demandée
+		/* vueA - Récupérer la collection d'écriture.
+		Rediriger (back) si pas d'écritures */
 		$ecritures = $this->pointageDom->collectionPointage($id, 'date_valeur');
 
 
@@ -43,14 +44,21 @@ class PointageController extends BaseController {
 		Session::put('tresorerie.banque_nom', $ecritures[0]->banque->nom);
 		Session::put('tresorerie.banque_id', $ecritures[0]->banque->id);
 
-		// Assigner le tableau de correspondance pour gestion js de l'affichage de l'incrémentation des statuts. 
+
+		/* vue B - Assigner le tableau de correspondance 
+		pour gestion js de l'affichage de l'incrémentation des statuts. */
 		$classe_statut = $this->statutDom->getListeClasseStatut();
+
+
+		/* vue C - Obtenir les stauts autorisés pour ce mode */
+		$statuts_autorised = $this->pointageDom->getStatutsAutorised();
+
 
 		// Afficher la vue pointage pour la banque demandée. 
 		return View::make('tresorerie.views.pointage.main')
-		->with(compact('ecritures'))
-		->with(compact('classe_statut'))
-		->with(array('statuts_autorised' => $this->pointageDom->getStatutsAutorised()))
+		->with(compact('ecritures')) // A
+		->with(compact('classe_statut')) // B
+		->with(compact('statuts_autorised')) // C
 		->with(array('titre_page' => "Pointage de ".Session::get('tresorerie.banque_nom')))
 		;
 	}
