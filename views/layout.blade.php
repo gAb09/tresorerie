@@ -99,23 +99,36 @@
 
 	<!-- - - - - - - - - - - - - - - - FOOTER - - - - - - - - - - - - - - -->
 
-	<footer>
 
-		<div class="span12 row-fluid topfooter">
-
+	<div class="span12 row-fluid topfooter">
 
 
-			<!-- - - - - - - - - - - - - - - - ACTIONS - - - - - - - - - - - - - - -->
-			<div class="span6 actions">
-				@yield('actions')
-			</div>
 
-			<!-- - - - - - - - - - - - - - - - AFFICHAGE - - - - - - - - - - - - - - -->
-			<div class="span6 affichage">
-				@yield('affichage')
-			</div>
+
+		<!-- - - - - - - - - - - - - - - - ACTIONS - - - - - - - - - - - - - - -->
+		<div class="actions">
+			<span>Actions</span>
+			@yield('actions')
 		</div>
-		<div>
+
+
+		<!-- - - - - - - - - - - - - - - - PREFS - - - - - - - - - - - - - - -->
+		<div class="prefs">
+			<span>Préférences</span>
+			@yield('prefs')
+		</div>
+
+
+		<!-- - - - - - - - - - - - - - - - AFFICHAGE - - - - - - - - - - - - - - -->
+		<div class="affichage">
+			<span>Affichage</span>
+			@yield('affichage')
+		</div>
+
+	</div>
+
+	<footer>
+		<div class="version">
 			@section('tresorerie/footer')
 			© gAb – Tresorerie version 1.3.1
 			@show

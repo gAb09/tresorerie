@@ -15,7 +15,7 @@ onLoad="initVolets();"
 
 
 @section('titrepage')
-<h1>{{ $titre_page }}</h1>
+<h1>{{ $titre_page }} {{ Session::get('tresorerie.exercice_travail') }}</h1>
 @stop
 
 
@@ -153,32 +153,29 @@ Pointée : écriture pointée par rapport aux relevés bancaires.
 @stop
 
 @section('affichage')
-<div class="span12">
-@foreach($annees_clotured as $annee)
-	<a href ="{{ URL::to("tresorerie/previsionnel/".$annee) }}" 
-		class="badge badge-locale badge-big 
-		{{ (Session::get('tresorerie.exercice_travail') == $annee) ? 'badge-success' : ''}} " >
-		{{$annee}}
+	<span>Exercice affiché : </span>
+@foreach($exercices_clotured as $exercices)
+	<a href ="{{ URL::to("tresorerie/previsionnel/".$exercices) }}" 
+		class="badge badge-locale
+		{{ (Session::get('tresorerie.exercice_travail') == $exercices) ? 'badge-success' : ''}} " >
+		{{$exercices}}
 	</a>
 @endforeach
-	<a href ="{{ URL::to("tresorerie/previsionnel/$annees_non_clotured") }}" 
-		class="badge badge-locale badge-big 
-		{{ (Session::get('tresorerie.exercice_travail') == $annees_non_clotured) ? 'badge-success' : ''}} " >
-		{{ $annees_non_clotured }} et suivantes
+	<a href ="{{ URL::to("tresorerie/previsionnel/".$exercice) }}" 
+		class="badge badge-locale 
+		{{ ($exercice == Session::get('tresorerie.exercice_travail')) ? 'badge-success' : ''}} " >
+		{{ $exercice }} et suivantes
 	</a>
-</div>
 
-<!--
-<div class="span12">
-	<span>Banque de référence</span>
+
+	<span>Priorités des banques</span>
 	@foreach(Banque::all() as $bank)
-	<p class="label label-locale label-medium {{ ($bank->rang == 1) ? 'btn-success' : ''}}"
-		onClick="javascript:alert('Le changement de banque de référence sera disponible dans la prochaine version');" >
+	<a class="label label-locale label-medium {{ ($bank->priorite == 1) ? 'btn-success' : ''}}" 
+		href ="{{ URL::to("tresorerie/previsionnel/priorite/".$bank->id) }}" >
 		{{ $bank->nom }}
-	</p>
+	</a>
 	@endforeach
-</div>
--->
+
 
 @stop
 

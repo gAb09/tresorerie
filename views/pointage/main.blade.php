@@ -6,7 +6,7 @@
 
 @section('assets')
 @parent
-	<link href="/assets/tresorerie/css/pointage.css" rel="stylesheet" type="text/css">
+<link href="/assets/tresorerie/css/pointage.css" rel="stylesheet" type="text/css">
 @stop
 
 @section('body')
@@ -15,7 +15,7 @@ onLoad="initVolets();"
 
 
 @section('titrepage')
-<h1>{{ $titre_page }}</h1>
+<h1>{{ $titre_page }} {{ Session::get('tresorerie.exercice_travail') }}</h1>
 @stop
 
 
@@ -62,8 +62,8 @@ onLoad="initVolets();"
 		</th>
 		<th class="icone iconemedium edit">
 		</th>
-		</th>
-		<th class="icone iconemedium dupli">
+	</th>
+	<th class="icone iconemedium dupli">
 	</thead>
 
 
@@ -83,6 +83,15 @@ onLoad="initVolets();"
 			<td class='recette'>
 				{{NombresFr::francais_insec($ecriture->somme_rec_mois)}}
 			</td>
+			<td class="montant">
+				@if($ecriture->cumul < 0)
+				<span class="depense">{{NombresFr::francais_insec($ecriture->cumul)}}</span>
+				@else
+				<span class="recette">{{NombresFr::francais_insec($ecriture->cumul)}}</span>
+				@endif
+			</td>
+			<td>
+			</td>
 			<td colspan="2">
 				Bilan du mois : 
 				@if($ecriture->solde_mois < 0)
@@ -91,14 +100,7 @@ onLoad="initVolets();"
 				<span class="recette">{{NombresFr::francais_insec($ecriture->solde_mois)}}</span>
 				@endif
 			</td>
-			<td colspan="2">
-				Solde à fin {{ ucfirst(DatesFr::MoisAnneeInsec($ecriture->date_valeur))}} : 
-				@if($ecriture->cumul < 0)
-				<span class="depense">{{NombresFr::francais_insec($ecriture->cumul)}}</span>
-				@else
-				<span class="recette">{{NombresFr::francais_insec($ecriture->cumul)}}</span>
-				@endif
-			</td>		</tr>
+		</tr>
 		@endif
 
 		@endforeach
@@ -118,9 +120,24 @@ onLoad="initVolets();"
 
 
 @section('affichage')
+<span>Exercice affiché : </span>
+@foreach($exercices_clotured as $exercices)
+<a href ="{{ URL::route('pointage', [Session::get('tresorerie.banque_id'), $exercices]) }}" 
+class="badge badge-locale
+{{ (Session::get('tresorerie.exercice_travail') == $exercices) ? 'badge-success' : ''}} " >
+{{$exercices}}
+</a>
+@endforeach
+<a href ="{{ URL::route('pointage', [Session::get('tresorerie.banque_id'), $exercice]) }}" 
+class="badge badge-locale 
+{{ ($exercice == Session::get('tresorerie.exercice_travail')) ? 'badge-success' : ''}} " >
+{{ $exercice }}
+</a>
+
+<span>Banque affichée : </span>
 <div class="banques">
 	@foreach(Banque::all() as $bank)
-<a href ="{{ URL::route('pointage', $bank->id) }}" class="badge badge-locale badge-big {{ ($bank->nom == Session::get('tresorerie.banque_nom')) ? 'badge-success' : ''}}">{{ $bank->nom }}</a>
+	<a href ="{{ URL::route('pointage', [$bank->id, Session::get('tresorerie.exercice_travail')]) }}" class="badge badge-locale {{ ($bank->nom == Session::get('tresorerie.banque_nom')) ? 'badge-success' : ''}}">{{ $bank->nom }}</a>
 	@endforeach
 </div>
 

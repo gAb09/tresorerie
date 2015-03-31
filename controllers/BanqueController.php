@@ -108,4 +108,12 @@ class BanqueController extends BaseController {
 		return Redirect::action('BanqueController@index');
 	}
 
+	public function setPriorite($id = 1)
+	{
+		return Redirect::back()->withErrors("Le changement de priorité des banques sera fonctionnel dans une prochaine version");
+		// $item = Banque::FindOrFail($id);
+		// $item->fill(Input::except('_token', '_method'));
+		// $item->save();
+	}
+
 }

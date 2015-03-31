@@ -25,11 +25,12 @@ class PointageDomaine {
 		return $this->statuts_autorised;
 	}
 
-	public function collectionPointage($id, $order)
+	public function collectionPointage($id, $annee, $order)
 	{
 
 		$ecritures = Ecriture::with('signe', 'type', 'banque', 'statut', 'compte', 'ecriture2')
 		->where('banque_id', $id)
+		->where($order, 'like', $annee.'%')
 		->orderBy($order)
 		->get();
 

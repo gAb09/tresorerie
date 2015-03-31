@@ -96,34 +96,6 @@ trait ModesTraitDomaine {
 
 
 	/**
-	 * Passe les années clôturées en session
-	 *
-	 * @return array 
-	 *
-	 */
-	public function getAnneesClotured(){
-		$first_annee = \Ecriture::orderBy('date_valeur')->first(['date_valeur'])->date_valeur->formatlocalized('%Y');
-		$first_annee_non_clotured = $this->getAnneesNonClotured();
-		\Session::forget('tresorerie.exercice.clotured');
-
-		for ($i=$first_annee; $i < $first_annee_non_clotured ; $i++) { 
-			\Session::push('tresorerie.exercice.clotured', (string)$i);
-		}
-		return \Session::get('tresorerie.exercice.clotured');
-	}
-
-
-
-	/**
-	 * retourne la première année non clôturée
-	 * Actuellement il s'agit de l'année réelle
-	 *
-	 */
-	public function getAnneesNonClotured(){
-		return \Session::get('tresorerie.annee_reelle');
-	}
-
-	/**
 	 * Affecter à chaque ligne un rang,
 	 * qui sera répercuté en id dansla vue.
 	 * 

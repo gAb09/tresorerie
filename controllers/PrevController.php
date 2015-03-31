@@ -9,6 +9,7 @@ class PrevController extends BaseController {
 		$this->prevDom = new PrevDomaine;
 		$this->banqueDom = new BanqueDomaine;
 		$this->statutDom = new StatutDomaine;
+		$this->exerciceDom = new ExerciceDomaine;
 	}
 
 	public function index($annee = null)
@@ -54,12 +55,12 @@ class PrevController extends BaseController {
 		$classe_statut = $this->statutDom->getListeClasseStatut();
 
 
-		/* vueD/E - Obtenir les années, clôturées et non clôturées */
-		$annees_clotured = $this->prevDom->getAnneesClotured();
-		$annees_non_clotured = $this->prevDom->getAnneesNonClotured();
+		/* vueD/E - Obtenir les exercices, clôturées et non clôturées */
+		$exercices_clotured = $this->exerciceDom->getExercicesClotured();
+		$exercice = $this->exerciceDom->getExerciceCourant();
 
 
-		/* vueF - Obtenir les stauts autorisés pour ce mode */
+		/* vueF - Obtenir les statuts autorisés pour ce mode */
 		$statuts_autorised = $this->prevDom->getStatutsAutorised();
 
 
@@ -68,8 +69,8 @@ class PrevController extends BaseController {
 		->with(compact('banques')) // A
 		->with(compact('ecritures')) // B
 		->with(compact('classe_statut')) //C
-		->with(compact('annees_clotured')) // D
-		->with(compact('annees_non_clotured')) // E
+		->with(compact('exercices_clotured')) // D
+		->with(compact('exercice')) // E
 		->with(compact('statuts_autorised')) // F
 		->with(array('titre_page' => "Prévisionnel"))
 		;

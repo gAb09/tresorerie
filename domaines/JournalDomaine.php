@@ -17,11 +17,12 @@ class JournalDomaine {
 
 
 
-	public function collectionJournal($id, $order)
+	public function collectionJournal($id, $annee, $order)
 	{
 
 		$ecritures = Ecriture::with('signe', 'type', 'banque', 'statut', 'compte', 'ecriture2')
 		->where('banque_id', $id)
+		->where($order, 'like', $annee.'%')
 		->orderBy($order)
 		->get();
 

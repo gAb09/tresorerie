@@ -15,7 +15,7 @@ onLoad="initVolets();"
 
 
 @section('titrepage')
-<h1>{{ $titre_page }}</h1>
+<h1>{{ $titre_page }} {{ Session::get('tresorerie.exercice_travail') }}</h1>
 @stop
 
 
@@ -83,6 +83,8 @@ onLoad="initVolets();"
 			<td class='recette padding'>
 				{{NombresFr::francais_insec($ecriture->somme_rec_mois)}}
 			</td>
+			<td>
+			</td>
 			<td colspan="4">
 				Solde du mois : 
 				@if($ecriture->solde_mois < 0)
@@ -110,12 +112,27 @@ onLoad="initVolets();"
 @stop
 
 @section('affichage')
+	<span>Exercice affiché : </span>
+@foreach($exercices_clotured as $exercices)
+	<a href ="{{ URL::route('journal', [Session::get('tresorerie.banque_id'), $exercices]) }}" 
+		class="badge badge-locale
+		{{ (Session::get('tresorerie.exercice_travail') == $exercices) ? 'badge-success' : ''}} " >
+		{{$exercices}}
+	</a>
+@endforeach
+	<a href ="{{ URL::route('journal', [Session::get('tresorerie.banque_id'), $exercice]) }}" 
+		class="badge badge-locale 
+		{{ ($exercice == Session::get('tresorerie.exercice_travail')) ? 'badge-success' : ''}} " >
+		{{ $exercice }}
+	</a>
+
+	<span>Banque affichée : </span>
 <div class="banques">
 	@foreach(Banque::all() as $bank)
-	
-	<a href ="{{ URL::to("tresorerie/journal/$bank->id") }}" class="badge badge-locale badge-big {{ ($bank->nom == Session::get('tresorerie.banque_nom')) ? 'badge-success' : ''}}">{{ $bank->nom }}</a>
+<a href ="{{ URL::route('journal', [$bank->id, Session::get('tresorerie.exercice_travail')]) }}" class="badge badge-locale {{ ($bank->nom == Session::get('tresorerie.banque_nom')) ? 'badge-success' : ''}}">{{ $bank->nom }}</a>
 	@endforeach
 </div>
+
 @stop
 
 

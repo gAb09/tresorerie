@@ -24,11 +24,11 @@ Route::group(array('prefix' => 'tresorerie', 'before' => 'auth'), function()
 		Route::get('export/{id?}', array('as' => 'export', 'uses' => 'ExportController@export'));
 
 		/*----------------------  Journal  -----------------------------*/
-		Route::get('journal/{id?}', 'JournalController@index');
+		Route::get('journal/{id?}/{annee?}', ['as' => 'journal', 'uses' => 'JournalController@index']);
 
 
 	// /*----------------------  Pointage  ----------------------------------*/
-		Route::get('pointage/{banque_id?}', array('as' => 'pointage', 'uses' => 'PointageController@index'));
+		Route::get('pointage/{id?}/{annee?}', ['as' => 'pointage', 'uses' => 'PointageController@index']);
 
 	// /*----------------------  Recherche  ----------------------------------*/
 		Route::get('recherche', 'EcritureController@recherche');
@@ -72,6 +72,7 @@ Route::group(array('prefix' => 'tresorerie', 'before' => 'auth'), function()
 
 /*----------------------  Prévisionnel  ----------------------------------*/
 Route::get('previsionnel/{annee?}', 'PrevController@index');
+Route::get('previsionnel/priorite/{idee?}', 'BanqueController@setPriorite');
 
 
 });  // Fin de groupe prefix “tresorerie”
