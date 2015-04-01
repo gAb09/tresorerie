@@ -89,9 +89,7 @@
 
 
 		<div class="row-fluid content">
-			<div>
 				@yield('contenu')
-			</div>
 		</div>
 		<div class="chassebaspage">
 		</div>
