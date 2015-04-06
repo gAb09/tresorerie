@@ -225,7 +225,7 @@ class EcritureController extends BaseController {
 		$ec2->justificatif = Input::get('justificatif2');
 		$ec2->compte_id = Input::get('compte_id');
 		$ec2->is_double = Input::get('is_double');
-		$ec2->note =($ajout_note)? $ajout_note."<br />".Input::get('note') : Input::get('note');
+		$ec2->note =(isset($note_ecriture_lied))? $note_ecriture_lied."<br />".Input::get('note') : Input::get('note');
 
 		return array($ec1, $ec2);
 
@@ -347,7 +347,7 @@ class EcritureController extends BaseController {
 
 					/* Synchroniser E2 */
 					$ec2->soeur_id = $id;
-					$ajout_note = "ATTENTION : écriture liée créée dans un deuxième temps, bien vérifier son statut";
+					$note_ecriture_lied = "ATTENTION : écriture liée créée dans un deuxième temps, bien vérifier son statut";
 					$success .= '• L’écriture liée a été synchronisée.<br />';
 
 
