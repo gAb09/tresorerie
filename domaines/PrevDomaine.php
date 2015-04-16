@@ -74,6 +74,9 @@ class PrevDomaine {
 		/* Rangs, calculs et affichage */
 		$ecritures = $ecritures->each(function($ecriture) use($ecritures, $banques){
 
+			/* Gérer l'existence d'une note */
+			$ecriture = $this->setPresenceNote($ecriture);
+
 			/* Affecter les rangs */
 			$this->affecterRangs($ecriture, $ecritures);
 
