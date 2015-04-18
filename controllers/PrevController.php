@@ -63,6 +63,14 @@ class PrevController extends BaseController {
 		/* vueF - Obtenir les statuts autorisés pour ce mode */
 		$statuts_autorised = $this->prevDom->getStatutsAutorised();
 
+		/* vueG - Changer la classe du volet topfoot1 delon les autorisations */
+		if(Auth::user()->role_id == 3){
+			$tf1 = "legende";
+		}else{
+			$tf1 = "";
+		}
+
+
 
 		/* On peut afficher la vue */ 
 		return View::make('tresorerie.views.prev.main')
@@ -72,6 +80,7 @@ class PrevController extends BaseController {
 		->with(compact('exercices_clotured')) // D
 		->with(compact('exercice')) // E
 		->with(compact('statuts_autorised')) // F
+		->with(compact('tf1')) // G
 		->with(array('titre_page' => "Prévisionnel"))
 		;
 	}

@@ -68,7 +68,8 @@
 
 @stop
 
-@section('actions')
+@section('topfoot1')
+<span>Actions</span>
 {{link_to_action('ReportController@create', 'Ajouter un report', null, ["class" => "btn btn-success btn-actions iconemedium add"])}}
 @stop
 

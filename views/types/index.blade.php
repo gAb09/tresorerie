@@ -37,7 +37,8 @@
 @stop
 
 
-@section('actions')
+@section('topfoot1')
+<span>Actions</span>
 <a href ="{{ URL::route('tresorerie.types.create') }}" class="btn btn-success btn-actions iconemedium add">Créer un nouveau type</a>
 @stop
 

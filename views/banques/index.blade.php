@@ -28,7 +28,8 @@
 
 @stop
 
-@section('actions')
+@section('topfoot1')
+<span>Actions</span>
 		<a href ="{{ URL::action('BanqueController@create') }}" class="btn btn-success btn-actions iconemedium add">Créer une banque</a>
 @stop
 

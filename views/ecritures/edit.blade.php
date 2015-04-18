@@ -32,7 +32,8 @@
 @stop
 
 
-	@section('actions')
+@section('topfoot1')
+<span>Actions</span>
 	{{ link_to(Session::get('page_depart')."#".Session::get('tresorerie.mois_travail'), 'Retour à la liste', array('class' => 'btn btn-info btn-actions iconesmall list')); }}
 
 	{{ Form::submit('Modifier cette écriture', array('class' => 'btn btn-edit btn-actions')) }}

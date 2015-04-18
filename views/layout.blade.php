@@ -103,24 +103,23 @@
 
 
 
-		<!-- - - - - - - - - - - - - - - - ACTIONS - - - - - - - - - - - - - - -->
-		<div class="actions">
-			<span>Actions</span>
-			@yield('actions')
+		<!-- - - - - - - - - - - - - - - - TopFoot 1 - - - - - - - - - - - - - - -->
+		<div class="topfoot topfoot1 {{ isset($tf1) ? $tf1 : "" }}">
+			@yield('topfoot1')
 		</div>
 
 
-		<!-- - - - - - - - - - - - - - - - PREFS - - - - - - - - - - - - - - -->
-		<div class="prefs">
+		<!-- - - - - - - - - - - - - - - - TopFoot 2 - - - - - - - - - - - - - - -->
+		<div class="topfoot topfoot2">
 			<span>Préférences</span>
-			@yield('prefs')
+			@yield('topfoot2')
 		</div>
 
 
-		<!-- - - - - - - - - - - - - - - - AFFICHAGE - - - - - - - - - - - - - - -->
-		<div class="affichage">
+		<!-- - - - - - - - - - - - - - - - TopFoot 3 - - - - - - - - - - - - - - -->
+		<div class="topfoot topfoot3">
 			<span>Affichage</span>
-			@yield('affichage')
+			@yield('topfoot3')
 		</div>
 
 	</div>

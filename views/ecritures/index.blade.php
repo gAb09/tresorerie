@@ -107,10 +107,12 @@ Le réglage par défaut est de {{NBRE_PAR_PAGE}} écritures par page.
 
 @stop
 
-@section('actions')
+@section('topfoot1')
+<span>Actions</span>
 @stop
 
-@section('affichage')
+@section('topfoot3')
+<span>Affichage</span>
 {{link_to_route('tresorerie.ecritures.index', 'Toutes les écritures', null, ["class" => "badge badge-locale badge-big"])}}
 @foreach(Banque::all() as $bank)
 {{link_to_route('bank', $bank->nom, $bank->id, ["class" => "badge badge-locale badge-big"])}}

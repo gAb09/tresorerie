@@ -112,14 +112,14 @@ onLoad="initVolets();"
 @stop
 
 
-@section('actions')
+@section('topfoot1')
 
 {{link_to_action('EcritureController@create', 'Ajouter une écriture', null, ["class" => "btn btn-success btn-actions iconemedium add"])}}
 
 @stop
 
 
-@section('affichage')
+@section('topfoot3')
 <span>Exercice affiché : </span>
 @foreach($exercices_clotured as $exercices)
 <a href ="{{ URL::route('pointage', [Session::get('tresorerie.banque_id'), $exercices]) }}" 
