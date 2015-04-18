@@ -118,7 +118,6 @@
 
 		<!-- - - - - - - - - - - - - - - - TopFoot 3 - - - - - - - - - - - - - - -->
 		<div class="topfoot topfoot3">
-			<span>Affichage</span>
 			@yield('topfoot3')
 		</div>
 

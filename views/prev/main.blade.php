@@ -158,24 +158,25 @@ onLoad="initVolets();"
 @stop
 
 @section('topfoot3')
-<span>Exercice affiché : </span>
+<span>Affichage</span>
+<span class="sousvolet">Exercice affiché : </span>
 @foreach($exercices_clotured as $exercices)
 <a href ="{{ URL::to("tresorerie/previsionnel/".$exercices) }}" 
 class="badge badge-locale
-{{ (Session::get('tresorerie.exercice_travail') == $exercices) ? 'badge-success' : ''}} " >
+{{ (Session::get('tresorerie.exercice_travail') == $exercices) ? 'aff_selected' : 'aff_non_selected'}} " >
 {{$exercices}}
 </a>
 @endforeach
 <a href ="{{ URL::to("tresorerie/previsionnel/".$exercice) }}" 
 class="badge badge-locale 
-{{ ($exercice == Session::get('tresorerie.exercice_travail')) ? 'badge-success' : ''}} " >
+{{ ($exercice == Session::get('tresorerie.exercice_travail')) ? 'aff_selected' : 'aff_non_selected'}} " >
 {{ $exercice }} et suivantes
 </a>
 
 
-<span>Priorités des banques</span>
+<span class="sousvolet">Priorités des banques</span>
 @foreach(Banque::all() as $bank)
-<a class="label label-locale label-medium {{ ($bank->priorite == 1) ? 'btn-success' : ''}}" 
+<a class="label label-locale label-medium {{ ($bank->priorite == 1) ? 'aff_selected' : 'aff_non_selected'}}" 
 	href ="{{ URL::to("tresorerie/previsionnel/priorite/".$bank->id) }}" >
 	{{ $bank->nom }}
 </a>
