@@ -443,6 +443,11 @@ class EcritureController extends BaseController {
 
 
 	public static function setMoisTravail($ec){
+		if (Session::get('tresorerie.retour_mois') !== 'travail') {
+			Session::put('tresorerie.mois_travail', date('Y.m'));
+			return;
+		}
+		
 		if (Session::has('tresorerie.mode_courant')) {
 			if (Session::get('tresorerie.mode_courant') == 'journal') {
 				$mois = DatesFr::classAnMois($ec->date_emission);
@@ -462,15 +467,15 @@ class EcritureController extends BaseController {
 			case 'journal':
 			return 2;
 			break;
-			
+
 			case 'pointage':
 			return 3;
 			break;
-			
+
 			case 'previsionnel':
 			return 1;
 			break;
-			
+
 			default:
 			return 1;
 			break;
