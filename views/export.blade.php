@@ -17,10 +17,10 @@
 
 @stop
 
-@section('actions')
+@section('topfoot1')
 @stop
 
-@section('affichage')
+@section('topfoot3')
 @stop
 
 @section('footer')

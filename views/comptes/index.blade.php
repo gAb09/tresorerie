@@ -52,12 +52,14 @@
 		@endforeach
 		@stop
 
-		@section('actions')
+@section('topfoot1')
+<span>Actions</span>
 		<a href ="{{ URL::route('tresorerie.comptes.create') }}" class="btn btn-success btn-actions iconemedium add"
 		style="font-size:1.1em">Ajouter un nouveau compte</a><br />
 		@stop
 
-		@section('affichage')
+@section('topfoot2')
+<span>Affichage</span>
 		@foreach($classes as $classe)
 		<div class="classeRacine">Classe {{ $classe->numero }} :
 			<br />{{ link_to_action('CompteController@index', $classe->libelle, $classe->numero) }}</div>

@@ -21,7 +21,8 @@
 @stop
 
 
-@section('actions')
+@section('topfoot1')
+<span>Actions</span>
 	{{ link_to_action('CompteController@index', 'Retour à la liste', Session::get('tresorerie.classePCG'), array('class' => 'btn btn-info btn-actions iconemedium list')); }}
 
 	{{ Form::submit('Modifier ce compte', array('class' => 'btn btn-edit btn-actions')) }}

@@ -112,32 +112,34 @@ onLoad="initVolets();"
 @stop
 
 
-@section('actions')
-
+@section('topfoot1')
+<span>Actions</span>
 {{link_to_action('EcritureController@create', 'Ajouter une écriture', null, ["class" => "btn btn-success btn-actions iconemedium add"])}}
 
 @stop
 
 
-@section('affichage')
-<span>Exercice affiché : </span>
+@section('topfoot3')
+<span>Affichage</span>
+
+<span class="sousvolet">Exercice affiché : </span>
 @foreach($exercices_clotured as $exercices)
 <a href ="{{ URL::route('pointage', [Session::get('tresorerie.banque_id'), $exercices]) }}" 
 class="badge badge-locale
-{{ (Session::get('tresorerie.exercice_travail') == $exercices) ? 'badge-success' : ''}} " >
+{{ (Session::get('tresorerie.exercice_travail') == $exercices) ? 'aff_selected' : 'aff_non_selected'}} " >
 {{$exercices}}
 </a>
 @endforeach
 <a href ="{{ URL::route('pointage', [Session::get('tresorerie.banque_id'), $exercice]) }}" 
 class="badge badge-locale 
-{{ ($exercice == Session::get('tresorerie.exercice_travail')) ? 'badge-success' : ''}} " >
+{{ ($exercice == Session::get('tresorerie.exercice_travail')) ? 'aff_selected' : 'aff_non_selected'}} " >
 {{ $exercice }}
 </a>
 
-<span>Banque affichée : </span>
+<span class="sousvolet">Banque affichée : </span>
 <div class="banques">
 	@foreach(Banque::all() as $bank)
-	<a href ="{{ URL::route('pointage', [$bank->id, Session::get('tresorerie.exercice_travail')]) }}" class="badge badge-locale {{ ($bank->nom == Session::get('tresorerie.banque_nom')) ? 'badge-success' : ''}}">{{ $bank->nom }}</a>
+	<a href ="{{ URL::route('pointage', [$bank->id, Session::get('tresorerie.exercice_travail')]) }}" class="badge badge-locale {{ ($bank->nom == Session::get('tresorerie.banque_nom')) ? 'aff_selected' : 'aff_non_selected'}}">{{ $bank->nom }}</a>
 	@endforeach
 </div>
 

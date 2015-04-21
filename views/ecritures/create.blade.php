@@ -22,7 +22,8 @@
 
 @stop
 
-@section('actions')
+@section('topfoot1')
+<span>Actions</span>
 {{ link_to(Session::get('page_depart'), 'Retour liste', array('class' => 'btn btn-info btn-actions iconesmall list',)); }}
 
 {{ Form::submit('Créer cette écriture', array('class' => 'btn btn-success btn-actions iconmedium add')) }}

@@ -103,24 +103,21 @@
 
 
 
-		<!-- - - - - - - - - - - - - - - - ACTIONS - - - - - - - - - - - - - - -->
-		<div class="actions">
-			<span>Actions</span>
-			@yield('actions')
+		<!-- - - - - - - - - - - - - - - - TopFoot 1 - - - - - - - - - - - - - - -->
+		<div class="topfoot topfoot1 {{ isset($tf1) ? $tf1 : "" }}">
+			@yield('topfoot1')
 		</div>
 
 
-		<!-- - - - - - - - - - - - - - - - PREFS - - - - - - - - - - - - - - -->
-		<div class="prefs">
-			<span>Préférences</span>
-			@yield('prefs')
+		<!-- - - - - - - - - - - - - - - - TopFoot 2 - - - - - - - - - - - - - - -->
+		<div class="topfoot topfoot2">
+			@yield('topfoot2')
 		</div>
 
 
-		<!-- - - - - - - - - - - - - - - - AFFICHAGE - - - - - - - - - - - - - - -->
-		<div class="affichage">
-			<span>Affichage</span>
-			@yield('affichage')
+		<!-- - - - - - - - - - - - - - - - TopFoot 3 - - - - - - - - - - - - - - -->
+		<div class="topfoot topfoot3">
+			@yield('topfoot3')
 		</div>
 
 	</div>
@@ -128,7 +125,7 @@
 	<footer>
 		<div class="version">
 			@section('tresorerie/footer')
-			© gAb – Tresorerie version 1.3.1
+			© gAb – Tresorerie version 1.3.2
 			@show
 		</div>
 	</footer>

@@ -20,7 +20,8 @@
 
 @stop
 
-@section('actions')
+@section('topfoot1')
+<span>Actions</span>
 {{ link_to_action('TypeController@index', 'Retour à la liste', null, array('class' => 'btn btn-info btn-actions iconesmall list')); }}
 
 {{ Form::submit('Modifier ce type', array('class' => 'btn btn-edit btn-actions')) }}
