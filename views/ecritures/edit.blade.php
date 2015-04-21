@@ -34,9 +34,9 @@
 
 @section('topfoot1')
 <span>Actions</span>
-	{{ link_to(Session::get('page_depart')."#".Session::get('tresorerie.mois_travail'), 'Retour à la liste', array('class' => 'btn btn-info btn-actions iconesmall list')); }}
+	{{ link_to(Session::get('page_depart')."#".Session::get('tresorerie.mois_travail'), 'Retour liste', array('class' => 'btn btn-info btn-actions iconesmall list')); }}
 
-	{{ Form::submit('Modifier cette écriture', array('class' => 'btn btn-edit btn-actions')) }}
+	{{ Form::submit('Valider modification', array('class' => 'btn btn-edit btn-actions')) }}
 	{{ Form::close() }}
 
 	{{ Form::open(array('url' => 'tresorerie/ecritures/'.$ecriture->id, 'method' => 'delete')) }}

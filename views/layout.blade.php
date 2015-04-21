@@ -111,7 +111,6 @@
 
 		<!-- - - - - - - - - - - - - - - - TopFoot 2 - - - - - - - - - - - - - - -->
 		<div class="topfoot topfoot2">
-			<span>Préférences</span>
 			@yield('topfoot2')
 		</div>
 
@@ -126,7 +125,7 @@
 	<footer>
 		<div class="version">
 			@section('tresorerie/footer')
-			© gAb – Tresorerie version 1.3.1
+			© gAb – Tresorerie version 1.3.2
 			@show
 		</div>
 	</footer>
