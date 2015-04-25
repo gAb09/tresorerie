@@ -27,35 +27,38 @@ trait ModesTraitDomaine {
 	 */
 	private function affichageParMois($ligne, $collection, $order){
 
+		/* Déterminer le rang de la dernière écriture de la page. */
+		$this->last = $collection->count() -1;
+
 		/* Relever le mois et l’année du critère de classement */
 		$ligne->mois_classement = \DatesFr::classAnMois($ligne->{$order});
 
-			/* Il s'agit du premier mois de la page ?
-			Assigner $index_ligne de cette ligne à "premier_mois"*/
-			if ($this->prev_mois == '')
-			{
-				$ligne->premier_mois = true;
+		/* Il s'agit du premier mois de la page ?
+		Assigner $index_ligne de cette ligne à "premier_mois"*/
+		if ($this->prev_mois == '')
+		{
+			$ligne->premier_mois = true;
 
-				/* Il y a changement de mois ? */
-			}elseif ($ligne->mois_classement != $this->prev_mois)
-			{
-				/* Assigner $index_ligne de cette ligne à "nouveau_mois" */
-				$ligne->nouveau_mois = true;
+			/* Il y a changement de mois ? */
+		}elseif ($ligne->mois_classement != $this->prev_mois)
+		{
+			/* Assigner $index_ligne de cette ligne à "nouveau_mois" */
+			$ligne->nouveau_mois = true;
 
-				/* Assigner $index_ligne de la ligne précédente à "der_du_mois" */
-				$prev_rang = $ligne->rang -1;
-				$collection[$prev_rang]->der_du_mois = true;
-				
-			}
-
-			/* Conserver le mois classement pour comparaison avec la prochaine ligne.*/
-			$this->prev_mois = $ligne->mois_classement;
-
-			/* On n'oublie pas la toute dernière ligne de la page.*/
-			if ($ligne->rang == $this->last) {
-				$ligne->fin_page = true;
-			}
+			/* Assigner $index_ligne de la ligne précédente à "der_du_mois" */
+			$prev_rang = $ligne->rang -1;
+			$collection[$prev_rang]->der_du_mois = true;
+			
 		}
+
+		/* Conserver le mois classement pour comparaison avec la prochaine ligne.*/
+		$this->prev_mois = $ligne->mois_classement;
+
+		/* On n'oublie pas la toute dernière ligne de la page.*/
+		if ($ligne->rang == $this->last) {
+			$ligne->fin_page = true;
+		}
+	}
 
 
 
@@ -101,9 +104,6 @@ trait ModesTraitDomaine {
 	 * 
 	 */
 	public function affecterRangs($ecriture, $collection){
-
-		/* Déterminer le rang de la dernière écriture de la page. */
-		$this->last = $collection->count() -1;
 
 		/* Affecter son rang à l'écriture. */
 		$ecriture->rang = $this->rang;
