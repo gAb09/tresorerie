@@ -91,9 +91,10 @@ onLoad="initVolets();"
 				@endif
 			</td>
 			<td>
+				<span style="font-size:smaller"> => à reporter mois suivant</span>
 			</td>
 			<td colspan="2">
-				Bilan du mois : 
+				<span style="font-size:smaller">Bilan du mois =></span>
 				@if($ecriture->solde_mois < 0)
 				<span class="depense">{{NombresFr::francais_insec($ecriture->solde_mois)}}</span>
 				@else
