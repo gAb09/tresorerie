@@ -23,7 +23,7 @@ class CompteDomaine {
 	public function getListActifs()
 	{
 		$model = new Compte;
-		return DomHelper::listForSelect($model, null, 'Actif');
+		return DomHelper::listForSelect($model, null, 'Actif', false);
 	}
 
 	public function getListActivables()
