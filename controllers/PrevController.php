@@ -64,7 +64,7 @@ class PrevController extends BaseController {
 		$statuts_autorised = $this->prevDom->getStatutsAutorised();
 
 		/* vueG - Changer la classe du volet topfoot1 delon les autorisations */
-		if(Auth::user()->role_id == 3){
+		if(Auth::user()->role_id !== 1){
 			$tf1 = "legende";
 		}else{
 			$tf1 = "";
