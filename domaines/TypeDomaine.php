@@ -18,7 +18,8 @@ class TypeDomaine {
 	public function getListNom()
 	{
 		$model = new Type;
-		return DomHelper::listForSelect($model, null, 'ByRang');
+
+		return DomHelper::listForSelect($model, null, 'ByRang', false);
 	}
 
 	public function destroy($id)
