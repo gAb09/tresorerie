@@ -7,6 +7,29 @@ class ExportController extends BaseController {
 		$this->banqueDom = new BanqueDomaine;
 	}
 
+	public function export2() //
+	{
+
+		$ecritures = $this->exportDom->collectionExportGlobal();
+
+		/* S'il n'y a pas d'écriture pour la banque demandée : 
+		rediriger sur la page pointage par défaut avec un message d'erreur */
+		if (!$ecritures){
+			$message = 'Il n’y a aucune écriture pour la banque “';
+			$message .= $banque_nom;
+			$message .= '”';
+			return Redirect::back()->withErrors($message);
+		}
+
+
+		/* Afficher la vue pointage pour la banque demandée. */ 
+		return View::make('tresorerie.views.export')
+		->with(compact('ecritures'))
+		->with(array('titre_page' => "Export global"))
+		;
+	}
+
+
 	public function export($id = null) //
 	{
 		/* Si pas d'$id spécifié on utilise celui de la banque courante
@@ -45,7 +68,7 @@ class ExportController extends BaseController {
 
 	public function handle()
 	{
-	$location =  '/home/gbom/laravel/app/storage/logs/log-fpm-fcgi-2015-02-10.txt';
+	$location =  '/home/gbom/laravel/app/storage/export.txt';
 	
 		if(file_exists($location))
 		{

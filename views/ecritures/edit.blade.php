@@ -40,7 +40,7 @@
 	{{ Form::close() }}
 
 	{{ Form::open(array('url' => 'tresorerie/ecritures/'.$ecriture->id, 'method' => 'delete')) }}
-	{{ Form::submit('Supprimer cette écriture', ['class' => 'btn btn-danger btn-actions', 'onClick' => 'javascript:return(confirmation());']) }}
+	{{ Form::submit('Supprimer cette écriture', ['class' => 'btn btn-danger btn-actions', 'onClick' => 'javascript:return(confirmation("Voulez vous vraiment supprimer cet enregistrement ?"));']) }}
 	{{ Form::close() }}
 @stop
 
