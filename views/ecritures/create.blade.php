@@ -17,7 +17,6 @@
 
 {{ Form::model($ecriture, array('name' => 'form', 'url' => 'tresorerie/ecritures', 'method' => 'post', 'action' => 'EcritureController@store')) }}
 
-{{$ecriture->type_id = 10}}
 @include('tresorerie/views/ecritures/form')
 
 
