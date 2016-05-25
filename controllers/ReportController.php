@@ -32,10 +32,10 @@ class ReportController extends BaseController {
 
 		$ecritures->each(function($ecriture)
 		{
-    		if($ecriture->report == 1)
-    		{
-    			$ecriture->classe = "reportable";
-    		}
+			if($ecriture->report == 1)
+			{
+				$ecriture->classe = "reportable";
+			}
 		});
 		$titre_page = 'Tous les reports';
 
@@ -71,7 +71,7 @@ class ReportController extends BaseController {
 			$ecriture->report = 1;
 		}
 		$ecriture->save();
-		return Redirect::route('reports_index');
+		return \Response::make('', 204);
 	}
 
 
