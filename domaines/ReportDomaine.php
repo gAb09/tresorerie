@@ -13,26 +13,31 @@ class ReportDomaine {
 		'is_double' => false,
 		);
 
+	public function report()
+	{
+		return $ecritures = Ecriture::whereBetween('date_valeur', ['2015-01-01 00:00:00', '2015-12-31 00:00:00'])->orderBy("date_valeur")->get();
+	}
+
 
 	public function create()
 	{
-		return new Report($this->default_values_for_create);
+		return new Ecriture($this->default_values_for_create);
 	}
 
 	public function find($id)
 	{
-		return Report::find($id);
+		return Ecriture::find($id);
 	}
 
 
-	public function save($report)
+	public function save($ecriture)
 	{
-		$report->save();
+		$ecriture->save();
 	}
 
 	public function all()
 	{
-		return $reports = Report::orderBy("date_emission")->get();
+		return $ecriture = Ecriture::orderBy("date_valeur")->get();
 	}
 
 }

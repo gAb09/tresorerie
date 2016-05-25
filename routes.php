@@ -57,7 +57,8 @@ Route::group(array('prefix' => 'tresorerie', 'before' => 'auth'), function()
 
 		/*----------------------  Reports  ----------------------------------*/
 		Route::resource('reports', 'ReportController');
-		Route::get('reports/dupli/{report}', array('as' => 'duplireport', 'uses' => 'ReportController@duplicate'));
+		Route::get('reports', array('as' => 'reports_index', 'uses' => 'ReportController@index'));
+		Route::get('reports/setReportable/{ecriture}', array('as' => 'setReportable', 'uses' => 'ReportController@setReportable'));
 
 		/*----------------------  Notes  ----------------------------------*/
 		Route::resource('notes', 'NoteController');
