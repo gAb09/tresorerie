@@ -13,6 +13,7 @@ class BanqueController extends BaseController {
 		$this->validateur = $validateur;
 		$this->banqueDom = new BanqueDomaine;
 
+
 		// dd($this->validateur);  // CTRL
 	}
 
