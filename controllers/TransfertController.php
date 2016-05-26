@@ -3,7 +3,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use tresorerie\Validations\EcritureValidation;
 use tresorerie\Validations\EcritureDoubleValidation;
 
-class ReportController extends BaseController {
+class TransfertController extends BaseController {
 
 	/* Attribuer le qualificatif donné à l'écriture n°1 dans les messages (souci de clarté pour l’utilisateur)
 	afin de pouvoir le changer globalement on le place dans une variable  */
@@ -12,13 +12,13 @@ class ReportController extends BaseController {
 
 
 	public function __construct(
-		ReportDomaine $reportDom,
+		TransfertDomaine $transfertDom,
 		BanqueDomaine $banqueDom,
 		CompteDomaine $compteDom,
 		TypeDomaine $typeDom
 		)
 	{
-		$this->reportDom = $reportDom ;
+		$this->transfertDom = $transfertDom ;
 		$this->banqueDom = $banqueDom;
 		$this->compteDom = $compteDom ;
 		$this->typeDom = $typeDom ;
@@ -28,16 +28,16 @@ class ReportController extends BaseController {
 	{	
 		Session::put('page_depart', Request::getUri());
 
-		$ecritures = $this->reportDom->report();
+		$ecritures = $this->transfertDom->transfert();
 
 		$ecritures->each(function($ecriture)
 		{
-			if($ecriture->report == 1)
+			if($ecriture->transfert == 1)
 			{
-				$ecriture->classe = "reportable";
+				$ecriture->classe = "transferable";
 			}
 		});
-		$titre_page = 'Tous les reports';
+		$titre_page = 'Tous les transferts';
 
 		// Créer un tableau pour la construction de la tétière
 		$head = array(
@@ -47,11 +47,13 @@ class ReportController extends BaseController {
 			'libelle' => 'Libellé',
 			'type_id' => 'Type',
 			'montant' => 'Montant',
+			'datecrea' => 'Date de création',
+			'datemodif' => 'Date de modification',
 			);
 
 
 
-		return View::Make('tresorerie.views.reports.index')
+		return View::Make('tresorerie.views.transferts.index')
 		->with(compact('ecritures'))
 		->with(compact('titre_page'))
 		->with(compact('head'))
@@ -60,15 +62,31 @@ class ReportController extends BaseController {
 
 
 
-	public function setReportable($id)
+	public function setTransferable($id)
 	{
 		// dd($id);
 		$ecriture = Ecriture::where('id', $id)->first();
-		if($ecriture->report == 1)
+		if($ecriture->transfert == 1)
 		{
-			$ecriture->report = null;
+			$ecriture->transfert = null;
 		}else{
-			$ecriture->report = 1;
+			$ecriture->transfert = 1;
+		}
+		$ecriture->save();
+		return \Response::make('', 204);
+	}
+
+
+	public function getTransferable()
+	{
+		// dd($id);
+		$ecritures = Ecriture::where('transfert', 1)->get(['id'])->toArray();
+		dd($ecritures);
+		if($ecriture->transfert == 1)
+		{
+			$ecriture->transfert = null;
+		}else{
+			$ecriture->transfert = 1;
 		}
 		$ecriture->save();
 		return \Response::make('', 204);
@@ -77,7 +95,7 @@ class ReportController extends BaseController {
 
 	public function update($id)
 	{
-	// 	$report = Report::where('id', $id)->first();
+	// 	$transfert = Transfert::where('id', $id)->first();
 
 	// 	/* Initialiser la variable destinée à contenir le message de succès */
 	// 	$success = '';
@@ -85,10 +103,10 @@ class ReportController extends BaseController {
 	// 	/* Conserver les inputs */
 	// 	Input::flash();
 
-	// 	$report = static::hydrateSimple($report);
-	// 	$report->updated_by = Input::get('updated_by');
+	// 	$transfert = static::hydrateSimple($transfert);
+	// 	$transfert->updated_by = Input::get('updated_by');
 
-	// 	$report->save();
+	// 	$transfert->save();
 
 	// 	/* Rediriger */
 	// 	Session::flash('success', $success);

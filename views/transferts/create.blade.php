@@ -15,9 +15,9 @@
 @section('contenu')
 <hr>
 
-{{ Form::model($report, array('name' => 'form', 'url' => 'tresorerie/reports', 'method' => 'post', 'action' => 'ReportController@store')) }}
+{{ Form::model($transfert, array('name' => 'form', 'url' => 'tresorerie/transferts', 'method' => 'post', 'action' => 'TransfertController@store')) }}
 
-@include('tresorerie/views/reports/form')
+@include('tresorerie/views/transferts/form')
 
 
 @stop

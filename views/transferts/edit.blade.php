@@ -10,14 +10,14 @@
 @section('titrepage')
 <h1>{{$titre_page}}</h1>
 <p>
-	Créée le {{ DatesFr::longue($report->created_at) }}
-	@if(isset($report->createur->login))
-	par {{ $report->createur->login }}<br />
+	Créée le {{ DatesFr::longue($transfert->created_at) }}
+	@if(isset($transfert->createur->login))
+	par {{ $transfert->createur->login }}<br />
 	@endif
  – 
- Modifiée le {{ DatesFr::longue($report->updated_at) }} 
-	@if(isset($report->modificateur->login))
-	par {{ $report->modificateur->login }}
+ Modifiée le {{ DatesFr::longue($transfert->updated_at) }} 
+	@if(isset($transfert->modificateur->login))
+	par {{ $transfert->modificateur->login }}
 	@endif
 </p>
 @stop
@@ -25,9 +25,9 @@
 @section('contenu')
 
 <hr />
-{{ Form::model($report, ['name' => 'form', 'method' => 'put', 'route' => ['tresorerie.reports.update', $report->id]]) }}
+{{ Form::model($transfert, ['name' => 'form', 'method' => 'put', 'route' => ['tresorerie.transferts.update', $transfert->id]]) }}
 
-@include('tresorerie/views/reports/form')
+@include('tresorerie/views/transferts/form')
 
 @stop
 
@@ -39,7 +39,7 @@
 	{{ Form::submit('Modifier cette écriture', array('class' => 'btn btn-edit btn-actions')) }}
 	{{ Form::close() }}
 
-	{{ Form::open(array('url' => 'tresorerie/reports/'.$report->id, 'method' => 'delete')) }}
+	{{ Form::open(array('url' => 'tresorerie/transferts/'.$transfert->id, 'method' => 'delete')) }}
 	{{ Form::submit('Supprimer cette écriture', ['class' => 'btn btn-danger btn-actions', 'onClick' => 'javascript:return(confirmation());']) }}
 	{{ Form::close() }}
 @stop

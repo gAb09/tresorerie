@@ -12,13 +12,13 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 	<div class="input">
 		<!-- Banque -->
 		{{ Form::label('banque_id', 'Banque', array ('id' => 'banque', 'class' => '')) }}
-		{{ Form::select('banque_id', $list['banque'], $report->banque_id) }}
+		{{ Form::select('banque_id', $list['banque'], $transfert->banque_id) }}
 	</div>
 
 	<!-- Date émission -->
 	<div class="input">
 		{{ Form::label('date_emission', 'Date émission', array ('class' => '')) }}
-		{{ Form::text('date_emission', DatesFr::formEdit($report->date_emission), array ('class' => 'calendrier')) }}
+		{{ Form::text('date_emission', DatesFr::formEdit($transfert->date_emission), array ('class' => 'calendrier')) }}
 
 		<br /><div class="btn btn-date" OnClick="javascript:aujourdhuiEmission();">Aujourd'hui</div>
 	</div>
@@ -26,7 +26,7 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 	<!-- Date valeur -->
 	<div class="input nobr">
 		{{ Form::label('date_valeur', 'Date de valeur', array ('class' => '')) }}
-		{{ Form::text('date_valeur', DatesFr::formEdit($report->date_valeur), array ('class' => 'calendrier')) }}
+		{{ Form::text('date_valeur', DatesFr::formEdit($transfert->date_valeur), array ('class' => 'calendrier')) }}
 
 		<br /><div class="btn btn-date" OnClick="javascript:aujourdhuiValeur();">Aujourd'hui</div>
 	</div>
@@ -34,12 +34,12 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 	<div class="input">
 		<!-- Montant -->
 		{{ Form::label('montant', 'Montant', array ('class' => '')) }}
-		{{ Form::text('montant', NombresFr::francais($report->montant), array ('class' => '')) }}
+		{{ Form::text('montant', NombresFr::francais($transfert->montant), array ('class' => '')) }}
 
 		<!-- Signe -->
 		@foreach($list_radios as $signes => $signe)
 		<br />
-		{{ Form::radio('signe_id', $signe['value'], ($signe['id'] == $report->signe_id) ? "checked" : "", array ('class' => '', 'style' => 'vertical-align:inherit;', 'id' => $signe["id_css"], 'onClick' => 'javascript:bascule_signe();'))}}
+		{{ Form::radio('signe_id', $signe['value'], ($signe['id'] == $transfert->signe_id) ? "checked" : "", array ('class' => '', 'style' => 'vertical-align:inherit;', 'id' => $signe["id_css"], 'onClick' => 'javascript:bascule_signe();'))}}
 		{{ Form::label($signe["id_css"], $signe['etiquette'], array ('class' => 'nobr','style' => '', 'id' => '')) }}
 		@endforeach
 	</div>
@@ -50,13 +50,13 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 	<div class="input">
 		<!-- Libellé -->
 		{{ Form::label('Libelle', 'Libellé', array ('class' => '')) }}
-		{{ Form::text('libelle', $report->libelle, array ('class' => 'input-long')) }}
+		{{ Form::text('libelle', $transfert->libelle, array ('class' => 'input-long')) }}
 	</div>
 
 	<div class="input">
 		<!-- Libellé détail -->
 		{{ Form::label('libelle_detail', 'Libellé détail', array ('class' => '')) }}
-		{{ Form::text('libelle_detail', $report->libelle_detail, array ('class' => 'input-long margright')) }}
+		{{ Form::text('libelle_detail', $transfert->libelle_detail, array ('class' => 'input-long margright')) }}
 	</div>
 </fieldset>
 
@@ -65,11 +65,11 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 	<div class="input">
 		<!-- Type -->
 		{{ Form::label('type_id1', 'Type', array ('name' => 'label')) }}
-		{{Form::select('type_id1', $list['type'], $report->type_id, array ('class' => 'input-long', 'onChange' => 'javascript:toggleJustif(this);') ) }}
+		{{Form::select('type_id1', $list['type'], $transfert->type_id, array ('class' => 'input-long', 'onChange' => 'javascript:toggleJustif(this);') ) }}
 	</div>
 
 		<!-- Type (justificatif) -->
-	@if(isset($report->type->statut_justif) and $report->type->statut_justif == 1)
+	@if(isset($transfert->type->statut_justif) and $transfert->type->statut_justif == 1)
 		<div id="divjustificatif1" class="input">
 		{{ Form::label('justificatif1', 'Justificatif requis', array ('class' => '')) }}
 	@else
@@ -77,12 +77,12 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 		{{ Form::label('justificatif1', 'Justificatif non requis', array ('class' => '')) }}
 	@endif
 		<span id="sep1">
-			{{ isset($report->type->sep_justif) ? $report->type->sep_justif : '' }}
+			{{ isset($transfert->type->sep_justif) ? $transfert->type->sep_justif : '' }}
 		</span>
-		{{ Form::text('justificatif1', isset($report->justificatif) ? $report->justificatif : '',  array ('class' => 'input-long margright')) }}
+		{{ Form::text('justificatif1', isset($transfert->justificatif) ? $transfert->justificatif : '',  array ('class' => 'input-long margright')) }}
 
 		<!-- Type (justificatif requis) Utilisé pour la validation -->
-		{{ Form::hidden('statut_justif1',  isset($report->type->statut_justif) ? $report->type->statut_justif : '', array ('class' => 'input-long margright', 'id' => 'statut_justif1')) }}
+		{{ Form::hidden('statut_justif1',  isset($transfert->type->statut_justif) ? $transfert->type->statut_justif : '', array ('class' => 'input-long margright', 'id' => 'statut_justif1')) }}
 	</div>
 </fieldset>
 
@@ -92,7 +92,7 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 <fieldset>
 	<div class="input">
 		{{ Form::label('compte_id', 'Compte', array ('class' => '', 'id' => 'compte_id')) }}
-		{{Form::select('compte_id', $list['compte'], $report->compte_id, array ('class' => 'input-long nobr', 'id' => 'compte_id_actif')) }}
+		{{Form::select('compte_id', $list['compte'], $transfert->compte_id, array ('class' => 'input-long nobr', 'id' => 'compte_id_actif')) }}
 
 		<input id="desactive_compte" value="Désactiver ce compte" type="button" class="invisible" 
 		onclick = "modificationCompte('{{URL::action('CompteController@updateActif')}}', 0 )">
@@ -120,7 +120,7 @@ $class_verrou = (Session::get('class_verrou')) ? Session::get('class_verrou') : 
 <fieldset>
 		{{ Form::label('note', 'Notes', array ('class' => '', 'id' => 'note_label'))}}
 
-		<br />{{Form::textarea('note', $report->note, array ('class' => '', 'id' => 'note')) }}
+		<br />{{Form::textarea('note', $transfert->note, array ('class' => '', 'id' => 'note')) }}
 </fieldset>
 
 

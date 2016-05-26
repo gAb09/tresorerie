@@ -55,10 +55,10 @@ Route::group(array('prefix' => 'tresorerie', 'before' => 'auth'), function()
 		/*----------------------  Banques  ----------------------------------*/
 		Route::resource('banques', 'BanqueController');
 
-		/*----------------------  Reports  ----------------------------------*/
-		Route::resource('reports', 'ReportController');
-		Route::get('reports', array('as' => 'reports_index', 'uses' => 'ReportController@index'));
-		Route::get('reports/setReportable/{ecriture}', array('as' => 'setReportable', 'uses' => 'ReportController@setReportable'));
+		/*----------------------  Transfert (vers une nouvele année)  ----------------------------------*/
+		Route::get('transferts', array('as' => 'transferts_index', 'uses' => 'TransfertController@index'));
+		Route::get('transferts/setTransferable/{ecriture}', array('as' => 'setTransferable', 'uses' => 'TransfertController@setTransferable'));
+		Route::get('transferts/handletransferts', array('as' => 'handletransferts', 'uses' => 'TransfertController@getTransferable'));
 
 		/*----------------------  Notes  ----------------------------------*/
 		Route::resource('notes', 'NoteController');

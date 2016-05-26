@@ -1,5 +1,5 @@
 <?php
-class ReportDomaine {
+class TransfertDomaine {
 
 	protected $default_values_for_create = array(
 		'banque_id' => 0,
@@ -13,7 +13,7 @@ class ReportDomaine {
 		'is_double' => false,
 		);
 
-	public function report()
+	public function transfert()
 	{
 		return $ecritures = Ecriture::whereBetween('date_valeur', ['2015-01-01 00:00:00', '2015-12-31 00:00:00'])->orderBy("date_valeur")->get();
 	}

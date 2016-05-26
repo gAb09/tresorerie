@@ -27,7 +27,7 @@
 	<tbody>
 		@foreach($ecritures as $ecriture)
 		<tr id ="{{$ecriture->id}}" class="{{$ecriture->classe}}"
-			ondblclick = "basculeReportable(this, '{{ URL::action('ReportController@setReportable', [$ecriture->id]) }}');">
+			ondblclick = "basculeTransferable(this, '{{ URL::action('TransfertController@setTransferable', [$ecriture->id]) }}');">
 			<td>{{ $ecriture->id }}</td>
 			<td>{{ $ecriture->banque->nom }}
 			</td>
@@ -61,6 +61,6 @@
 @stop
 
 @section('script')
-<script src="/assets/tresorerie/js/reports.js">
+<script src="/assets/tresorerie/js/transferts.js">
 </script>
 @stop
