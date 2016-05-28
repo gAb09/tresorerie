@@ -15,7 +15,7 @@ class PrevDomaine {
 
 
 	/* Les statuts autorisés (séparés par un "-") */
-	private $statuts_autorised = '1-2';
+	private $statuts_autorised = '1-2-3-4';
 
 	/* Le critère de classement */
 	private $order = 'date_valeur';
