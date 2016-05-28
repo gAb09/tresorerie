@@ -9,6 +9,66 @@ class ExportDomaine extends BaseController {
 	private $txt = "";
 
 
+	public function collectionExportGlobal()
+	{
+
+		$ecritures = Ecriture::with('signe', 'type', 'banque', 'statut', 'compte', 'ecriture2')
+		->whereIn('banque_id', [1, 2])
+		->orderBy('date_valeur')
+		->get();
+dd($ecritures[0]->toArray());
+		if ($ecritures->isEmpty())
+		{
+			return false;
+		}
+
+
+		/* Déterminer le rang de la dernière écriture de la page. */
+		$last = $ecritures->count() -1;
+
+		/* Lancer la boucle sur la collection */
+		$ecritures->each(function($ecriture) use ($ecritures, $order, $last) {
+
+			$ecriture = $this->ComposeLigneGlobal($ecriture);
+			$this->txt .= $ecriture;
+// var_dump($ecriture);
+
+		});
+
+		return $this->txt;
+
+	}
+
+
+
+	private function ComposeLigneGlobal($ecriture)
+	{
+		$ligne = '';
+
+		$ligne .= $this->FormatDateOperation($ecriture);
+		$ligne .= $this->FormatNumeroFolio($ecriture);
+		$ligne .= $this->FormatNumeroEcriture($ecriture);
+		$ligne .= $this->FormatJourEcriture($ecriture);
+		$ligne .= $this->FormatCompte($ecriture);
+		$ligne .= $this->FormatDebit($ecriture);
+		$ligne .= $this->FormatCredit($ecriture);
+		$ligne .= $this->FormatLibelle($ecriture);
+		$ligne .= $this->FormatLettrage($ecriture);
+		$ligne .= $this->FormatCodePiece($ecriture);
+		$ligne .= $this->FormatCodeStatist($ecriture);
+		$ligne .= $this->FormatDateEcheance($ecriture);		
+		$ligne .= $this->FormatMonnaie($ecriture);
+		$ligne .= $this->FormatFiller1($ecriture);		
+		$ligne .= $this->FormatIndCompteur($ecriture);
+		$ligne .= $this->FormatQuantite($ecriture);
+		$ligne .= $this->FormatFiller2($ecriture);			
+		$ligne .= "<br />";
+
+		return $ligne;
+	}
+
+
+
 	public function collectionExport($id, $order)
 	{
 
@@ -40,6 +100,8 @@ class ExportDomaine extends BaseController {
 
 	}
 
+
+
 	private function ComposeLigne($ecriture)
 	{
 		$ligne = '';
@@ -66,6 +128,20 @@ class ExportDomaine extends BaseController {
 
 		return $ligne;
 	}
+
+
+	private function FormatDateOperation($ecriture)
+	{
+			// Date opération		4-11	8 A		0
+			// Date de la pièce. Format JJMMAAAA
+
+		$champs = $this->formate(null, 8);
+
+		$champs .= $this->pipe;
+
+		return $champs;
+	}
+
 
 	private function formate($data, $nbre_car_requis, $alignement = "gauche") // utiliser str_pad ?
 	{
@@ -112,7 +188,7 @@ class ExportDomaine extends BaseController {
 		return $champs;
 	}
 
-	private function FormatDateOperation($ecriture)
+	private function FormatDateFiducial($ecriture)
 	{
 			// Date opération		4-11	8 A		0
 			// Date de la pièce. Format JJMMAAAA
@@ -123,6 +199,7 @@ class ExportDomaine extends BaseController {
 
 		return $champs;
 	}
+
 
 	private function FormatNumeroFolio($ecriture)
 	{

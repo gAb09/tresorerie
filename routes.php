@@ -22,6 +22,7 @@ Route::group(array('prefix' => 'tresorerie', 'before' => 'auth'), function()
 
 		/*----------------------  Export  -----------------------------*/
 		Route::get('export/{id?}', array('as' => 'export', 'uses' => 'ExportController@export'));
+		Route::get('export2', array('as' => 'export2', 'uses' => 'ExportController@export2'));
 
 		/*----------------------  Journal  -----------------------------*/
 		Route::get('journal/{id?}/{annee?}', ['as' => 'journal', 'uses' => 'JournalController@index']);
