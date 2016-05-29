@@ -100,12 +100,11 @@ class TransfertController extends BaseController {
 			$new->statut_id = 1;
 
 
-			var_dump($item->toArray());
-			var_dump($new->toArray());
+			// var_dump($item->toArray());
+			// var_dump($new->toArray());
 			$new->save();
 		});
 
-		// return dd($ecritures);
 	}
 
 
