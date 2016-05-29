@@ -15,7 +15,7 @@ class TransfertDomaine {
 
 	public function transfert()
 	{
-		return $ecritures = Ecriture::whereBetween('date_valeur', ['2015-01-01 00:00:00', '2015-12-31 00:00:00'])->orderBy("date_valeur")->get();
+		return $ecritures = Ecriture::whereBetween('date_valeur', ['2016-01-01 00:00:00', '2016-12-31 00:00:00'])->orderBy("date_valeur")->get();
 	}
 
 

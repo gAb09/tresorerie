@@ -77,40 +77,35 @@ class TransfertController extends BaseController {
 	}
 
 
-	public function getTransferable()
+
+	public function DoTransfert()
 	{
-		// dd($id);
-		$ecritures = Ecriture::where('transfert', 1)->get(['id'])->toArray();
-		dd($ecritures);
-		if($ecriture->transfert == 1)
-		{
-			$ecriture->transfert = null;
-		}else{
-			$ecriture->transfert = 1;
-		}
-		$ecriture->save();
-		return \Response::make('', 204);
-	}
+		$ecritures = Ecriture::where('transfert', 1)->get();
+		// dd($ecritures);
+		$ecritures = $ecritures->each(function ($item){
+			$new = new Ecriture;
+
+			$new->date_valeur = $item->date_valeur;
+			$new->date_valeur = $new->date_valeur->addYear();
+			$new->date_emission = '2016-12-31 00:00:00';
+			$new->banque_id = $item->banque_id;
+			$new->type_id = 10;
+			// justificatif
+			// is_double
+			$new->libelle = $item->libelle;
+			$new->libelle_detail = $item->libelle_detail;
+			$new->montant = $item->montant;
+			$new->signe_id = $item->signe_id;
+			$new->compte_id = $item->compte_id;
+			$new->statut_id = 1;
 
 
-	public function update($id)
-	{
-	// 	$transfert = Transfert::where('id', $id)->first();
+			var_dump($item->toArray());
+			var_dump($new->toArray());
+			$new->save();
+		});
 
-	// 	/* Initialiser la variable destinée à contenir le message de succès */
-	// 	$success = '';
-
-	// 	/* Conserver les inputs */
-	// 	Input::flash();
-
-	// 	$transfert = static::hydrateSimple($transfert);
-	// 	$transfert->updated_by = Input::get('updated_by');
-
-	// 	$transfert->save();
-
-	// 	/* Rediriger */
-	// 	Session::flash('success', $success);
-	// 	return Redirect::to(Session::get('page_depart')."#".Session::get('tresorerie.mois_travail'));
+		// return dd($ecritures);
 	}
 
 

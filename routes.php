@@ -59,7 +59,7 @@ Route::group(array('prefix' => 'tresorerie', 'before' => 'auth'), function()
 		/*----------------------  Transfert (vers une nouvele année)  ----------------------------------*/
 		Route::get('transferts', array('as' => 'transferts_index', 'uses' => 'TransfertController@index'));
 		Route::get('transferts/setTransferable/{ecriture}', array('as' => 'setTransferable', 'uses' => 'TransfertController@setTransferable'));
-		Route::get('transferts/handletransferts', array('as' => 'handletransferts', 'uses' => 'TransfertController@getTransferable'));
+		Route::get('transferts/dotransfert', array('as' => 'dotransfert', 'uses' => 'TransfertController@doTransfert'));
 
 		/*----------------------  Notes  ----------------------------------*/
 		Route::resource('notes', 'NoteController');
