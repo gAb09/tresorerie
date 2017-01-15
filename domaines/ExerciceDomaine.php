@@ -33,4 +33,16 @@ class ExerciceDomaine {
 	}
 
 
+	/**
+	 * retourne la première année non clôturée,
+	 * donc l'exercice courant.
+	 * En principe il s'agit de l'année réelle
+	 *
+	 */
+	public function getExerciceSuivant(){
+		$exercice = \Session::get('tresorerie.annee_reelle')+1;
+		return $exercice;
+	}
+
+
 }

@@ -67,6 +67,7 @@ class PointageController extends BaseController {
 		/* vueD/E - Obtenir les exercices, clôturées et non clôturées */
 		$exercices_clotured = $this->exerciceDom->getExercicesClotured();
 		$exercice = $this->exerciceDom->getExerciceCourant();
+		$exercice_suivant = $this->exerciceDom->getExerciceSuivant();
 
 
 		// Afficher la vue pointage pour la banque demandée. 
@@ -76,6 +77,7 @@ class PointageController extends BaseController {
 		->with(compact('statuts_autorised')) // C
 		->with(compact('exercices_clotured')) // D
 		->with(compact('exercice')) // E
+		->with(compact('exercice_suivant')) // C
 		->with(array('titre_page' => "Pointage de ".Session::get('tresorerie.banque_nom')))
 		;
 	}

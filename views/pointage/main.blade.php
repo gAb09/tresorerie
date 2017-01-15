@@ -124,18 +124,28 @@ onLoad="initVolets();"
 <span>Affichage</span>
 
 <span class="sousvolet">Exercice affiché : </span>
+<!-- Exercices précédents -->
 @foreach($exercices_clotured as $exercices)
-<a href ="{{ URL::route('pointage', [Session::get('tresorerie.banque_id'), $exercices]) }}" 
-class="badge badge-locale
-{{ (Session::get('tresorerie.exercice_travail') == $exercices) ? 'aff_selected' : 'aff_non_selected'}} " >
-{{$exercices}}
-</a>
+	<a href ="{{ URL::route('pointage', [Session::get('tresorerie.banque_id'), $exercices]) }}" 
+		class="badge badge-locale
+		{{ (Session::get('tresorerie.exercice_travail') == $exercices) ? 'aff_selected' : 'aff_non_selected'}} " >
+		{{$exercices}}
+	</a>
 @endforeach
-<a href ="{{ URL::route('pointage', [Session::get('tresorerie.banque_id'), $exercice]) }}" 
-class="badge badge-locale 
-{{ ($exercice == Session::get('tresorerie.exercice_travail')) ? 'aff_selected' : 'aff_non_selected'}} " >
-{{ $exercice }}
-</a>
+
+<!-- Exercice courant -->
+	<a href ="{{ URL::route('pointage', [Session::get('tresorerie.banque_id'), $exercice]) }}" 
+		class="badge badge-locale 
+		{{ ($exercice == Session::get('tresorerie.exercice_travail')) ? 'aff_selected' : 'aff_non_selected'}} " >
+		{{ $exercice }}
+	</a>
+
+<!-- Exercice suivant -->
+	<a href ="{{ URL::route('pointage', [Session::get('tresorerie.banque_id'), $exercice_suivant]) }}" 
+		class="badge badge-locale 
+		{{ ($exercice_suivant == Session::get('tresorerie.exercice_travail')) ? 'aff_selected' : 'aff_non_selected'}} " >
+		{{ $exercice_suivant }}
+	</a>
 
 <span class="sousvolet">Banque affichée : </span>
 <div class="banques">

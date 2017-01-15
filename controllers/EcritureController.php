@@ -469,7 +469,7 @@ class EcritureController extends BaseController {
 			break;
 
 			case 'pointage':
-			return 3;
+			return 2;
 			break;
 
 			case 'previsionnel':

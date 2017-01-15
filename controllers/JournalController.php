@@ -58,6 +58,7 @@ class JournalController extends BaseController {
 		/* vueB/C - Obtenir les exercices, clôturées et non clôturées */
 		$exercices_clotured = $this->exerciceDom->getExercicesClotured();
 		$exercice = $this->exerciceDom->getExerciceCourant();
+		$exercice_suivant = $this->exerciceDom->getExerciceSuivant();
 
 
 		/* Afficher la vue pointage pour la banque demandée. */ 
@@ -65,6 +66,7 @@ class JournalController extends BaseController {
 		->with(compact('ecritures')) // A
 		->with(compact('exercices_clotured')) // B
 		->with(compact('exercice')) // C
+		->with(compact('exercice_suivant')) // C
 		->with(array('titre_page' => "Journal de ".Session::get('tresorerie.banque_nom')))
 		;
 	}
