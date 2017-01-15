@@ -62,6 +62,14 @@ class TransfertController extends BaseController {
 
 
 
+	/**
+	* Bascule la valeur de l'écriture dont l'ID est fourni.
+	* Si transférable (transfert = 1) devient non transferable (transfert = NULL) et vice-versa.
+	*
+	* @param ToDo
+	*
+	* @return ToDo
+	**/	
 	public function setTransferable($id)
 	{
 		// dd($id);
@@ -78,10 +86,22 @@ class TransfertController extends BaseController {
 
 
 
+	/**
+	* Exécute les transferts à partir de la valeur en bdd du champ “transfert” de chaque écriture.
+	*
+	* @param ToDo
+	*
+	* @return ToDo
+	**/	
 	public function DoTransfert()
 	{
 		$ecritures = Ecriture::where('transfert', 1)->get();
 		// dd($ecritures);
+
+		if ($ecritures->isEmpty()) {
+		return Redirect::back()->withErrors("Aucune écriture n’a été désignée comme “à transférer”");
+		}
+
 		$ecritures = $ecritures->each(function ($item){
 			$new = new Ecriture;
 
@@ -105,6 +125,26 @@ class TransfertController extends BaseController {
 			$new->save();
 		});
 
+	}
+
+
+	/**
+	* Remet à NULL le champ “transfert” en bdd pour toutes les écritures.
+	*
+	* @return Redirect
+	**/	
+	public function resetTransfert()
+	{
+		// dd('resetTransfert');
+		$ecritures = Ecriture::where('transfert', 1)->get();
+		// dd($ecritures);
+		$ecritures = $ecritures->each(function ($item){
+			$item->transfert = null;
+			$item->save();
+		});
+
+		Session::flash('success', 'Plus aucune écriture n’est désignée comme “à transférer”');              
+		return Redirect::back();
 	}
 
 

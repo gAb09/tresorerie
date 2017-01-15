@@ -9,6 +9,13 @@
 
 @section('titrepage')
 <h1>{{$titre_page}}</h1>
+<a class="btn btn-default" href="{{ URL::route('resetTransfert') }}">
+	Reset
+</a>
+<a class="btn btn-success" href="{{ URL::route('dotransfert') }}">
+	Transférer
+</a>
+<br />
 @stop
 
 
